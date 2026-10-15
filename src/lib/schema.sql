@@ -94,3 +94,60 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
 CREATE INDEX IF NOT EXISTS idx_utilisateurs_lignee ON utilisateurs(lignee_id);
 CREATE INDEX IF NOT EXISTS idx_utilisateurs_grade ON utilisateurs(grade_id);
 CREATE INDEX IF NOT EXISTS idx_utilisateurs_maitre ON utilisateurs(maitre_id);
+
+-- ==========================================================
+-- LOT 2 : FINANCES, WALLET, ABONNEMENTS ET LEDGER (Sections 8.9 & 9)
+-- ==========================================================
+
+-- 5. Grand livre comptable (Ledger immuable à double entrée)
+CREATE TABLE IF NOT EXISTS wallet_transactions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES utilisateurs(id),
+    lignee_id VARCHAR(100) REFERENCES lignees(id),
+    type_operation VARCHAR(50) CHECK (type_operation IN ('recharge', 'abonnement_lignee', 'cotisation', 'tontine', 'vente_marketplace', 'commission_plateforme', 'retrait')),
+    montant_brut_fcfa BIGINT NOT NULL CHECK (montant_brut_fcfa > 0),
+    commission_plateforme_fcfa BIGINT DEFAULT 0 CHECK (commission_plateforme_fcfa >= 0),
+    montant_net_fcfa BIGINT NOT NULL,
+    solde_avant_fcfa BIGINT NOT NULL,
+    solde_apres_fcfa BIGINT NOT NULL,
+    reference_externe VARCHAR(150) UNIQUE, -- Idempotence Kkiapay ou MTN
+    methode_paiement VARCHAR(50) DEFAULT 'kkiapay_mobile_money',
+    statut VARCHAR(30) DEFAULT 'succes' CHECK (statut IN ('succes', 'en_cours', 'echoue', 'annule')),
+    description TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Index pour audit financier et requêtes rapides
+CREATE INDEX IF NOT EXISTS idx_wallet_tx_user ON wallet_transactions(user_id);
+CREATE INDEX IF NOT EXISTS idx_wallet_tx_lignee ON wallet_transactions(lignee_id);
+CREATE INDEX IF NOT EXISTS idx_wallet_tx_created ON wallet_transactions(created_at);
+
+-- 6. Abonnements des Lignées (Section 9.1)
+CREATE TABLE IF NOT EXISTS abonnements_lignees (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    lignee_id VARCHAR(100) REFERENCES lignees(id) NOT NULL,
+    souscripteur_id UUID REFERENCES utilisateurs(id) NOT NULL,
+    formule VARCHAR(50) CHECK (formule IN ('Togounkpevi', 'Togoundaho', 'Assiata')),
+    cycle VARCHAR(20) CHECK (cycle IN ('mensuel', 'annuel')),
+    prix_fcfa BIGINT NOT NULL,
+    date_debut TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    date_echeance TIMESTAMP WITH TIME ZONE NOT NULL,
+    statut VARCHAR(30) DEFAULT 'actif' CHECK (statut IN ('actif', 'delai_grace', 'suspendu', 'expire')),
+    prelevement_auto_wallet BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_abonnements_lignee ON abonnements_lignees(lignee_id);
+
+-- 7. Demandes de Retrait (Section 8.9)
+CREATE TABLE IF NOT EXISTS retraits_demandes (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES utilisateurs(id) NOT NULL,
+    lignee_id VARCHAR(100) REFERENCES lignees(id),
+    montant_fcfa BIGINT NOT NULL CHECK (montant_fcfa >= 2000),
+    telephone_beneficiaire VARCHAR(50) NOT NULL,
+    operateur VARCHAR(50) CHECK (operateur IN ('MTN', 'MOOV', 'CELTIIS')),
+    statut VARCHAR(30) DEFAULT 'en_attente' CHECK (statut IN ('en_attente', 'valide_admin', 'paye', 'rejete')),
+    date_demande TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    date_traitement TIMESTAMP WITH TIME ZONE
+);

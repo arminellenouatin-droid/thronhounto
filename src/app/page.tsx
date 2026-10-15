@@ -11,6 +11,8 @@ import { AtinsaMessenger } from "@/components/AtinsaMessenger";
 import { ToolsHub } from "@/components/ToolsHub";
 import { LandingPage } from "@/components/LandingPage";
 import { RegistrationModal } from "@/components/RegistrationModal";
+import { WalletAndSubscriptions } from "@/components/WalletAndSubscriptions";
+import { LivesAgora } from "@/components/LivesAgora";
 import {
   Bell,
   Wallet,
@@ -34,7 +36,8 @@ export default function Home() {
   const [registerOpen, setRegisterOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [walletOpen, setWalletOpen] = useState(false);
+  const [walletViewOpen, setWalletViewOpen] = useState(false);
+  const [liveAgoraOpen, setLiveAgoraOpen] = useState(false);
 
   // État utilisateur
   const [currentUser, setCurrentUser] = useState({
@@ -69,6 +72,10 @@ export default function Home() {
     }
   };
 
+  const handleBalanceUpdate = (newBal: number) => {
+    setCurrentUser((prev) => ({ ...prev, walletBalance: newBal }));
+  };
+
   return (
     <main className="min-h-screen bg-slate-100 flex flex-col relative selection:bg-thron-gold/30">
       {/* 1. ÉCRAN DE PRÉCHARGEMENT BLEU CONFORME À LA SECTION 10.1 */}
@@ -88,26 +95,38 @@ export default function Home() {
             onOpenMessenger={() => setActiveTab("atinsa")}
             onOpenNotifications={() => setNotificationsOpen(true)}
             onOpenProfile={() => setProfileOpen(true)}
-            onOpenWallet={() => setWalletOpen(true)}
+            onOpenWallet={() => {
+              setActiveTab("outils");
+              setWalletViewOpen(true);
+            }}
             activeLanguage={activeLang}
             onLanguageChange={(l) => setActiveLang(l)}
             walletBalance={currentUser.walletBalance}
           />
 
-          {/* BANDEAU DE COMMANDE RAPIDE (SWITCH VERS LANDING) */}
-          <div className="bg-thron-navy/90 text-white px-4 py-1.5 text-[11px] flex items-center justify-between border-b border-white/10">
+          {/* BANDEAU DE COMMANDE RAPIDE */}
+          <div className="bg-thron-navy/95 text-white px-4 py-2 text-[11px] flex items-center justify-between border-b border-white/10 shadow-sm">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-              <span className="text-amber-200 font-medium">Session Initié active :</span>
+              <span className="text-amber-200 font-medium">Session Initié :</span>
               <span className="font-bold">{currentUser.prenom} {currentUser.nom}</span>
               <span className="text-thron-gold font-bold">({currentUser.grade})</span>
             </div>
-            <button
-              onClick={() => setViewMode("landing")}
-              className="text-slate-300 hover:text-white underline text-[10px]"
-            >
-              Retour à la vitrine publique
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setLiveAgoraOpen(true)}
+                className="px-2.5 py-0.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-[10px] flex items-center gap-1 shadow"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                <span>Live Agora</span>
+              </button>
+              <button
+                onClick={() => setViewMode("landing")}
+                className="text-slate-300 hover:text-white underline text-[10px]"
+              >
+                Vitrine publique
+              </button>
+            </div>
           </div>
 
           {/* CONTENU PRINCIPAL DE L'ONGLET SÉLECTIONNÉ */}
@@ -119,6 +138,7 @@ export default function Home() {
             {activeTab === "outils" && (
               <ToolsHub
                 walletBalance={currentUser.walletBalance}
+                onBalanceUpdate={handleBalanceUpdate}
                 onNavigateToTree={() => setActiveTab("lignee")}
                 onNavigateToTogoun={() => setActiveTab("togoun")}
               />
@@ -141,7 +161,14 @@ export default function Home() {
         onSuccess={handleRegistrationSuccess}
       />
 
-      {/* 4. MODALE DE NOTIFICATIONS DU TEMPLE & LIGNÉE */}
+      {/* 4. MODALE DE LIVE AGORA EN DIRECT */}
+      {liveAgoraOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-4">
+          <LivesAgora onClose={() => setLiveAgoraOpen(false)} />
+        </div>
+      )}
+
+      {/* 5. MODALE DE NOTIFICATIONS DU TEMPLE & LIGNÉE */}
       {notificationsOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200">
@@ -194,7 +221,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* 5. MODALE PROFIL & GRADE */}
+      {/* 6. MODALE PROFIL & GRADE */}
       {profileOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200 text-center">
@@ -230,62 +257,6 @@ export default function Home() {
               className="mt-6 w-full py-2.5 bg-thron-navy text-white rounded-xl text-xs font-bold hover:bg-thron-blue transition-colors"
             >
               Fermer mon profil
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 6. MODALE DU WALLET */}
-      {walletOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <Wallet className="w-5 h-5 text-thron-gold" />
-                <h4 className="font-serif font-bold text-base text-thron-navy">
-                  Mon Portefeuille Thron
-                </h4>
-              </div>
-              <button
-                onClick={() => setWalletOpen(false)}
-                className="p-1 rounded-full text-slate-400 hover:bg-slate-100"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="py-4 text-center">
-              <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
-                Solde disponible en FCFA (XOF)
-              </span>
-              <div className="font-serif text-3xl font-black text-thron-navy mt-1">
-                {currentUser.walletBalance.toLocaleString("fr-FR")} F CFA
-              </div>
-              <span className="text-[11px] text-emerald-600 font-semibold block mt-1">
-                Grand livre comptable vérifié • Double entrée
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              <button className="py-2.5 px-3 bg-thron-blue hover:bg-thron-navy text-white rounded-xl text-xs font-bold transition-colors">
-                Recharger via Kkiapay
-              </button>
-              <button className="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-colors">
-                Demander un retrait
-              </button>
-            </div>
-
-            <div className="text-[11px] text-slate-500 p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <div className="font-bold text-slate-700 mb-1">Règles financières :</div>
-              <div>• Prélèvements automatiques des abonnements & cotisations.</div>
-              <div>• Commission fixe de 8% sur ventes, cotisations et tontines.</div>
-            </div>
-
-            <button
-              onClick={() => setWalletOpen(false)}
-              className="mt-4 w-full py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-black transition-colors"
-            >
-              Fermer
             </button>
           </div>
         </div>
