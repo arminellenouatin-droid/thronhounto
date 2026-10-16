@@ -7,11 +7,13 @@ import { BottomNav, NavTab } from "@/components/BottomNav";
 import { GenealogyTree } from "@/components/GenealogyTree";
 import { TogounFeed } from "@/components/TogounFeed";
 import { TognonVideoFeed } from "@/components/TognonVideoFeed";
+import { Marketplace } from "@/components/Marketplace";
+import { BibliothequeAndZindo } from "@/components/BibliothequeAndZindo";
 import { AtinsaMessenger } from "@/components/AtinsaMessenger";
 import { ToolsHub } from "@/components/ToolsHub";
 import { LandingPage } from "@/components/LandingPage";
 import { RegistrationModal } from "@/components/RegistrationModal";
-import { WalletAndSubscriptions } from "@/components/WalletAndSubscriptions";
+import { LoginModal } from "@/components/LoginModal";
 import { LivesAgora } from "@/components/LivesAgora";
 import {
   Bell,
@@ -23,23 +25,26 @@ import {
   ExternalLink,
   ChevronRight,
   Sparkles,
+  MessageSquare,
 } from "lucide-react";
 
 export default function Home() {
   // Mode d'affichage : "landing" (vitrine publique) ou "app" (interface connectée)
   const [viewMode, setViewMode] = useState<"landing" | "app">("landing");
 
-  // Onglet actif dans l'application
-  const [activeTab, setActiveTab] = useState<NavTab>("lignee");
+  // Onglet actif dans l'application (Togoun, Tognon, Thronhi, Nouyin, Lignée, Outils)
+  const [activeTab, setActiveTab] = useState<NavTab>("togoun");
 
   // Modales
+  const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [walletViewOpen, setWalletViewOpen] = useState(false);
   const [liveAgoraOpen, setLiveAgoraOpen] = useState(false);
+  const [atinsaMessengerOpen, setAtinsaMessengerOpen] = useState(false);
 
-  // État utilisateur
+  // État utilisateur connecté
   const [currentUser, setCurrentUser] = useState({
     nom: "MONSIA",
     prenom: "Ayikodji",
@@ -54,12 +59,26 @@ export default function Home() {
 
   const [activeLang, setActiveLang] = useState("FR");
 
-  const handleRegistrationSuccess = (data: any) => {
+  const handleLoginSuccess = (data: any) => {
     setCurrentUser((prev) => ({
       ...prev,
       nom: data.nom,
       prenom: data.prenom,
       grade: data.grade,
+      affiliation: data.affiliation,
+      lignee: data.lignee || "Mantinkpon ò",
+      isMemberOfLignee: true,
+    }));
+    setViewMode("app");
+    setActiveTab("togoun");
+  };
+
+  const handleRegistrationSuccess = (data: any) => {
+    setCurrentUser((prev) => ({
+      ...prev,
+      nom: data.nom,
+      prenom: data.prenom,
+      grade: data.grade || (data.accountType === "visiteur" ? "Agbilinon" : "Hounvi"),
       affiliation: data.affiliation,
       lignee: data.lignee || "Mantinkpon ò",
       isMemberOfLignee: data.accountType !== "visiteur",
@@ -81,9 +100,10 @@ export default function Home() {
       {/* 1. ÉCRAN DE PRÉCHARGEMENT BLEU CONFORME À LA SECTION 10.1 */}
       <Preloader minDurationMs={1200} />
 
-      {/* 2. BASSCULE ENTRE LANDING PAGE ET APPLICATION CONNECTÉE */}
+      {/* 2. BASCULE ENTRE LANDING PAGE ET APPLICATION CONNECTÉE */}
       {viewMode === "landing" ? (
         <LandingPage
+          onOpenLogin={() => setLoginOpen(true)}
           onOpenRegister={() => setRegisterOpen(true)}
           onEnterApp={() => setViewMode("app")}
         />
@@ -92,7 +112,7 @@ export default function Home() {
           {/* EN-TÊTE OFFICIEL DE L'APPLICATION (Section 10.2) */}
           <Header
             currentLigneeName={`Lignée ${currentUser.lignee}`}
-            onOpenMessenger={() => setActiveTab("atinsa")}
+            onOpenMessenger={() => setAtinsaMessengerOpen(true)}
             onOpenNotifications={() => setNotificationsOpen(true)}
             onOpenProfile={() => setProfileOpen(true)}
             onOpenWallet={() => {
@@ -131,10 +151,16 @@ export default function Home() {
 
           {/* CONTENU PRINCIPAL DE L'ONGLET SÉLECTIONNÉ */}
           <div className="flex-1 w-full max-w-7xl mx-auto py-2">
-            {activeTab === "lignee" && <GenealogyTree />}
             {activeTab === "togoun" && <TogounFeed />}
             {activeTab === "tognon" && <TognonVideoFeed />}
-            {activeTab === "atinsa" && <AtinsaMessenger />}
+            {activeTab === "thronhi" && <Marketplace />}
+            {activeTab === "nouyin" && (
+              <BibliothequeAndZindo
+                userPlan="Assiata"
+                walletBalance={currentUser.walletBalance}
+              />
+            )}
+            {activeTab === "lignee" && <GenealogyTree />}
             {activeTab === "outils" && (
               <ToolsHub
                 walletBalance={currentUser.walletBalance}
@@ -145,7 +171,8 @@ export default function Home() {
             )}
           </div>
 
-          {/* BARRE DE MENU EN BAS (MOBILE FIRST, 5 OU 4 ICÔNES) */}
+          {/* BARRE DE MENU EN BAS : STRICTEMENT DANS L'ORDRE SUIVANT :
+              Togoun, Tognon, Thronhi, Nouyin, Lignée et Outils */}
           <BottomNav
             activeTab={activeTab}
             onChangeTab={(tab) => setActiveTab(tab)}
@@ -154,21 +181,59 @@ export default function Home() {
         </div>
       )}
 
-      {/* 3. MODALE D'INSCRIPTION & ONBOARDING MULTI-ÉTAPES */}
+      {/* 3. MODALE DE CONNEXION SÉPARÉE (Page de Login) */}
+      <LoginModal
+        isOpen={loginOpen}
+        onClose={() => setLoginOpen(false)}
+        onSuccess={handleLoginSuccess}
+        onSwitchToRegister={() => {
+          setLoginOpen(false);
+          setRegisterOpen(true);
+        }}
+      />
+
+      {/* 4. MODALE D'INSCRIPTION (3 Parcours : Agbilinon, Hounvi, Chef de Lignée) */}
       <RegistrationModal
         isOpen={registerOpen}
         onClose={() => setRegisterOpen(false)}
         onSuccess={handleRegistrationSuccess}
+        onSwitchToLogin={() => {
+          setRegisterOpen(false);
+          setLoginOpen(true);
+        }}
       />
 
-      {/* 4. MODALE DE LIVE AGORA EN DIRECT */}
+      {/* 5. MODALE DE MESSAGERIE SACRÉE ATINSA (OUVERTE VIA L'EN-TÊTE) */}
+      {atinsaMessengerOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-4">
+          <div className="relative w-full max-w-3xl h-[85vh] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col border border-thron-gold/40">
+            <div className="bg-thron-navy text-white px-4 py-2.5 flex items-center justify-between border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <MessageSquare className="w-5 h-5 text-thron-gold" />
+                <h4 className="font-serif font-bold text-sm">Messagerie Sacrée Atinsa</h4>
+              </div>
+              <button
+                onClick={() => setAtinsaMessengerOpen(false)}
+                className="p-1 rounded-full text-white/80 hover:bg-white/20"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <AtinsaMessenger />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 6. MODALE DE LIVE AGORA EN DIRECT */}
       {liveAgoraOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-4">
           <LivesAgora onClose={() => setLiveAgoraOpen(false)} />
         </div>
       )}
 
-      {/* 5. MODALE DE NOTIFICATIONS DU TEMPLE & LIGNÉE */}
+      {/* 7. MODALE DE NOTIFICATIONS DU TEMPLE & LIGNÉE */}
       {notificationsOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200">
@@ -221,7 +286,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* 6. MODALE PROFIL & GRADE */}
+      {/* 8. MODALE PROFIL & GRADE */}
       {profileOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200 text-center">

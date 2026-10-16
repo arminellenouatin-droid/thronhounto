@@ -22,11 +22,13 @@ import { COURANTS_OFFICIELS, SUBSCRIPTION_PLANS, LIGNEE_MANTINKPON_O } from "@/l
 
 interface LandingPageProps {
   onOpenRegister: () => void;
+  onOpenLogin: () => void;
   onEnterApp: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenRegister,
+  onOpenLogin,
   onEnterApp,
 }) => {
   const [billingPeriod, setBillingPeriod] = useState<"mois" | "an">("mois");
@@ -59,12 +61,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <button
-              onClick={onEnterApp}
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-200 hover:text-white border border-thron-gold/50 hover:border-thron-gold transition-all"
+              onClick={onOpenLogin}
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold text-white hover:text-amber-200 border border-white/20 hover:border-thron-gold transition-all"
             >
-              Découvrir la Démo
+              Se connecter
             </button>
             <button
               onClick={onOpenRegister}
