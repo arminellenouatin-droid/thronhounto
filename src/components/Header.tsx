@@ -12,6 +12,8 @@ import {
   Wallet,
   Search,
   Sparkles,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { ThreeColasLogo } from "./ThreeColasLogo";
 
@@ -39,6 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
   unreadCount = 3,
 }) => {
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [hideBalance, setHideBalance] = useState(false);
 
   const languages = [
     { code: "FR", label: "Français", flag: "🇧🇯" },
@@ -93,15 +96,29 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* DROITE : DRAPEAU & LANGUE + WALLET (DESKTOP) */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Solde Wallet rapide */}
-            <button
-              onClick={onOpenWallet}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500/20 to-thron-gold/20 hover:from-amber-500/30 hover:to-thron-gold/30 border border-thron-gold/40 rounded-full text-xs font-medium text-thron-gold transition-all"
-              title="Mon Portefeuille Thron"
-            >
-              <Wallet className="w-3.5 h-3.5" />
-              <span>{walletBalance.toLocaleString("fr-FR")} F CFA</span>
-            </button>
+            {/* Solde Wallet rapide visible sur toutes les pages avec bouton œil pour masquer/afficher */}
+            <div className="flex items-center gap-1 bg-gradient-to-r from-amber-500/20 to-thron-gold/20 border border-thron-gold/40 rounded-full px-2.5 py-1 text-xs font-medium text-thron-gold">
+              <button
+                type="button"
+                onClick={() => setHideBalance(!hideBalance)}
+                className="p-0.5 text-amber-200 hover:text-white transition-colors"
+                title={hideBalance ? "Afficher le solde" : "Masquer le solde"}
+                aria-label={hideBalance ? "Afficher le solde" : "Masquer le solde"}
+              >
+                {hideBalance ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+              </button>
+              <button
+                type="button"
+                onClick={onOpenWallet}
+                className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer"
+                title="Accéder à mon compte Wallet"
+              >
+                <Wallet className="w-3.5 h-3.5" />
+                <span className="font-bold tracking-tight text-[11px] sm:text-xs">
+                  {hideBalance ? "•••••• F" : `${walletBalance.toLocaleString("fr-FR")} F CFA`}
+                </span>
+              </button>
+            </div>
 
             {/* Sélecteur de Drapeau & Langue */}
             <div className="relative">

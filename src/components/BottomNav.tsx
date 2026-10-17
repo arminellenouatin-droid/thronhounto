@@ -18,7 +18,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
 }) => {
   // Ordre obligatoire spécifié dans les consignes :
   // Togoun, Tognon, Thronhi, Nouyin, Lignée et Outils
-  const tabs = [
+  // Si visiteur/non membre : 5 onglets (Lignée masquée). Si membre : 6 onglets.
+  const allTabs = [
     {
       id: "togoun" as NavTab,
       label: "Togoun",
@@ -46,7 +47,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
     {
       id: "lignee" as NavTab,
       label: "Lignée",
-      subtitle: "Arbre",
+      subtitle: isMemberOfLignee ? "Arbre" : "Alliance",
       icon: GitFork,
     },
     {
@@ -56,6 +57,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       icon: Wrench,
     },
   ];
+
+  const tabs = allTabs;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-thron-border shadow-lg md:max-w-xl md:left-1/2 md:-translate-x-1/2 md:rounded-t-2xl">

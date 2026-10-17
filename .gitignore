@@ -48,3 +48,8 @@ API neon.docx
 *.key
 dossier/
 PREMIER LOT DE CORRECTIONS/
+
+# Test data sensitive
+donnees-de-test.md
+donnees_de_test.md
+DEUXIEME LOTS DE CORRECTIONS/

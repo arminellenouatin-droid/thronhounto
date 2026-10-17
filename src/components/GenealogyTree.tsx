@@ -27,10 +27,14 @@ import {
 
 interface GenealogyTreeProps {
   onSelectMember?: (node: SpiritualNode) => void;
+  currentUserPhoto?: string;
+  onUpdatePhoto?: (newPhoto: string) => void;
 }
 
 export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
   onSelectMember,
+  currentUserPhoto,
+  onUpdatePhoto,
 }) => {
   // Nœud actuellement centré dans l'arbre tactile
   const [currentNode, setCurrentNode] = useState<SpiritualNode>(ARBRE_MANTINKPON);
@@ -222,7 +226,11 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
           {/* Cadre de photo tactile */}
           <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl border-4 border-thron-gold p-1 bg-gradient-to-b from-thron-gold via-thron-navy to-thron-blue">
             <img
-              src={currentNode.photoUrl}
+              src={
+                currentNode.id === ARBRE_MANTINKPON.id && currentUserPhoto
+                  ? currentUserPhoto
+                  : currentNode.photoUrl
+              }
               alt={currentNode.nomComplet}
               className="w-full h-full object-cover rounded-2xl"
             />
@@ -242,6 +250,26 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
               </p>
             </div>
           </div>
+
+          {/* Bouton de synchronisation Photo Profil <-> Arbre (Consigne document) */}
+          {currentNode.id === ARBRE_MANTINKPON.id && onUpdatePhoto && (
+            <button
+              onClick={() => {
+                const newPhoto = prompt(
+                  "Entrez l'URL de votre nouvelle photo de profil :\n(Elle sera automatiquement synchronisée sur votre profil et sur l'arbre généalogique)",
+                  currentUserPhoto || currentNode.photoUrl
+                );
+                if (newPhoto && newPhoto.trim()) {
+                  onUpdatePhoto(newPhoto.trim());
+                  alert("Photo mise à jour et synchronisée avec succès dans l'arbre et le profil !");
+                }
+              }}
+              className="mt-3 text-[11px] font-bold text-thron-blue hover:text-thron-navy flex items-center gap-1.5 underline cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-thron-gold" />
+              Modifier ma photo (synchronisée Arbre & Profil)
+            </button>
+          )}
 
           {/* Localisation et Temple */}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-600">

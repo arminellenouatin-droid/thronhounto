@@ -31,6 +31,12 @@ interface ToolsHubProps {
   onNavigateToTogoun?: () => void;
   walletBalance?: number;
   onBalanceUpdate?: (newBal: number) => void;
+  initialToolView?: string | null;
+  currentUserRole?: string;
+  currentUserGrade?: string;
+  currentUserLignee?: string;
+  currentUserTemple?: string;
+  onAnnounceToTogoun?: (announcement: string) => void;
 }
 
 export const ToolsHub: React.FC<ToolsHubProps> = ({
@@ -38,9 +44,22 @@ export const ToolsHub: React.FC<ToolsHubProps> = ({
   onNavigateToTogoun,
   walletBalance = 45000,
   onBalanceUpdate,
+  initialToolView = null,
+  currentUserRole = "lineage_admin",
+  currentUserGrade = "Hounnon",
+  currentUserLignee = "Mantinkpon ò",
+  currentUserTemple = "Temple Alafia Abomey-Calavi",
+  onAnnounceToTogoun,
 }) => {
   // Vue active dans les outils (null = menu principal de la boîte à outils)
-  const [activeToolView, setActiveToolView] = useState<string | null>(null);
+  const [activeToolView, setActiveToolView] = useState<string | null>(initialToolView);
+
+  // Synchronisation si initialToolView change
+  React.useEffect(() => {
+    if (initialToolView) {
+      setActiveToolView(initialToolView);
+    }
+  }, [initialToolView]);
 
   const tools = [
     {
@@ -121,7 +140,17 @@ export const ToolsHub: React.FC<ToolsHubProps> = ({
           />
         )}
         {activeToolView === "marketplace" && <Marketplace />}
-        {activeToolView === "tontines" && <TontinesAndCotisations />}
+        {activeToolView === "tontines" && (
+          <TontinesAndCotisations
+            currentUserRole={currentUserRole}
+            currentUserGrade={currentUserGrade}
+            currentUserLignee={currentUserLignee}
+            currentUserTemple={currentUserTemple}
+            userWalletBalance={walletBalance}
+            onBalanceUpdate={onBalanceUpdate}
+            onAnnounceToTogoun={onAnnounceToTogoun}
+          />
+        )}
         {activeToolView === "lives" && <LivesAgora onClose={() => setActiveToolView(null)} />}
         {activeToolView === "agenda" && (
           <AgendaAndCeremonies onJoinLive={() => setActiveToolView("lives")} />
