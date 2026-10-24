@@ -60,15 +60,98 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      // Connexion simulée réussie
-      onSuccess({
+
+      const inputVal = (loginMethod === "phone" ? phone : email).trim().toLowerCase();
+
+      // Profils de test conformes au fichier "données de test.txt"
+      let userProfile = {
         nom: "MONSIA",
-        prenom: "Ayikodji",
-        grade: "Hounnon",
-        affiliation: "Tete",
+        prenom: "Serge",
+        titreSpirituel: "Togbé Mintoniu bo tozé",
+        grade: "Togbegan daho",
+        affiliation: "Maître de Lignée",
         lignee: "Mantinkpon ò",
-        accountType: "membre_lignee",
-      });
+        courant: "Thron kpeto deka alafia",
+        temple: "Temple Alafia Abomey-Calavi",
+        walletBalance: 450000,
+        isMemberOfLignee: true,
+        role: "lineage_admin",
+        photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+        email: "togbemintoniu@thronhounto.bj",
+        telephone: "+2290197000101",
+      };
+
+      if (inputVal.includes("envolafrica") || inputVal.includes("95153177") || inputVal.includes("davakan") || inputVal.includes("quentin")) {
+        userProfile = {
+          nom: "DAVAKAN",
+          prenom: "Quentin",
+          titreSpirituel: "Super-Admin Suprême",
+          grade: "Super-Admin SaaS",
+          affiliation: "Direction Générale SaaS",
+          lignee: "Toutes Lignées (42 Sièges)",
+          courant: "Courants Thron Unifiés",
+          temple: "Console Centrale",
+          walletBalance: 3020000,
+          isMemberOfLignee: true,
+          role: "master_admin",
+          photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+          email: "envolafrica@gmail.com",
+          telephone: "+2290195153177",
+        };
+      } else if (inputVal.includes("dossou") || inputVal.includes("mahugnon") || inputVal.includes("96554433")) {
+        userProfile = {
+          nom: "DOSSOU",
+          prenom: "Mahugnon",
+          titreSpirituel: "Dignitaire Vendeur",
+          grade: "Hounnon",
+          affiliation: "Comptoir Sacré Alafia",
+          lignee: "Mantinkpon ò",
+          courant: "Thron kpeto deka alafia",
+          temple: "Temple Alafia Abomey-Calavi",
+          walletBalance: 680000,
+          isMemberOfLignee: true,
+          role: "seller",
+          photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+          email: "hounnon.dossou@thronhounto.bj",
+          telephone: "+2290196554433",
+        };
+      } else if (inputVal.includes("kouassi") || inputVal.includes("jean") || inputVal.includes("94112233")) {
+        userProfile = {
+          nom: "KOUASSI",
+          prenom: "Jean",
+          titreSpirituel: "Visiteur / Curieux",
+          grade: "Agbilinon",
+          affiliation: "Non-affilié (Visiteur)",
+          lignee: "Aucune (Découverte)",
+          courant: "Découverte des Trônes",
+          temple: "Aucun",
+          walletBalance: 0,
+          isMemberOfLignee: false,
+          role: "visitor",
+          photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=80",
+          email: "jean.kouassi@test.com",
+          telephone: "+2290194112233",
+        };
+      } else if (inputVal.includes("kpodekon") || inputVal.includes("bienvenu") || inputVal.includes("95223344")) {
+        userProfile = {
+          nom: "KPODÉKON",
+          prenom: "Bienvenu",
+          titreSpirituel: "Fidèle Initié",
+          grade: "Hounvi",
+          affiliation: "Atinkindouvi",
+          lignee: "Mantinkpon ò",
+          courant: "Thron kpeto deka alafia",
+          temple: "Temple Alafia Abomey-Calavi",
+          walletBalance: 35000,
+          isMemberOfLignee: true,
+          role: "member",
+          photoUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80",
+          email: "bienvenu.kpodekon@thronhounto.bj",
+          telephone: "+2290195223344",
+        };
+      }
+
+      onSuccess(userProfile);
       onClose();
     }, 600);
   };

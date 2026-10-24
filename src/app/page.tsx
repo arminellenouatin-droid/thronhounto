@@ -21,6 +21,7 @@ import {
   SellerDashboard,
   VisitorCommunityView,
 } from "@/components/RoleDashboards";
+import { LigneeLandingView } from "@/components/LigneeLandingView";
 import {
   Bell,
   Wallet,
@@ -38,6 +39,7 @@ import {
   Layers,
   ArrowLeft,
   Camera,
+  Heart,
 } from "lucide-react";
 
 // DÉFINITION DES 5 PROFILS DE TEST (CONFORME AU CAHIER DES CHARGES)
@@ -165,13 +167,15 @@ export default function Home() {
   const [walletViewOpen, setWalletViewOpen] = useState(false);
   const [liveAgoraOpen, setLiveAgoraOpen] = useState(false);
   const [atinsaMessengerOpen, setAtinsaMessengerOpen] = useState(false);
+  const [consultationModalOpen, setConsultationModalOpen] = useState(false);
+  const [donationModalOpen, setDonationModalOpen] = useState(false);
 
   // État utilisateur connecté (par défaut : Maître de Lignée ou paramétrable via la barre de rôles)
   const [currentUser, setCurrentUser] = useState<UserProfile>(TEST_PROFILES.lineage_admin);
 
   // Vue sous-espace selon le rôle (ex: Boutique vendeur vs Marketplace générale, Dashboard Lignée vs Arbre)
   const [sellerViewMode, setSellerViewMode] = useState<"catalog" | "dashboard">("catalog");
-  const [lineageViewMode, setLineageViewMode] = useState<"tree" | "dashboard">("tree");
+  const [lineageViewMode, setLineageViewMode] = useState<"tree" | "dashboard" | "landing">("landing");
   const [showPublicDemoTree, setShowPublicDemoTree] = useState(false);
 
   const [activeLang, setActiveLang] = useState("FR");
@@ -196,15 +200,35 @@ export default function Home() {
   const handleLoginSuccess = (data: any) => {
     setCurrentUser((prev) => ({
       ...prev,
+      ...data,
+      id: data.id || prev.id,
+      role: data.role || prev.role,
       nom: data.nom || prev.nom,
       prenom: data.prenom || prev.prenom,
+      titreSpirituel: data.titreSpirituel || prev.titreSpirituel,
       grade: data.grade || prev.grade,
       affiliation: data.affiliation || prev.affiliation,
       lignee: data.lignee || prev.lignee,
-      isMemberOfLignee: true,
+      courant: data.courant || prev.courant,
+      temple: data.temple || prev.temple,
+      walletBalance: data.walletBalance !== undefined ? data.walletBalance : prev.walletBalance,
+      isMemberOfLignee: data.isMemberOfLignee !== undefined ? data.isMemberOfLignee : prev.isMemberOfLignee,
+      photoUrl: data.photoUrl || prev.photoUrl,
     }));
     setViewMode("app");
-    setActiveTab("togoun");
+    // Redirection directe vers le tableau de bord ou vue selon le rôle
+    if (data.role === "master_admin") {
+      setActiveTab("outils");
+    } else if (data.role === "seller") {
+      setActiveTab("thronhi");
+      setSellerViewMode("dashboard");
+    } else if (data.role === "lineage_admin") {
+      setActiveTab("lignee");
+      setLineageViewMode("dashboard");
+    } else {
+      setActiveTab("lignee");
+      setLineageViewMode("landing");
+    }
   };
 
   const handleRegistrationSuccess = (data: any) => {
@@ -241,79 +265,6 @@ export default function Home() {
         />
       ) : (
         <div className="flex-1 flex flex-col pb-20 md:pb-6">
-          {/* ========================================================== */}
-          {/* BARRE DE TEST MULTI-RÔLES : LES 5 COMPTES DU DOCUMENT      */}
-          {/* ========================================================== */}
-          <div className="bg-slate-900 text-white px-3 py-1.5 text-[11px] border-b border-white/10 flex items-center justify-between overflow-x-auto gap-2">
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              <span className="text-[10px] uppercase font-black tracking-wider text-thron-gold">
-                Sélecteur de Rôle (5 Comptes de Test) :
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1 flex-shrink-0">
-              <button
-                onClick={() => handleSwitchRole("master_admin")}
-                className={`px-2 py-0.5 rounded-md font-bold text-[10px] transition-all cursor-pointer ${
-                  currentUser.role === "master_admin"
-                    ? "bg-thron-gold text-thron-navy shadow"
-                    : "bg-white/10 hover:bg-white/20 text-slate-300"
-                }`}
-                title="Quentin DAVAKAN (+2290195153177)"
-              >
-                👑 Master Admin (Quentin)
-              </button>
-
-              <button
-                onClick={() => handleSwitchRole("lineage_admin")}
-                className={`px-2 py-0.5 rounded-md font-bold text-[10px] transition-all cursor-pointer ${
-                  currentUser.role === "lineage_admin"
-                    ? "bg-thron-gold text-thron-navy shadow"
-                    : "bg-white/10 hover:bg-white/20 text-slate-300"
-                }`}
-                title="Togbé Mintoniu bo tozé - MONSIA Serge"
-              >
-                🏛️ Admin Lignée (Togbé)
-              </button>
-
-              <button
-                onClick={() => handleSwitchRole("seller")}
-                className={`px-2 py-0.5 rounded-md font-bold text-[10px] transition-all cursor-pointer ${
-                  currentUser.role === "seller"
-                    ? "bg-thron-gold text-thron-navy shadow"
-                    : "bg-white/10 hover:bg-white/20 text-slate-300"
-                }`}
-                title="Hounnon Mahugnon DOSSOU (Boutique Alafia)"
-              >
-                🛒 Vendeur (Hounnon)
-              </button>
-
-              <button
-                onClick={() => handleSwitchRole("visitor")}
-                className={`px-2 py-0.5 rounded-md font-bold text-[10px] transition-all cursor-pointer ${
-                  currentUser.role === "visitor"
-                    ? "bg-thron-gold text-thron-navy shadow"
-                    : "bg-white/10 hover:bg-white/20 text-slate-300"
-                }`}
-                title="Jean KOUASSI (Agbilinon - Visiteur)"
-              >
-                👤 Visiteur (Agbilinon)
-              </button>
-
-              <button
-                onClick={() => handleSwitchRole("member")}
-                className={`px-2 py-0.5 rounded-md font-bold text-[10px] transition-all cursor-pointer ${
-                  currentUser.role === "member"
-                    ? "bg-thron-gold text-thron-navy shadow"
-                    : "bg-white/10 hover:bg-white/20 text-slate-300"
-                }`}
-                title="Bienvenu KPODÉKON (Hounvi)"
-              >
-                📿 Membre Lignée (Hounvi)
-              </button>
-            </div>
-          </div>
-
           {/* EN-TÊTE OFFICIEL DE L'APPLICATION (Section 10.2) */}
           <Header
             currentLigneeName={
@@ -334,53 +285,6 @@ export default function Home() {
             onLanguageChange={(l) => setActiveLang(l)}
             walletBalance={currentUser.walletBalance}
           />
-
-          {/* BANDEAU DE COMMANDE RAPIDE */}
-          <div className="bg-thron-navy/95 text-white px-4 py-2 text-[11px] flex items-center justify-between border-b border-white/10 shadow-sm">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-              <span className="text-amber-200 font-medium">Session Active :</span>
-              <span className="font-bold">
-                {currentUser.prenom} {currentUser.nom}
-              </span>
-              <span className="text-thron-gold font-bold">({currentUser.grade})</span>
-              {currentUser.titreSpirituel && (
-                <span className="hidden sm:inline-block text-[10px] text-blue-200">
-                  • {currentUser.titreSpirituel}
-                </span>
-              )}
-            </div>
-
-            <div className="flex items-center gap-3">
-              {currentUser.role === "master_admin" && (
-                <button
-                  onClick={() => {
-                    setActiveTab("outils");
-                    setWalletViewOpen(false);
-                  }}
-                  className="px-2.5 py-0.5 rounded-full bg-amber-500 hover:bg-amber-600 text-thron-navy font-black text-[10px] flex items-center gap-1 shadow cursor-pointer"
-                >
-                  <Crown className="w-3 h-3" />
-                  <span>Console Master SaaS</span>
-                </button>
-              )}
-
-              <button
-                onClick={() => setLiveAgoraOpen(true)}
-                className="px-2.5 py-0.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-[10px] flex items-center gap-1 shadow cursor-pointer"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                <span>Live Agora</span>
-              </button>
-
-              <button
-                onClick={() => setViewMode("landing")}
-                className="text-slate-300 hover:text-white underline text-[10px] cursor-pointer"
-              >
-                Vitrine publique
-              </button>
-            </div>
-          </div>
 
           {/* CONTENU PRINCIPAL DE L'ONGLET SÉLECTIONNÉ */}
           <div className="flex-1 w-full max-w-7xl mx-auto py-2">
@@ -442,85 +346,87 @@ export default function Home() {
               />
             )}
 
-            {/* 5. LIGNÉE (ARBRE GÉNÉALOGIQUE TACTILE OU PAGE VISITEUR) */}
+            {/* 5. LIGNÉE (LANDING PAGE DE LA LIGNÉE / COURANTS SACRÉS SELON LES CONSIGNES STRICTES) */}
             {activeTab === "lignee" && (
-              <div>
-                {!currentUser.isMemberOfLignee ? (
-                  /* ============================================================== */
-                  /* PAGE VISITEUR OBLIGATOIRE SELON LES CONSIGNES DU DOCUMENT :    */
-                  /* HERO OFFICIEL + 2 BOUTONS + 5 STATISTIQUES                     */
-                  /* ============================================================== */
-                  <div>
-                    {showPublicDemoTree ? (
-                      <div className="space-y-4">
-                        <div className="max-w-4xl mx-auto px-3 sm:px-6">
-                          <button
-                            onClick={() => setShowPublicDemoTree(false)}
-                            className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer"
-                          >
-                            <ArrowLeft className="w-4 h-4" /> Retour aux statistiques de la communauté
-                          </button>
-                        </div>
-                        <GenealogyTree
-                          currentUserPhoto={currentUser.photoUrl}
-                          onUpdatePhoto={handlePhotoUpdate}
-                        />
-                      </div>
-                    ) : (
-                      <VisitorCommunityView
-                        onJoinCommunity={() => setRegisterOpen(true)}
-                        onExplorePublicTree={() => setShowPublicDemoTree(true)}
-                      />
-                    )}
-                  </div>
-                ) : (
-                  /* MEMBRE OU CHEF DE LIGNÉE CONNECTÉ */
-                  <div className="space-y-4">
-                    {currentUser.role === "lineage_admin" && (
-                      <div className="max-w-4xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white rounded-2xl p-3 border border-amber-300 shadow-sm">
-                        <div className="flex items-center gap-2">
-                          <Crown className="w-5 h-5 text-amber-700" />
-                          <span className="text-xs font-bold text-thron-navy">
-                            Espace Maître de Lignée • Mantinkpon ò
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => setLineageViewMode("tree")}
-                            className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                              lineageViewMode === "tree"
-                                ? "bg-thron-navy text-white"
-                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                            }`}
-                          >
-                            Arbre Tactile
-                          </button>
-                          <button
-                            onClick={() => setLineageViewMode("dashboard")}
-                            className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                              lineageViewMode === "dashboard"
-                                ? "bg-thron-gold text-thron-navy shadow"
-                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                            }`}
-                          >
-                            Gestion Lignée & Annonces
-                          </button>
-                        </div>
-                      </div>
-                    )}
+              <div className="space-y-4">
+                {/* Barre de navigation interne pour les fidèles et dignitaires de la lignée */}
+                {currentUser.isMemberOfLignee && (
+                  <div className="max-w-5xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white rounded-2xl p-2.5 border border-thron-border shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <Crown className="w-5 h-5 text-thron-gold" />
+                      <span className="text-xs font-bold text-thron-navy">
+                        {currentUser.role === "lineage_admin"
+                          ? `Espace Maître de Lignée • ${currentUser.lignee}`
+                          : `Lignée Sacrée • ${currentUser.lignee}`}
+                      </span>
+                    </div>
 
-                    {currentUser.role === "lineage_admin" && lineageViewMode === "dashboard" ? (
-                      <LineageAdminDashboard
-                        onNavigateToTree={() => setLineageViewMode("tree")}
-                        onNavigateToTogoun={() => setActiveTab("togoun")}
-                      />
-                    ) : (
-                      <GenealogyTree
-                        currentUserPhoto={currentUser.photoUrl}
-                        onUpdatePhoto={handlePhotoUpdate}
-                      />
-                    )}
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setLineageViewMode("landing")}
+                        className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          lineageViewMode === "landing"
+                            ? "bg-thron-navy text-white shadow"
+                            : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        }`}
+                      >
+                        Landing Lignée
+                      </button>
+
+                      <button
+                        onClick={() => setLineageViewMode("tree")}
+                        className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          lineageViewMode === "tree"
+                            ? "bg-thron-navy text-white shadow"
+                            : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        }`}
+                      >
+                        Arbre Tactile
+                      </button>
+
+                      {currentUser.role === "lineage_admin" && (
+                        <button
+                          onClick={() => setLineageViewMode("dashboard")}
+                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                            lineageViewMode === "dashboard"
+                              ? "bg-thron-gold text-thron-navy shadow"
+                              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                          }`}
+                        >
+                          Gestion & Annonces
+                        </button>
+                      )}
+                    </div>
                   </div>
+                )}
+
+                {/* Affichage du mode sélectionné */}
+                {currentUser.isMemberOfLignee && lineageViewMode === "tree" ? (
+                  <GenealogyTree
+                    currentUserPhoto={currentUser.photoUrl}
+                    onUpdatePhoto={handlePhotoUpdate}
+                  />
+                ) : currentUser.isMemberOfLignee && lineageViewMode === "dashboard" && currentUser.role === "lineage_admin" ? (
+                  <LineageAdminDashboard
+                    onNavigateToTree={() => setLineageViewMode("tree")}
+                    onNavigateToTogoun={() => setActiveTab("togoun")}
+                  />
+                ) : (
+                  <LigneeLandingView
+                    isMember={currentUser.isMemberOfLignee}
+                    currentUser={currentUser}
+                    onOpenConsultationModal={() => setConsultationModalOpen(true)}
+                    onOpenDonationModal={() => setDonationModalOpen(true)}
+                    onOpenMemberRegistration={() => setRegisterOpen(true)}
+                    onNavigateToCotisations={() => {
+                      setActiveTab("outils");
+                      setWalletViewOpen(false);
+                    }}
+                    onNavigateToTontines={() => {
+                      setActiveTab("outils");
+                      setWalletViewOpen(false);
+                    }}
+                  />
                 )}
               </div>
             )}
@@ -727,11 +633,216 @@ export default function Home() {
             </div>
 
             <button
+              onClick={() => {
+                setProfileOpen(false);
+                setViewMode("landing");
+                setLoginOpen(true);
+              }}
+              className="mt-2 w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow"
+            >
+              <span>Se déconnecter (Changer de compte de test)</span>
+            </button>
+
+            <button
               onClick={() => setProfileOpen(false)}
-              className="mt-4 w-full py-2.5 bg-thron-navy text-white rounded-xl text-xs font-bold hover:bg-thron-blue transition-colors cursor-pointer"
+              className="mt-2 w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
               Fermer mon profil
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* 9. MODALE DE CONSULTATION SPIRITUELLE */}
+      {consultationModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-thron-gold/50 animate-in fade-in zoom-in-95 duration-200">
+            <button
+              onClick={() => setConsultationModalOpen(false)}
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-2xl bg-thron-gold/20 flex items-center justify-center text-thron-dark">
+                <MessageSquare className="w-5 h-5 text-amber-700" />
+              </div>
+              <div>
+                <h3 className="font-serif text-lg font-bold text-thron-navy">
+                  Consultation Oraculaire Thron
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Prenez rendez-vous avec un Dignitaire Hounnon de la Lignée
+                </p>
+              </div>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Votre demande de consultation a été transmise avec succès au Dignitaire !");
+                setConsultationModalOpen(false);
+              }}
+              className="space-y-4 text-xs"
+            >
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Sélectionner le Dignitaire Référent
+                </label>
+                <select className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800">
+                  <option>Togbé Mintoniu bo tozé (Togbegan daho - Siège Central)</option>
+                  <option>Dah MONSIA Gbédan (Patriarche - Ouidah)</option>
+                  <option>Hounnon Mahugnon DOSSOU (Grand Prêtre - Calavi)</option>
+                  <option>Hounnon Houndégnon (Temple Alafia)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Motif spirituel de la consultation
+                </label>
+                <select className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800">
+                  <option>Guidance d'orientation & Bénédiction de vie</option>
+                  <option>Protection spirituelle familiale (Alafia)</option>
+                  <option>Préparation aux rites d'Atinkindoudou</option>
+                  <option>Purification & Dénouement d'entraves</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Mode de consultation souhaité
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <label className="p-3 rounded-xl border border-amber-300 bg-amber-50/50 flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input type="radio" name="consult_type" defaultChecked className="accent-amber-600" />
+                    <span>Présentiel au Temple</span>
+                  </label>
+                  <label className="p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input type="radio" name="consult_type" className="accent-amber-600" />
+                    <span>Visiophonie Atinsa</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] text-slate-400 font-bold uppercase block">
+                    Offrande rituelle de consultation
+                  </span>
+                  <span className="font-bold text-sm text-thron-navy">10 000 FCFA</span>
+                </div>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                  Débit Portefeuille ou Mobile Money
+                </span>
+              </div>
+
+              <div className="pt-2 flex items-center gap-2">
+                <button
+                  type="submit"
+                  className="flex-1 py-3 bg-gradient-to-r from-amber-500 to-thron-gold text-thron-navy rounded-xl font-bold shadow-md hover:from-amber-600 hover:to-amber-400 transition-all cursor-pointer"
+                >
+                  Confirmer et Réserver ma Consultation
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 10. MODALE DE DON & OFFRANDE SACRÉE */}
+      {donationModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-rose-300 animate-in fade-in zoom-in-95 duration-200">
+            <button
+              onClick={() => setDonationModalOpen(false)}
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-600">
+                <Heart className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-serif text-lg font-bold text-thron-navy">
+                  Faire un Don au Temple & Trône
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Soutenez les œuvres caritatives, cultuelles et la communauté
+                </p>
+              </div>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Votre don a été reçu et enregistré sous séquestre avec bénédiction du Trône !");
+                setDonationModalOpen(false);
+              }}
+              className="space-y-4 text-xs"
+            >
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Affectation du don
+                </label>
+                <select className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800">
+                  <option>Entretien du Sanctuaire & Lampes Perpétuelles</option>
+                  <option>Soutien aux Orphelins & Veuves du Trône</option>
+                  <option>Travaux d'Extension du Temple Central</option>
+                  <option>Offrande d'Action de Grâce Alafia</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Montant de l'offrande (FCFA)
+                </label>
+                <div className="grid grid-cols-4 gap-2 mb-2">
+                  {["2000", "5000", "10000", "25000"].map((montant) => (
+                    <button
+                      key={montant}
+                      type="button"
+                      className="py-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:border-rose-400 hover:bg-rose-50/50 font-bold text-slate-700 text-center transition-colors cursor-pointer"
+                    >
+                      {montant} F
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type="number"
+                  placeholder="Ou saisir un montant libre (ex: 50 000)"
+                  className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Moyen de paiement sécurisé
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <label className="p-3 rounded-xl border border-rose-300 bg-rose-50/50 flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input type="radio" name="pay_mode" defaultChecked className="accent-rose-600" />
+                    <span>Mobile Money (Moneroo)</span>
+                  </label>
+                  <label className="p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input type="radio" name="pay_mode" className="accent-rose-600" />
+                    <span>Portefeuille Sacré</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="pt-2 flex items-center gap-2">
+                <button
+                  type="submit"
+                  className="flex-1 py-3 bg-gradient-to-r from-rose-600 to-rose-700 text-white rounded-xl font-bold shadow-md hover:from-rose-700 hover:to-rose-800 transition-all cursor-pointer"
+                >
+                  Faire mon Don avec Bénédiction
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
