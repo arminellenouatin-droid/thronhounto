@@ -27,6 +27,8 @@ interface HeaderProps {
   onLanguageChange?: (lang: string) => void;
   walletBalance?: number;
   unreadCount?: number;
+  userPhoto?: string;
+  userName?: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -39,6 +41,8 @@ export const Header: React.FC<HeaderProps> = ({
   onLanguageChange,
   walletBalance = 45000,
   unreadCount = 3,
+  userPhoto,
+  userName,
 }) => {
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [hideBalance, setHideBalance] = useState(false);
@@ -217,11 +221,19 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 6. Profil */}
           <button
             onClick={onOpenProfile}
-            className="p-1 rounded-full border border-thron-gold/50 hover:border-thron-gold transition-colors"
-            title="Mon Profil & Grade"
+            className="p-0.5 rounded-full border-2 border-thron-gold/60 hover:border-thron-gold transition-all shadow cursor-pointer group active:scale-95"
+            title="Mon Profil & Espace de Gestion"
           >
-            <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-thron-blue to-amber-600 flex items-center justify-center text-white text-xs font-bold overflow-hidden">
-              <User className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-tr from-thron-blue to-amber-600 flex items-center justify-center text-white text-xs font-bold ring-1 ring-white/20">
+              {userPhoto ? (
+                <img
+                  src={userPhoto}
+                  alt={userName || "Profil"}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                />
+              ) : (
+                <User className="w-4 h-4 text-white" />
+              )}
             </div>
             <span className="sr-only">Profil</span>
           </button>

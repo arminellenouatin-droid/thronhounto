@@ -74,6 +74,9 @@ export interface TogounPost {
   bgGradient?: string;
   images?: string[];
   videoUrl?: string;
+  videoPoster?: string;
+  isLive?: boolean;
+  liveViewers?: number;
   audioUrl?: string;
   audioTitle?: string;
   documentUrl?: string;
@@ -130,7 +133,7 @@ interface TogounFeedProps {
 export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) => {
   // Navigation interne Togoun : Fil, Pages de lignée, Groupes, Modération
   const [activeSubTab, setActiveSubTab] = useState<"fil" | "pages" | "groupes" | "moderation">("fil");
-  const [feedFilter, setFeedFilter] = useState<"tout" | "lignee" | "booste">("tout");
+  const [feedFilter, setFeedFilter] = useState<"tout" | "videos_lives" | "lignee" | "booste">("tout");
 
   // Mode immersion Vidéos & Lives plein écran
   const [videoImmersionOpen, setVideoImmersionOpen] = useState(false);
@@ -219,6 +222,37 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
   // 2. ÉTAT DES PUBLICATIONS DU FIL D'ACTUALITÉ
   // ==========================================================================
   const [posts, setPosts] = useState<TogounPost[]>([
+    {
+      id: "post-live-now",
+      authorNom: "Togbé Mintoniu bo tozé",
+      authorGrade: "Togbegan daho",
+      authorPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+      lignee: "Lignée Mantinkpon 1 (Siège Central)",
+      temple: "Temple Alafia Abomey-Calavi",
+      timestamp: "🔴 EN DIRECT MAINTENANT",
+      isLive: true,
+      liveViewers: 1420,
+      audience: "public",
+      content: "🔴 EN DIRECT DU HOUNTO : Grande consécration solennelle des nouveaux initiés Atinkindouvi et prières oraculaires pour la concorde et la paix.",
+      videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-african-musicians-playing-traditional-drums-40432-large.mp4",
+      videoPoster: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80",
+      reactions: { like: 420, love: 215, solidarity: 180, haha: 2, wow: 88, sad: 0, angry: 0 },
+      userReaction: "love",
+      comments: [
+        {
+          id: "c-live-1",
+          authorNom: "Hounvi Kpodékon",
+          authorGrade: "Hounvi",
+          authorPhoto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+          text: "Alafia grand maître ! Que les bénédictions descendent sur nous en direct 🙏",
+          timestamp: "À l'instant",
+          likes: 14,
+        },
+      ],
+      sharesCount: 88,
+      viewsCount: 6800,
+      isBoosted: true,
+    },
     {
       id: "post-1",
       authorNom: "Togbé Mintoniu bo tozé",
@@ -436,6 +470,40 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                 sharesCount: 24,
                 viewsCount: 3120,
               },
+              {
+                id: `post-infinite-live-${Date.now()}`,
+                authorNom: "Dah Kpeto Gbedan",
+                authorGrade: "Hounnongan daho",
+                authorPhoto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=80",
+                lignee: "Lignée Ouidah Historique",
+                timestamp: "🔴 EN DIRECT AGORA",
+                isLive: true,
+                liveViewers: 890,
+                audience: "public",
+                content: "🔴 EN DIRECT : Veillée sacrée et rituels de transmission aux Hounvis au temple historique d'Ouidah. Paix et élévation à la communauté.",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-playing-drums-in-a-circle-40430-large.mp4",
+                videoPoster: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
+                reactions: { like: 145, love: 92, solidarity: 74, haha: 0, wow: 31, sad: 0, angry: 0 },
+                comments: [],
+                sharesCount: 38,
+                viewsCount: 4200,
+              },
+              {
+                id: `post-infinite-vid-${Date.now()}`,
+                authorNom: "Hounvi Kpodékon",
+                authorGrade: "Hounvi Initié",
+                authorPhoto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+                lignee: "Mantinkpon 1",
+                timestamp: "Il y a 3 heures",
+                audience: "public",
+                content: "Démonstration des percussions sacrées et danses rituelles au couvent d'Allada. Rythmes ancestraux immortalisés.",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-man-playing-a-bongo-drum-40429-large.mp4",
+                videoPoster: "https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&auto=format&fit=crop&q=80",
+                reactions: { like: 110, love: 64, solidarity: 45, haha: 0, wow: 18, sad: 0, angry: 0 },
+                comments: [],
+                sharesCount: 22,
+                viewsCount: 3100,
+              },
             ];
             setPosts((prev) => [...prev, ...morePosts]);
             setIsLoadingMorePosts(false);
@@ -646,6 +714,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
   };
 
   const filteredPosts = posts.filter((p) => {
+    if (feedFilter === "videos_lives") return Boolean(p.videoUrl || p.isLive);
     if (feedFilter === "lignee") return p.audience === "lignee" || p.lignee.includes("Mantinkpon");
     if (feedFilter === "booste") return p.isBoosted;
     return true;
@@ -1069,7 +1138,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
           {/* ==================================================================== */}
           <div className="flex items-center justify-between px-2 text-xs">
             <span className="font-bold text-slate-500">Fil d'actualité :</span>
-            <div className="flex gap-1.5">
+            <div className="flex gap-1.5 flex-wrap">
               <button
                 onClick={() => setFeedFilter("tout")}
                 className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer ${
@@ -1077,6 +1146,15 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                 }`}
               >
                 Tout voir
+              </button>
+              <button
+                onClick={() => setFeedFilter("videos_lives")}
+                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer flex items-center gap-1 ${
+                  feedFilter === "videos_lives" ? "bg-rose-600 text-white shadow-sm" : "bg-white text-rose-700 border border-rose-200 hover:bg-rose-50"
+                }`}
+              >
+                <Radio className="w-3 h-3 animate-pulse" />
+                <span>Directs & Vidéos</span>
               </button>
               <button
                 onClick={() => setFeedFilter("lignee")}
@@ -1173,10 +1251,30 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                     )
                   )}
 
-                  {/* RENDU VIDÉO */}
+                  {/* RENDU VIDÉO & DIRECT LIVE */}
                   {post.videoUrl && (
-                    <div className="rounded-2xl overflow-hidden border border-slate-200 bg-black shadow-sm">
-                      <video src={post.videoUrl} controls playsInline className="w-full max-h-96 object-contain" />
+                    <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-black shadow-sm group">
+                      {post.isLive && (
+                        <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
+                          <span className="px-2.5 py-1 rounded-full bg-rose-600 text-white text-[10px] font-black tracking-wider flex items-center gap-1.5 shadow-lg animate-pulse">
+                            <span className="w-2 h-2 rounded-full bg-white"></span>
+                            EN DIRECT
+                          </span>
+                          {post.liveViewers && (
+                            <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold flex items-center gap-1 shadow">
+                              <Eye className="w-3.5 h-3.5 text-rose-400" />
+                              {post.liveViewers.toLocaleString()} spectateurs
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      <video
+                        src={post.videoUrl}
+                        poster={post.videoPoster}
+                        controls
+                        playsInline
+                        className="w-full max-h-96 object-contain"
+                      />
                     </div>
                   )}
 
@@ -1813,6 +1911,14 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
             )}
           </div>
         </div>
+      )}
+
+      {/* 10. MODALE IMMERSION VIDÉOS & DIRECTS PLEIN ÉCRAN */}
+      {videoImmersionOpen && (
+        <TogounVideoImmersionView
+          isOpen={videoImmersionOpen}
+          onClose={() => setVideoImmersionOpen(false)}
+        />
       )}
     </div>
   );

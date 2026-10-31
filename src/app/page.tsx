@@ -23,6 +23,7 @@ import {
   VisitorCommunityView,
 } from "@/components/RoleDashboards";
 import { LigneeLandingView } from "@/components/LigneeLandingView";
+import { UserProfileDashboard } from "@/components/UserProfileDashboard";
 import {
   Bell,
   Wallet,
@@ -286,6 +287,8 @@ export default function Home() {
               activeLanguage={activeLang}
               onLanguageChange={(l) => setActiveLang(l)}
               walletBalance={currentUser.walletBalance}
+              userPhoto={currentUser.photoUrl}
+              userName={`${currentUser.prenom} ${currentUser.nom}`}
             />
           )}
 
@@ -585,84 +588,24 @@ export default function Home() {
         </div>
       )}
 
-      {/* 8. MODALE PROFIL & SYNCHRONISATION PHOTO ARBRE */}
+      {/* 8. MODALE PROFIL & ESPACE WORKSPACE DASHBOARD TIDEWELL COMPLET */}
       {profileOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200 text-center">
-            <div className="relative w-24 h-24 rounded-full mx-auto overflow-hidden border-2 border-thron-gold mb-3 shadow group">
-              <img
-                src={currentUser.photoUrl}
-                alt="Profil"
-                className="w-full h-full object-cover"
-              />
-              <button
-                onClick={() => {
-                  const newUrl = prompt(
-                    "Entrez l'URL de votre photo de profil :\n(Cette photo sera automatiquement synchronisée dans l'arbre généalogique)",
-                    currentUser.photoUrl
-                  );
-                  if (newUrl && newUrl.trim()) {
-                    handlePhotoUpdate(newUrl.trim());
-                    alert("Photo de profil mise à jour et synchronisée avec l'arbre généalogique !");
-                  }
-                }}
-                className="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-[10px] font-bold transition-opacity cursor-pointer"
-              >
-                <Camera className="w-5 h-5 mb-0.5" />
-                <span>Changer</span>
-              </button>
-            </div>
-
-            <h4 className="font-serif font-bold text-lg text-thron-navy">
-              {currentUser.prenom} {currentUser.nom}
-            </h4>
-
-            <span className="inline-block mt-1 px-3 py-1 bg-thron-gold/20 text-thron-dark rounded-full text-xs font-black uppercase tracking-wider">
-              {currentUser.grade}
-            </span>
-
-            <p className="mt-2 text-xs text-slate-500 font-medium">
-              Lignée : <strong className="text-thron-navy">{currentUser.lignee}</strong>
-            </p>
-
-            <p className="text-xs text-slate-500">
-              Temple : {currentUser.temple}
-            </p>
-
-            <div className="mt-4 pt-4 border-t border-slate-100 flex justify-between text-xs text-slate-600">
-              <span>Statut d'affiliation :</span>
-              <span className="font-bold text-emerald-600 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                {currentUser.isMemberOfLignee ? "Validé par le Maître" : "Visiteur non-affilié"}
-              </span>
-            </div>
-
-            <div className="mt-3 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[10px] text-amber-900 text-left flex items-start gap-2">
-              <Sparkles className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
-              <span>
-                <strong>Synchronisation active :</strong> Toute mise à jour de photo ici est immédiatement répercutée dans l'arbre généalogique spirituel.
-              </span>
-            </div>
-
-            <button
-              onClick={() => {
-                setProfileOpen(false);
-                setViewMode("landing");
-                setLoginOpen(true);
-              }}
-              className="mt-2 w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow"
-            >
-              <span>Se déconnecter (Changer de compte de test)</span>
-            </button>
-
-            <button
-              onClick={() => setProfileOpen(false)}
-              className="mt-2 w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
-            >
-              Fermer mon profil
-            </button>
-          </div>
-        </div>
+        <UserProfileDashboard
+          isOpen={profileOpen}
+          onClose={() => setProfileOpen(false)}
+          currentUser={currentUser}
+          onUpdateProfile={(updated) => {
+            setCurrentUser((prev) => ({ ...prev, ...updated }));
+          }}
+          onSwitchRole={(newRole) => {
+            handleSwitchRole(newRole);
+          }}
+          onLogout={() => {
+            setProfileOpen(false);
+            setViewMode("landing");
+            setLoginOpen(true);
+          }}
+        />
       )}
 
       {/* 9. MODALE DE CONSULTATION SPIRITUELLE */}
