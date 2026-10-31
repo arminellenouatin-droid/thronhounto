@@ -7,6 +7,7 @@ import { BottomNav, NavTab } from "@/components/BottomNav";
 import { GenealogyTree } from "@/components/GenealogyTree";
 import { TogounFeed } from "@/components/TogounFeed";
 import { TognonVideoFeed } from "@/components/TognonVideoFeed";
+import { TogounVideoImmersionView } from "@/components/TogounVideoImmersionView";
 import { Marketplace } from "@/components/Marketplace";
 import { BibliothequeAndZindo } from "@/components/BibliothequeAndZindo";
 import { AtinsaMessenger } from "@/components/AtinsaMessenger";
@@ -265,34 +266,43 @@ export default function Home() {
         />
       ) : (
         <div className="flex-1 flex flex-col pb-20 md:pb-6">
-          {/* EN-TÊTE OFFICIEL DE L'APPLICATION (Section 10.2) */}
-          <Header
-            currentLigneeName={
-              currentUser.role === "master_admin"
-                ? "SaaS Suprême Thron"
-                : currentUser.isMemberOfLignee
-                ? `Lignée ${currentUser.lignee}`
-                : "Communauté Thron"
-            }
-            onOpenMessenger={() => setAtinsaMessengerOpen(true)}
-            onOpenNotifications={() => setNotificationsOpen(true)}
-            onOpenProfile={() => setProfileOpen(true)}
-            onOpenWallet={() => {
-              setActiveTab("outils");
-              setWalletViewOpen(true);
-            }}
-            activeLanguage={activeLang}
-            onLanguageChange={(l) => setActiveLang(l)}
-            walletBalance={currentUser.walletBalance}
-          />
+          {/* EN-TÊTE OFFICIEL DE L'APPLICATION (Masqué en mode plein écran Vidéo / Tognon) */}
+          {activeTab !== "tognon" && (
+            <Header
+              currentLigneeName={
+                currentUser.role === "master_admin"
+                  ? "SaaS Suprême Thron"
+                  : currentUser.isMemberOfLignee
+                  ? `Lignée ${currentUser.lignee}`
+                  : "Communauté Thron"
+              }
+              onOpenMessenger={() => setAtinsaMessengerOpen(true)}
+              onOpenNotifications={() => setNotificationsOpen(true)}
+              onOpenProfile={() => setProfileOpen(true)}
+              onOpenWallet={() => {
+                setActiveTab("outils");
+                setWalletViewOpen(true);
+              }}
+              activeLanguage={activeLang}
+              onLanguageChange={(l) => setActiveLang(l)}
+              walletBalance={currentUser.walletBalance}
+            />
+          )}
 
           {/* CONTENU PRINCIPAL DE L'ONGLET SÉLECTIONNÉ */}
           <div className="flex-1 w-full max-w-7xl mx-auto py-2">
             {/* 1. TOGOUN (RÉSEAU SOCIAL) */}
-            {activeTab === "togoun" && <TogounFeed />}
+            {activeTab === "togoun" && (
+              <TogounFeed onOpenVideoImmersion={() => setActiveTab("tognon")} />
+            )}
 
-            {/* 2. TOGNON (FIL VIDÉO SACRÉ) */}
-            {activeTab === "tognon" && <TognonVideoFeed />}
+            {/* 2. TOGNON (FIL VIDÉO SACRÉ & LIVES PLEIN ÉCRAN DÉDIÉ AVEC DÉFILEMENT INFINI ET AUTOPLAY) */}
+            {activeTab === "tognon" && (
+              <TogounVideoImmersionView
+                isOpen={true}
+                onClose={() => setActiveTab("togoun")}
+              />
+            )}
 
             {/* 3. THRONHI (MARKETPLACE SPIRITUELLE) */}
             {activeTab === "thronhi" && (
@@ -455,16 +465,18 @@ export default function Home() {
             )}
           </div>
 
-          {/* BARRE DE MENU EN BAS : STRICTEMENT DANS L'ORDRE SUIVANT :
+          {/* BARRE DE MENU EN BAS : STRICTEMENT DANS L'ORDRE SUIVANT (Masquée en mode vidéo immersion) :
               Togoun, Tognon, Thronhi, Nouyin, Lignée et Outils */}
-          <BottomNav
-            activeTab={activeTab}
-            onChangeTab={(tab) => {
-              setActiveTab(tab);
-              if (tab !== "outils") setWalletViewOpen(false);
-            }}
-            isMemberOfLignee={currentUser.isMemberOfLignee}
-          />
+          {activeTab !== "tognon" && (
+            <BottomNav
+              activeTab={activeTab}
+              onChangeTab={(tab) => {
+                setActiveTab(tab);
+                if (tab !== "outils") setWalletViewOpen(false);
+              }}
+              isMemberOfLignee={currentUser.isMemberOfLignee}
+            />
+          )}
         </div>
       )}
 

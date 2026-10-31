@@ -251,11 +251,8 @@ export const Marketplace: React.FC = () => {
               <ShoppingBag className="w-5 h-5 text-amber-700" />
             </div>
             <div>
-              <span className="text-[10px] uppercase font-bold tracking-widest text-amber-700">
-                Place de Marché Spirituelle
-              </span>
-              <h2 className="font-serif text-lg sm:text-xl font-black text-thron-navy">
-                Thronhi (Marketplace des Dignitaires)
+              <h2 className="font-serif text-xl sm:text-2xl font-black text-thron-navy">
+                Thronhi
               </h2>
             </div>
           </div>
@@ -347,6 +344,10 @@ export const Marketplace: React.FC = () => {
                   <img
                     src={p.imageUrl}
                     alt={p.titre}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src =
+                        "https://images.unsplash.com/photo-1544816155-12df9643f363?w=800&auto=format&fit=crop&q=80";
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   {p.isBoosted && (
@@ -564,7 +565,15 @@ export const Marketplace: React.FC = () => {
             </div>
 
             <div className="h-48 rounded-2xl overflow-hidden">
-              <img src={selectedProduct.imageUrl} alt="" className="w-full h-full object-cover" />
+              <img
+                src={selectedProduct.imageUrl}
+                alt={selectedProduct.titre}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src =
+                    "https://images.unsplash.com/photo-1544816155-12df9643f363?w=800&auto=format&fit=crop&q=80";
+                }}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             <div>

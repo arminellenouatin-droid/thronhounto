@@ -24,7 +24,12 @@ import {
   BarChart3,
   X,
   AlertCircle,
+  Heart,
+  MessageSquare,
+  Share2,
+  Send,
 } from "lucide-react";
+import { SocialShareModal } from "./SocialShareModal";
 
 export type NouyinMediaType = "audio" | "video";
 
@@ -41,6 +46,12 @@ export interface NouyinItem {
   imageUrl: string;
   nbEcoutesVues: number;
   nbTelechargements: number;
+  tempsVisionnageHeures?: number; // Heures cumulées de visionnage pour les vidéos
+  tempsEcouteHeures?: number;     // Heures cumulées d'écoute pour les audios
+  likesCount: number;
+  commentsCount: number;
+  sharesCount: number;
+  userLiked?: boolean;
   description: string;
   prixMinuteFCFA: number;
   prixTelechargementFCFA: number;
@@ -99,6 +110,11 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       imageUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
       nbEcoutesVues: 3420,
       nbTelechargements: 480,
+      tempsEcouteHeures: 142,
+      likesCount: 890,
+      commentsCount: 76,
+      sharesCount: 54,
+      userLiked: false,
       description: "Récitation des invocations matinales sacrées en langue fongbe avec résonance de gong et clochettes rituelles.",
       prixMinuteFCFA: 15,
       prixTelechargementFCFA: 1000,
@@ -116,6 +132,11 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       imageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&auto=format&fit=crop&q=80",
       nbEcoutesVues: 5890,
       nbTelechargements: 920,
+      tempsEcouteHeures: 380,
+      likesCount: 1420,
+      commentsCount: 112,
+      sharesCount: 98,
+      userLiked: true,
       description: "Enregistrement d'archives inestimable du vénérable ancêtre fondateur détaillant l'implantation du trône sacré.",
       prixMinuteFCFA: 15,
       prixTelechargementFCFA: 1000,
@@ -133,6 +154,11 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       imageUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=800&auto=format&fit=crop&q=80",
       nbEcoutesVues: 1950,
       nbTelechargements: 280,
+      tempsEcouteHeures: 95,
+      likesCount: 520,
+      commentsCount: 38,
+      sharesCount: 31,
+      userLiked: false,
       description: "Polyphonies sacrées et percussions rituelles pour les cérémonies d'ouverture dominicale.",
       prixMinuteFCFA: 15,
       prixTelechargementFCFA: 1000,
@@ -150,6 +176,11 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       imageUrl: "https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&auto=format&fit=crop&q=80",
       nbEcoutesVues: 4120,
       nbTelechargements: 310,
+      tempsVisionnageHeures: 260,
+      likesCount: 1150,
+      commentsCount: 95,
+      sharesCount: 82,
+      userLiked: false,
       description: "Captation vidéo haute définition des offrandes sacrées et des danses d'allégresse au Hounto principal.",
       prixMinuteFCFA: 35,
       prixTelechargementFCFA: 2000,
@@ -167,11 +198,117 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       imageUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80",
       nbEcoutesVues: 2650,
       nbTelechargements: 195,
+      tempsVisionnageHeures: 148,
+      likesCount: 730,
+      commentsCount: 44,
+      sharesCount: 39,
+      userLiked: false,
       description: "Conseils pratiques pour la vie quotidienne, le commerce honnête et la concorde dans le foyer d'un Hounvi.",
       prixMinuteFCFA: 35,
       prixTelechargementFCFA: 2000,
     },
   ]);
+
+  // Partage réseaux sociaux
+  const [shareModalData, setShareModalData] = useState<{
+    isOpen: boolean;
+    title: string;
+    imageUrl?: string;
+    itemId?: string;
+  }>({ isOpen: false, title: "" });
+
+  // Modale de commentaires pour un média
+  const [commentsModalItem, setCommentsModalItem] = useState<NouyinItem | null>(null);
+  const [commentInput, setCommentInput] = useState("");
+  const [mediaComments, setMediaComments] = useState<
+    Record<string, { id: string; author: string; text: string; time: string }[]>
+  >({
+    "media-1": [
+      {
+        id: "cm-1",
+        author: "Hounvi Mahougnon",
+        text: "Ces récitations apportent une paix immense dans le cœur et la demeure. Alafia !",
+        time: "Il y a 2h",
+      },
+      {
+        id: "cm-2",
+        author: "Agbilinon Dossou",
+        text: "Merci à la lignée Mantinkpon pour cet enregistrement précieux.",
+        time: "Il y a 5h",
+      },
+    ],
+    "media-2": [
+      {
+        id: "cm-3",
+        author: "Hounnon Kpodékon",
+        text: "Archive inestimable de notre grand ancêtre. À écouter avec respect absolu.",
+        time: "Hier",
+      },
+    ],
+    "media-4": [
+      {
+        id: "cm-4",
+        author: "Sodji Alafia",
+        text: "Les pas de danse et les libations sont filmés avec une clarté divine.",
+        time: "Il y a 1 jour",
+      },
+    ],
+  });
+
+  const handleToggleLike = (itemId: string) => {
+    setMedias((prev) =>
+      prev.map((m) => {
+        if (m.id !== itemId) return m;
+        const nextLiked = !m.userLiked;
+        return {
+          ...m,
+          userLiked: nextLiked,
+          likesCount: m.likesCount + (nextLiked ? 1 : -1),
+        };
+      })
+    );
+    if (activeItem && activeItem.id === itemId) {
+      setActiveItem((prev) =>
+        prev
+          ? {
+              ...prev,
+              userLiked: !prev.userLiked,
+              likesCount: prev.likesCount + (!prev.userLiked ? 1 : -1),
+            }
+          : null
+      );
+    }
+  };
+
+  const handleOpenShare = (item: NouyinItem) => {
+    setShareModalData({
+      isOpen: true,
+      title: `${item.titre} - ${item.intervenant} (${item.editeurLignee})`,
+      imageUrl: item.imageUrl,
+      itemId: item.id,
+    });
+  };
+
+  const handleAddComment = (itemId: string) => {
+    if (!commentInput.trim()) return;
+    const newCm = {
+      id: `cm-${Date.now()}`,
+      author: "MONSIA Serge (Togbegan daho)",
+      text: commentInput.trim(),
+      time: "À l'instant",
+    };
+    setMediaComments((prev) => ({
+      ...prev,
+      [itemId]: [...(prev[itemId] || []), newCm],
+    }));
+    setMedias((prev) =>
+      prev.map((m) => (m.id === itemId ? { ...m, commentsCount: m.commentsCount + 1 } : m))
+    );
+    if (activeItem && activeItem.id === itemId) {
+      setActiveItem((prev) => (prev ? { ...prev, commentsCount: prev.commentsCount + 1 } : null));
+    }
+    setCommentInput("");
+  };
 
   // Filtrer par type (audio ou vidéo) puis par catégorie
   // Les contenus en haut sont les plus téléchargés, les plus écoutés, les plus vus (Règle §3)
@@ -181,6 +318,11 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
     .sort((a, b) => (b.nbEcoutesVues + b.nbTelechargements * 2) - (a.nbEcoutesVues + a.nbTelechargements * 2));
 
   const handlePlayMedia = (item: NouyinItem) => {
+    // Incrémenter le compteur de vues/écoutes
+    setMedias((prev) =>
+      prev.map((m) => (m.id === item.id ? { ...m, nbEcoutesVues: m.nbEcoutesVues + 1 } : m))
+    );
+
     // Vérifier les quotas gratuits
     const isFreeAvailable = item.type === "audio" ? freeAudiosUsed < 5 : freeVideosUsed < 2;
 
@@ -188,7 +330,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       if (item.type === "audio") setFreeAudiosUsed(prev => prev + 1);
       else setFreeVideosUsed(prev => prev + 1);
 
-      setActiveItem(item);
+      setActiveItem({ ...item, nbEcoutesVues: item.nbEcoutesVues + 1 });
       setIsPlaying(true);
     } else {
       // Quota dépassé : afficher modale de facturation au tarif minute
@@ -197,6 +339,10 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
   };
 
   const handleDownloadClick = (item: NouyinItem) => {
+    // Incrémenter le compteur de téléchargements
+    setMedias((prev) =>
+      prev.map((m) => (m.id === item.id ? { ...m, nbTelechargements: m.nbTelechargements + 1 } : m))
+    );
     setShowPayModal({ item, action: "telechargement" });
   };
 
@@ -234,6 +380,12 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
         : "https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&auto=format&fit=crop&q=80",
       nbEcoutesVues: 1,
       nbTelechargements: 0,
+      tempsEcouteHeures: newType === "audio" ? 0 : undefined,
+      tempsVisionnageHeures: newType === "video" ? 0 : undefined,
+      likesCount: 0,
+      commentsCount: 0,
+      sharesCount: 0,
+      userLiked: false,
       description: "Nouvel enregistrement sacré téléversé par la Lignée.",
       prixMinuteFCFA: newType === "audio" ? 15 : 35,
       prixTelechargementFCFA: newType === "audio" ? 1000 : 2000,
@@ -379,17 +531,35 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                     <Play className="w-5 h-5 fill-current ml-0.5" />
                   </button>
 
-                  <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-bold flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-amber-300" /> {item.dureeMinutes} min
-                  </span>
+                  {/* Badge Durée et Type */}
+                  <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+                    <span className="px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-bold flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-amber-300" /> {item.dureeMinutes} min
+                    </span>
+                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase ${
+                      item.type === "video" ? "bg-purple-600 text-white" : "bg-amber-500 text-slate-900"
+                    }`}>
+                      {item.type === "video" ? "Vidéo HD" : "Audio MP3"}
+                    </span>
+                  </div>
 
-                  <span className="absolute bottom-2.5 right-2.5 text-[10px] text-amber-300 font-bold">
-                    {item.nbEcoutesVues.toLocaleString()} écoutes/vues
-                  </span>
+                  {/* Badges Temps cumulé et Vues/Écoutes */}
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[10px] text-white font-bold">
+                    <span className="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm flex items-center gap-1 text-amber-300">
+                      {item.type === "video" ? (
+                        <>🎬 {item.tempsVisionnageHeures || 0}h visionnées</>
+                      ) : (
+                        <>🎧 {item.tempsEcouteHeures || 0}h écoutées</>
+                      )}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm flex items-center gap-1 text-emerald-300">
+                      <Eye className="w-3 h-3" /> {item.nbEcoutesVues.toLocaleString()} vues
+                    </span>
+                  </div>
                 </div>
 
                 {/* Contenu */}
-                <div className="p-3.5 space-y-2 flex-1 flex flex-col justify-between">
+                <div className="p-3.5 space-y-2.5 flex-1 flex flex-col justify-between">
                   <div>
                     <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">
                       {item.categorie}
@@ -407,31 +577,86 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                     <span className="text-[10px] text-slate-400">{item.editeurLignee}</span>
                   </div>
 
-                  {/* Tarifs et Téléchargement */}
-                  <div className="pt-2 flex items-center justify-between border-t border-slate-100 text-xs">
-                    <div>
-                      <span className="text-[10px] text-slate-400 block">Lecture / Téléchargement</span>
-                      <span className="font-bold text-thron-navy">
-                        {item.prixMinuteFCFA} F/min • {item.prixTelechargementFCFA} F
-                      </span>
+                  {/* Bandeau des compteurs détaillés (Téléchargements, Vues, Heures) */}
+                  <div className="grid grid-cols-3 gap-1 py-1.5 px-2 bg-slate-50 rounded-xl border border-slate-100 text-[10px] text-slate-600 text-center font-medium">
+                    <div className="flex flex-col items-center">
+                      <span className="text-slate-400 text-[9px]">Téléchargés</span>
+                      <strong className="text-thron-navy font-bold flex items-center gap-0.5">
+                        <Download className="w-2.5 h-2.5 text-blue-600" /> {item.nbTelechargements}
+                      </strong>
+                    </div>
+                    <div className="flex flex-col items-center border-x border-slate-200">
+                      <span className="text-slate-400 text-[9px]">Vues / Écoutes</span>
+                      <strong className="text-thron-navy font-bold flex items-center gap-0.5">
+                        <Eye className="w-2.5 h-2.5 text-emerald-600" /> {item.nbEcoutesVues}
+                      </strong>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <span className="text-slate-400 text-[9px]">{item.type === "video" ? "Visionnage" : "Écoute"}</span>
+                      <strong className="text-thron-navy font-bold flex items-center gap-0.5">
+                        <Clock className="w-2.5 h-2.5 text-amber-600" /> {item.type === "video" ? `${item.tempsVisionnageHeures || 0}h` : `${item.tempsEcouteHeures || 0}h`}
+                      </strong>
+                    </div>
+                  </div>
+
+                  {/* Barre d'interaction sociale (J'aime, Commentaires, Partage) */}
+                  <div className="flex items-center justify-between py-1 border-t border-slate-100 text-slate-600">
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => handleToggleLike(item.id)}
+                        className={`flex items-center gap-1 text-xs font-bold transition-all cursor-pointer ${
+                          item.userLiked ? "text-rose-600" : "text-slate-500 hover:text-rose-600"
+                        }`}
+                        title="J'aime"
+                      >
+                        <Heart className={`w-3.5 h-3.5 ${item.userLiked ? "fill-current" : ""}`} />
+                        <span>{item.likesCount}</span>
+                      </button>
+
+                      <button
+                        onClick={() => setCommentsModalItem(item)}
+                        className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-thron-blue transition-all cursor-pointer"
+                        title="Commentaires"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>{item.commentsCount}</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleOpenShare(item)}
+                        className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-emerald-600 transition-all cursor-pointer"
+                        title="Partager sur les réseaux sociaux"
+                      >
+                        <Share2 className="w-3.5 h-3.5" />
+                        <span>{item.sharesCount}</span>
+                      </button>
                     </div>
 
-                    <div className="flex gap-1.5">
+                    <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => handlePlayMedia(item)}
-                        className="p-2 rounded-xl bg-thron-blue text-white hover:bg-thron-navy transition-colors"
+                        className="p-1.5 px-2.5 rounded-xl bg-thron-blue hover:bg-thron-navy text-white text-[11px] font-bold flex items-center gap-1 transition-colors shadow-sm cursor-pointer"
                         title="Lire"
                       >
-                        <Play className="w-3.5 h-3.5 fill-current" />
+                        <Play className="w-3 h-3 fill-current" />
+                        <span>Lire</span>
                       </button>
                       <button
                         onClick={() => handleDownloadClick(item)}
-                        className="p-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
+                        className="p-1.5 px-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
                         title="Télécharger"
                       >
-                        <Download className="w-3.5 h-3.5" />
+                        <Download className="w-3 h-3" />
                       </button>
                     </div>
+                  </div>
+
+                  {/* Tarifs */}
+                  <div className="pt-1.5 flex items-center justify-between border-t border-slate-100 text-[11px]">
+                    <span className="text-slate-400">Tarifs :</span>
+                    <span className="font-bold text-thron-navy">
+                      {item.prixMinuteFCFA} F/min • {item.prixTelechargementFCFA} F
+                    </span>
                   </div>
                 </div>
               </div>
@@ -549,23 +774,132 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
             <img src={activeItem.imageUrl} alt="" className="w-10 h-10 rounded-xl object-cover" />
             <div className="overflow-hidden">
               <span className="font-bold text-xs line-clamp-1">{activeItem.titre}</span>
-              <span className="text-[10px] text-amber-300 block">{activeItem.intervenant}</span>
+              <div className="flex items-center gap-2 text-[10px]">
+                <span className="text-amber-300 truncate">{activeItem.intervenant}</span>
+                <span className="text-slate-400">•</span>
+                <span className="text-emerald-400 flex items-center gap-0.5">
+                  <Eye className="w-2.5 h-2.5" /> {activeItem.nbEcoutesVues}
+                </span>
+                <span className="text-slate-400">•</span>
+                <span className="text-blue-300 flex items-center gap-0.5">
+                  <Download className="w-2.5 h-2.5" /> {activeItem.nbTelechargements}
+                </span>
+              </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
+              onClick={() => handleToggleLike(activeItem.id)}
+              className={`p-1.5 rounded-full transition-colors cursor-pointer ${
+                activeItem.userLiked ? "text-rose-500" : "text-white/70 hover:text-rose-400"
+              }`}
+              title="J'aime"
+            >
+              <Heart className={`w-4 h-4 ${activeItem.userLiked ? "fill-current" : ""}`} />
+            </button>
+            <button
+              onClick={() => handleOpenShare(activeItem)}
+              className="p-1.5 rounded-full text-white/70 hover:text-emerald-400 transition-colors cursor-pointer"
+              title="Partager"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+            <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-8 h-8 rounded-full bg-thron-gold text-thron-navy flex items-center justify-center shadow"
+              className="w-8 h-8 rounded-full bg-thron-gold text-thron-navy flex items-center justify-center shadow cursor-pointer"
             >
               {isPlaying ? <Volume2 className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
             </button>
-            <button onClick={() => setActiveItem(null)} className="p-1 text-slate-400 hover:text-white">
+            <button onClick={() => setActiveItem(null)} className="p-1 text-slate-400 hover:text-white cursor-pointer">
               <X className="w-4 h-4" />
             </button>
           </div>
         </div>
       )}
+
+      {/* MODALE DE COMMENTAIRES POUR UN MÉDIA NOUYIN */}
+      {commentsModalItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white rounded-3xl p-5 max-w-md w-full shadow-2xl border border-slate-200 space-y-4 max-h-[85vh] flex flex-col">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <div className="overflow-hidden pr-2">
+                <span className="text-[10px] font-bold text-amber-700 uppercase block">Commentaires</span>
+                <h4 className="font-serif font-bold text-sm text-thron-navy truncate">
+                  {commentsModalItem.titre}
+                </h4>
+              </div>
+              <button
+                onClick={() => setCommentsModalItem(null)}
+                className="p-1 text-slate-400 hover:text-slate-700 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Liste des commentaires */}
+            <div className="flex-1 overflow-y-auto space-y-2.5 pr-1 text-xs">
+              {(mediaComments[commentsModalItem.id] || []).length === 0 ? (
+                <div className="py-8 text-center text-slate-400">
+                  <MessageSquare className="w-8 h-8 mx-auto mb-2 opacity-40" />
+                  <p>Soyez le premier à commenter cet enseignement sacré.</p>
+                </div>
+              ) : (
+                (mediaComments[commentsModalItem.id] || []).map((cm) => (
+                  <div key={cm.id} className="p-2.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-thron-navy text-[11px]">{cm.author}</span>
+                      <span className="text-[9px] text-slate-400">{cm.time}</span>
+                    </div>
+                    <p className="text-slate-700 text-[11px] leading-relaxed">{cm.text}</p>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Input de nouveau commentaire */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleAddComment(commentsModalItem.id);
+              }}
+              className="pt-2 border-t border-slate-100 flex items-center gap-2"
+            >
+              <input
+                type="text"
+                value={commentInput}
+                onChange={(e) => setCommentInput(e.target.value)}
+                placeholder="Écrire une parole de bénédiction..."
+                className="flex-1 px-3 py-2 bg-slate-100 rounded-xl text-xs border border-transparent focus:border-thron-gold focus:bg-white focus:outline-none"
+              />
+              <button
+                type="submit"
+                disabled={!commentInput.trim()}
+                className="p-2 rounded-xl bg-thron-blue text-white disabled:opacity-40 hover:bg-thron-navy transition-colors cursor-pointer"
+              >
+                <Send className="w-4 h-4" />
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODALE DE PARTAGE RÉSEAUX SOCIAUX & LIEN */}
+      <SocialShareModal
+        isOpen={shareModalData.isOpen}
+        onClose={() => setShareModalData({ ...shareModalData, isOpen: false })}
+        title={shareModalData.title}
+        imageUrl={shareModalData.imageUrl}
+        onShareSuccess={() => {
+          if (shareModalData.itemId) {
+            setMedias((prev) =>
+              prev.map((m) =>
+                m.id === shareModalData.itemId ? { ...m, sharesCount: m.sharesCount + 1 } : m
+              )
+            );
+          }
+        }}
+      />
 
       {/* MODALE DE PAIEMENT WALLET / CONSOMMATION */}
       {showPayModal && (
