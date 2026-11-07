@@ -18,6 +18,7 @@ import {
   Bell,
   Share2
 } from "lucide-react";
+import { LineageManagerConsole } from "./LineageManagerConsole";
 
 // ============================================================================
 // 1. DASHBOARD ADMINISTRATEUR MASTER DU SAAS (QUENTIN DAVAKAN)
@@ -331,153 +332,11 @@ export const LineageAdminDashboard: React.FC<LineageAdminDashboardProps> = ({
   onNavigateToTree,
   onNavigateToTogoun,
 }) => {
-  const [announcementText, setAnnouncementText] = useState("");
-  const [announcementSent, setAnnouncementSent] = useState(false);
-
-  const handlePublishAnnouncement = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!announcementText.trim()) return;
-    setAnnouncementSent(true);
-    setTimeout(() => {
-      setAnnouncementSent(false);
-      setAnnouncementText("");
-      if (onNavigateToTogoun) onNavigateToTogoun();
-    }, 2000);
-  };
-
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
-      {/* En-tête Chef de Lignée */}
-      <div className="bg-gradient-to-r from-amber-900 via-thron-navy to-amber-950 text-white rounded-3xl p-6 sm:p-8 shadow-sacred border border-thron-gold/50 relative overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-thron-gold/20 text-thron-gold border border-thron-gold/40 text-xs font-bold">
-              <Crown className="w-3.5 h-3.5" />
-              MAÎTRE DE LIGNÉE • PLUS GRANDE TÊTE
-            </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-black text-amber-100">
-              Togbé Mintoniu bo tozé (MONSIA Serge)
-            </h2>
-            <p className="text-xs text-amber-200/80 max-w-xl">
-              Togbegan daho • Coiffant le trône de la Lignée Mantinkpon ò (Courant Thron kpeto deka alafia).
-            </p>
-          </div>
-
-          <button
-            onClick={onNavigateToTree}
-            className="px-5 py-3 rounded-2xl bg-thron-gold text-thron-navy font-bold text-xs hover:bg-amber-300 transition-all shadow-md flex items-center gap-2 self-start sm:self-auto cursor-pointer"
-          >
-            <Users className="w-4 h-4" /> Consulter mon Arbre Tactile
-          </button>
-        </div>
-      </div>
-
-      {/* Statistiques de la Lignée */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
-          <span className="text-xs text-slate-500 font-semibold block">Fidèles de la Lignée</span>
-          <span className="text-2xl font-black text-thron-navy block mt-1">1 450</span>
-          <span className="text-[10px] text-emerald-600 font-bold">Arbre généalogique actif</span>
-        </div>
-
-        <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
-          <span className="text-xs text-slate-500 font-semibold block">Temples sous tutelle</span>
-          <span className="text-2xl font-black text-amber-800 block mt-1">12</span>
-          <span className="text-[10px] text-slate-500">Temple Calavi, Temple Cotonou...</span>
-        </div>
-
-        <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
-          <span className="text-xs text-slate-500 font-semibold block">Demandes d'Adhésion</span>
-          <span className="text-2xl font-black text-rose-600 block mt-1">3</span>
-          <span className="text-[10px] text-amber-600 font-bold">À valider par le Maître</span>
-        </div>
-
-        <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
-          <span className="text-xs text-slate-500 font-semibold block">Tontines & Cotisations</span>
-          <span className="text-2xl font-black text-thron-blue block mt-1">4</span>
-          <span className="text-[10px] text-slate-500">En cours de cycle</span>
-        </div>
-      </div>
-
-      {/* Publication d'Annonces & Informations officielles de la Lignée */}
-      <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
-        <div className="flex items-center gap-2">
-          <Bell className="w-5 h-5 text-thron-gold" />
-          <div>
-            <h3 className="font-serif font-bold text-base text-thron-navy">
-              Publier une Annonce Officielle de la Lignée
-            </h3>
-            <p className="text-xs text-slate-500">
-              Selon les consignes : partagée avec les temples et passe automatiquement dans le fil d'actualité de la lignée sur Togoun.
-            </p>
-          </div>
-        </div>
-
-        <form onSubmit={handlePublishAnnouncement} className="space-y-3">
-          <textarea
-            rows={3}
-            value={announcementText}
-            onChange={(e) => setAnnouncementText(e.target.value)}
-            placeholder="Exemple : Chers fidèles et dignitaires du Hounto Mantinkpon ò, la cérémonie d'Atinkindoudou se tiendra ce dimanche au temple principal..."
-            className="w-full p-3.5 rounded-2xl border border-slate-200 text-xs focus:ring-2 focus:ring-thron-gold resize-none"
-          />
-
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-[11px] text-slate-500">
-              <Share2 className="w-4 h-4 text-emerald-600" />
-              <span>Diffusion automatique : <strong>Fil Togoun • Notifications Temple • Arbre</strong></span>
-            </div>
-
-            <button
-              type="submit"
-              className="px-6 py-2.5 bg-thron-navy hover:bg-thron-blue text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
-            >
-              Diffuser l'Annonce Officielle
-            </button>
-          </div>
-
-          {announcementSent && (
-            <div className="p-3 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-xl text-xs font-bold flex items-center gap-2 animate-in fade-in">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-              <span>Annonce publiée avec succès ! Elle est désormais visible sur le réseau social Togoun.</span>
-            </div>
-          )}
-        </form>
-      </div>
-
-      {/* Demandes d'adhésion en attente */}
-      <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
-        <h4 className="font-serif font-bold text-base text-thron-navy">Demandes d'Adhésion au Trône (3 en attente)</h4>
-        <div className="space-y-3 text-xs">
-          {[
-            { nom: "SOHOU Gontran", role: "Postulant Hounvi", temple: "Temple Calavi", date: "Hier" },
-            { nom: "KPONOU Justine", role: "Assi / Épouse rituelle", temple: "Siège Mantinkpon ò", date: "Il y a 3 jours" },
-            { nom: "HOUNKPÉ Marcel", role: "Dignitaire Hounnon", temple: "Temple Cotonou", date: "Il y a 5 jours" },
-          ].map((item, idx) => (
-            <div key={idx} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-              <div>
-                <strong className="text-thron-navy block">{item.nom}</strong>
-                <span className="text-slate-500 text-[11px]">{item.role} • {item.temple} • {item.date}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => alert(`Adhésion de ${item.nom} validée par le Maître de Lignée ! Ajout à l'arbre généalogique.`)}
-                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs shadow-sm cursor-pointer"
-                >
-                  Valider
-                </button>
-                <button
-                  onClick={() => alert(`Demande de ${item.nom} rejetée.`)}
-                  className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg font-bold text-xs cursor-pointer"
-                >
-                  Refuser
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <LineageManagerConsole
+      onNavigateToTree={onNavigateToTree}
+      onNavigateToTogoun={onNavigateToTogoun}
+    />
   );
 };
 

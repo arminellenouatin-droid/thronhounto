@@ -36,6 +36,7 @@ import {
   Key
 } from "lucide-react";
 import { UserRole } from "@/app/page";
+import { LineageManagerConsole } from "./LineageManagerConsole";
 
 export interface UserProfileData {
   id: string;
@@ -72,7 +73,7 @@ export const UserProfileDashboard: React.FC<UserProfileDashboardProps> = ({
   onSwitchRole,
   onLogout,
 }) => {
-  const [activeTab, setActiveTab] = useState<"overview" | "profile" | "wallets" | "admin" | "security">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "lineage_tools" | "profile" | "wallets" | "admin" | "security">("overview");
 
   // Formulaire d'édition de profil
   const [editNom, setEditNom] = useState(currentUser.nom);
@@ -292,6 +293,25 @@ export const UserProfileDashboard: React.FC<UserProfileDashboardProps> = ({
               <div className="hidden md:block px-3 pt-4 pb-1 text-[10px] font-black uppercase tracking-widest text-slate-400">
                 Administration
               </div>
+
+              {currentUser.role === "lineage_admin" && (
+                <button
+                  onClick={() => setActiveTab("lineage_tools")}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer whitespace-nowrap ${
+                    activeTab === "lineage_tools"
+                      ? "bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm"
+                      : "text-amber-900 bg-amber-50 hover:bg-amber-100/80 border border-amber-200"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-amber-500" />
+                    <span>Console Maître de Lignée</span>
+                  </div>
+                  <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[9px] font-black">
+                    11 outils
+                  </span>
+                </button>
+              )}
 
               <button
                 onClick={() => setActiveTab("admin")}
@@ -614,6 +634,17 @@ export const UserProfileDashboard: React.FC<UserProfileDashboardProps> = ({
                   </div>
                 </div>
 
+              </div>
+            )}
+
+            {/* ============================================================== */}
+            {/* TAB LINEAGE TOOLS : CONSOLE MAÎTRE DE LIGNÉE (11 OUTILS)       */}
+            {/* ============================================================== */}
+            {activeTab === "lineage_tools" && (
+              <div className="animate-in fade-in duration-200">
+                <LineageManagerConsole
+                  walletBalance={currentUser.walletBalance}
+                />
               </div>
             )}
 
