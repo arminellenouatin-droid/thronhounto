@@ -57,3 +57,6 @@ DEUXIEME LOTS DE CORRECTIONS/
 # Local agents directory
 .agents/
 
+# Real variables and secrets for Vercel
+variablesecurise.md
+
