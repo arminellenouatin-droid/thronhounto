@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A2558",
+  themeColor: "#0A1628",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="scroll-smooth">
-      <body className="antialiased min-h-screen bg-slate-50 selection:bg-thron-gold/30 selection:text-thron-navy">
+      <body className="antialiased min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-blue-600/20 selection:text-blue-900">
         {children}
       </body>
     </html>

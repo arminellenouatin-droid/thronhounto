@@ -247,11 +247,11 @@ export const Marketplace: React.FC = () => {
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-thron-border shadow-sm space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center shadow-sm">
-              <ShoppingBag className="w-5 h-5 text-amber-700" />
+            <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shadow-sm">
+              <ShoppingBag className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h2 className="font-serif text-xl sm:text-2xl font-black text-thron-navy">
+              <h2 className="font-bold text-xl sm:text-2xl text-[#0A1628]">
                 Thronhi
               </h2>
             </div>
@@ -260,23 +260,23 @@ export const Marketplace: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveTab("catalogue")}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                activeTab === "catalogue" ? "bg-thron-navy text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all btn-press ${
+                activeTab === "catalogue" ? "bg-[#0A1628] text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
               Catalogue Sacré
             </button>
             <button
               onClick={() => setActiveTab("vendeur")}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                activeTab === "vendeur" ? "bg-thron-navy text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all btn-press ${
+                activeTab === "vendeur" ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
               Espace Vendeur
             </button>
             <button
               onClick={() => setActiveTab("sanctions")}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all btn-press ${
                 activeTab === "sanctions" ? "bg-rose-700 text-white shadow-sm" : "bg-rose-50 text-rose-700 hover:bg-rose-100"
               }`}
             >
@@ -333,10 +333,10 @@ export const Marketplace: React.FC = () => {
               <div
                 key={p.id}
                 onClick={() => setSelectedProduct(p)}
-                className={`bg-white rounded-3xl overflow-hidden border transition-all cursor-pointer group flex flex-col justify-between ${
+                className={`bg-white rounded-3xl overflow-hidden border transition-all cursor-pointer group flex flex-col justify-between btn-press ${
                   p.isBoosted
-                    ? "border-amber-400 shadow-md ring-1 ring-amber-300"
-                    : "border-thron-border hover:shadow-md"
+                    ? "border-blue-500 shadow-md ring-1 ring-blue-400/30"
+                    : "border-slate-200 hover:shadow-md"
                 }`}
               >
                 {/* Image & Badges */}
@@ -351,7 +351,7 @@ export const Marketplace: React.FC = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   {p.isBoosted && (
-                    <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-thron-gold text-thron-navy text-[10px] font-black uppercase tracking-wider shadow flex items-center gap-1">
+                    <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-wider shadow flex items-center gap-1">
                       <Sparkles className="w-3 h-3" /> Boosté
                     </span>
                   )}
@@ -363,10 +363,10 @@ export const Marketplace: React.FC = () => {
                 {/* Contenu */}
                 <div className="p-3.5 space-y-2 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider block">
                       {p.categorie}
                     </span>
-                    <h4 className="font-serif font-bold text-sm text-thron-navy line-clamp-2 mt-0.5">
+                    <h4 className="font-bold text-sm text-[#0A1628] line-clamp-2 mt-0.5">
                       {p.titre}
                     </h4>
                   </div>
@@ -432,17 +432,17 @@ export const Marketplace: React.FC = () => {
 
             {/* Dashboard Vendeur avec 3 KPIs */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-center">
-                <span className="text-xl font-black text-amber-900 block">142</span>
-                <span className="text-[11px] font-bold text-amber-800">Articles Vendus</span>
+              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+                <span className="text-xl font-black text-[#0A1628] block">142</span>
+                <span className="text-[11px] font-bold text-slate-600">Articles Vendus</span>
               </div>
-              <div className="p-3 bg-blue-50 rounded-2xl border border-blue-200 text-center">
-                <span className="text-xl font-black text-thron-navy block">115</span>
-                <span className="text-[11px] font-bold text-thron-blue">Clients Uniques</span>
+              <div className="p-3 bg-blue-50/70 rounded-2xl border border-blue-200 text-center">
+                <span className="text-xl font-black text-[#0A1628] block">115</span>
+                <span className="text-[11px] font-bold text-blue-600">Clients Uniques</span>
               </div>
-              <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200 text-center">
-                <span className="text-xl font-black text-emerald-800 block">99%</span>
-                <span className="text-[11px] font-bold text-emerald-700">Avis Positifs</span>
+              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+                <span className="text-xl font-black text-slate-800 block">99%</span>
+                <span className="text-[11px] font-bold text-slate-600">Avis Positifs</span>
               </div>
             </div>
 
@@ -450,7 +450,7 @@ export const Marketplace: React.FC = () => {
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-2">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-slate-700">Solde des ventes sous séquestre :</span>
-                <span className="font-black text-thron-navy text-sm">245 000 FCFA</span>
+                <span className="font-black text-[#0A1628] text-sm">245 000 FCFA</span>
               </div>
               <p className="text-[11px] text-slate-500">
                 Les paiements des acheteurs sont retenus sur un compte de séquestre jusqu'à livraison confirmée. La commission plateforme de 8% est prélevée automatiquement au versement dans votre Wallet.
@@ -458,13 +458,13 @@ export const Marketplace: React.FC = () => {
             </div>
 
             {/* Simulateur de Boost d'Annonce */}
-            <div className="p-4 bg-gradient-to-r from-amber-500/10 to-amber-600/20 rounded-2xl border border-amber-300 space-y-3">
+            <div className="p-4 bg-blue-50/70 rounded-2xl border border-blue-200 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-amber-600" />
-                  <h4 className="font-bold text-xs text-thron-navy">Booster vos produits en tête de liste</h4>
+                  <Sparkles className="w-5 h-5 text-blue-600" />
+                  <h4 className="font-bold text-xs text-[#0A1628]">Booster vos produits en tête de liste</h4>
                 </div>
-                <span className="text-xs font-black text-amber-800">100 F / 1 000 p. / jour</span>
+                <span className="text-xs font-black text-blue-700">100 F / 1 000 p. / jour</span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
@@ -502,7 +502,7 @@ export const Marketplace: React.FC = () => {
                 </span>
                 <button
                   onClick={() => alert(`Boost activé pour ${boostCost} FCFA !`)}
-                  className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-thron-navy font-bold rounded-xl text-xs shadow"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 btn-press cursor-pointer"
                 >
                   Activer le Boost
                 </button>
@@ -518,7 +518,7 @@ export const Marketplace: React.FC = () => {
           <div className="bg-white rounded-3xl p-5 border border-rose-200 shadow-sm space-y-4">
             <div className="flex items-center gap-2 text-rose-700">
               <ShieldAlert className="w-5 h-5" />
-              <h3 className="font-serif font-bold text-base text-thron-navy">
+              <h3 className="font-bold text-base text-[#0A1628]">
                 Règles d'Intégrité Commerciale & Sanctions
               </h3>
             </div>
@@ -528,11 +528,11 @@ export const Marketplace: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
               {/* Règle 50% */}
-              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 space-y-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-900 font-bold text-[10px]">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-300 space-y-2">
+                <span className="px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-800 font-bold text-[10px]">
                   SEUIL 1 : 50% D'AVIS NÉGATIFS
                 </span>
-                <h4 className="font-bold text-amber-950">Suspension Immédiate du Compte Vendeur</h4>
+                <h4 className="font-bold text-[#0A1628]">Suspension Immédiate du Compte Vendeur</h4>
                 <p className="text-slate-600 text-[11px] leading-relaxed">
                   Dès que le compte atteint 50% d'avis négatifs, la boutique est automatiquement suspendue. La réactivation n'est possible qu'après enquête et validation par sa <strong>Lignée spirituelle</strong>.
                 </p>
@@ -556,9 +556,9 @@ export const Marketplace: React.FC = () => {
       {/* MODALE DÉTAIL D'UN PRODUIT */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 my-8 space-y-4">
+          <div className="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border border-blue-500/20 ring-1 ring-black/5 animate-in fade-in zoom-in-95 my-8 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <span className="text-xs font-bold text-amber-700 uppercase">{selectedProduct.type}</span>
+              <span className="text-xs font-bold text-blue-600 uppercase">{selectedProduct.type}</span>
               <button onClick={() => setSelectedProduct(null)} className="p-1 text-slate-400 hover:text-slate-700">
                 <X className="w-5 h-5" />
               </button>
@@ -620,10 +620,10 @@ export const Marketplace: React.FC = () => {
       {/* MODALE CRÉATION DE PRODUIT (ASSISTANT 7 TYPES) */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 my-8 space-y-4">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-blue-500/20 ring-1 ring-black/5 my-8 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h4 className="font-serif font-bold text-base text-thron-navy">Publier sur Thronhi</h4>
-              <button onClick={() => setShowCreateModal(false)} className="p-1 text-slate-400">
+              <h4 className="font-bold text-base text-[#0A1628]">Publier sur Thronhi</h4>
+              <button onClick={() => setShowCreateModal(false)} className="p-1 text-slate-400 hover:text-slate-700 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -681,13 +681,13 @@ export const Marketplace: React.FC = () => {
                 />
               </div>
 
-              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-900">
+              <div className="p-3 bg-blue-50/70 rounded-xl border border-blue-200 text-[11px] text-blue-900">
                 Attestation obligatoire : Je certifie que ce produit est issu de la communauté Thron et respecte les règles cultuelles.
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-thron-navy text-white rounded-xl font-bold text-xs shadow hover:bg-thron-blue"
+                className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-md shadow-blue-500/20 btn-press cursor-pointer transition-all"
               >
                 Mettre en vente sur Thronhi
               </button>

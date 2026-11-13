@@ -18,8 +18,8 @@ export const AnalyticsDashboard: React.FC<{ ligneeName?: string }> = ({
   return (
     <div className="w-full max-w-5xl mx-auto px-3 sm:px-6 py-4 space-y-6">
       {/* BANNIÈRE ANALYTICS */}
-      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-thron-gold/40">
-        <span className="text-[10px] font-bold tracking-widest text-thron-gold uppercase">
+      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-blue-500/25">
+        <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
           Tableaux de Bord & Audience • Section 8.13
         </span>
         <h2 className="font-serif text-xl sm:text-2xl font-bold mt-1">
@@ -46,7 +46,7 @@ export const AnalyticsDashboard: React.FC<{ ligneeName?: string }> = ({
         <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
           <div className="flex items-center justify-between text-slate-400 mb-2">
             <span className="text-xs font-semibold">Total Hounvi</span>
-            <Sparkles className="w-4 h-4 text-amber-600" />
+            <Sparkles className="w-4 h-4 text-blue-600" />
           </div>
           <span className="font-serif text-2xl font-black text-thron-navy">350</span>
           <span className="text-[10px] text-slate-500 block mt-1">Baptisés dans l'arbre</span>
@@ -67,7 +67,7 @@ export const AnalyticsDashboard: React.FC<{ ligneeName?: string }> = ({
             <ShoppingBag className="w-4 h-4 text-purple-600" />
           </div>
           <span className="font-serif text-2xl font-black text-thron-navy">474 000 F</span>
-          <span className="text-[10px] text-amber-700 font-bold block mt-1">Commission retenue : 37 920 F</span>
+          <span className="text-[10px] text-blue-600 font-bold block mt-1">Commission retenue : 37 920 F</span>
         </div>
       </div>
 
@@ -95,7 +95,7 @@ export const AnalyticsDashboard: React.FC<{ ligneeName?: string }> = ({
                 <span>120 (21%)</span>
               </div>
               <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-amber-500 rounded-full w-[21%]"></div>
+                <div className="h-full bg-blue-50/700 rounded-full w-[21%]"></div>
               </div>
             </div>
 

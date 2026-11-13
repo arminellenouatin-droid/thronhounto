@@ -84,7 +84,7 @@ export const TognonVideoFeed: React.FC = () => {
         {/* EN-TÊTE DU LECTEUR */}
         <div className="relative z-10 p-4 flex items-center justify-between text-white">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full bg-thron-gold/30 text-thron-gold border border-thron-gold/40 text-[10px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-500 border border-blue-500/25 text-[10px] font-bold uppercase tracking-wider">
               Tognon • Fil Vidéo Sacré
             </span>
           </div>
@@ -99,7 +99,7 @@ export const TognonVideoFeed: React.FC = () => {
         {/* ACTIONS VERTICALES SUR LE CÔTÉ DROIT */}
         <div className="relative z-10 p-4 self-end flex flex-col items-center gap-4 text-white">
           {/* Avatar de l'auteur */}
-          <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-thron-gold shadow-lg">
+          <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-blue-500/30 shadow-lg">
             <img
               src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80"
               alt="Avatar"
@@ -152,7 +152,7 @@ export const TognonVideoFeed: React.FC = () => {
         {/* LÉGENDE DU BAS */}
         <div className="relative z-10 p-4 text-white">
           <div className="flex items-center gap-2 mb-1">
-            <span className="font-serif font-bold text-sm text-thron-gold">
+            <span className="font-serif font-bold text-sm text-blue-500">
               @{currentVideo.author}
             </span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 font-medium">
@@ -162,7 +162,7 @@ export const TognonVideoFeed: React.FC = () => {
           <p className="text-xs text-white/90 line-clamp-2 leading-relaxed drop-shadow">
             {currentVideo.caption}
           </p>
-          <div className="mt-2 flex items-center gap-2 text-[11px] text-amber-200">
+          <div className="mt-2 flex items-center gap-2 text-[11px] text-blue-100">
             <Sparkles className="w-3.5 h-3.5 animate-spin" />
             <span className="truncate">{currentVideo.songName}</span>
           </div>

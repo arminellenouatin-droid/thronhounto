@@ -280,20 +280,20 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
       {/* ============================================================== */}
       {/* 1. CARTE MAJESTUEUSE DU WALLET & SOLDE FCFA                    */}
       {/* ============================================================== */}
-      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-6 sm:p-8 text-white shadow-sacred border border-thron-gold/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-6 sm:p-8 text-white shadow-sacred border border-blue-500/25 relative overflow-hidden">
         {/* Lueur sacrée en arrière-plan */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-thron-gold/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-[11px] font-bold text-thron-gold uppercase tracking-widest">
+              <span className="text-[11px] font-bold text-blue-500 uppercase tracking-widest">
                 Portefeuille Électronique Sacré • Section 8.9
               </span>
             </div>
             <div className="font-serif text-3xl sm:text-5xl font-black text-white tracking-tight">
-              {balance.toLocaleString("fr-FR")} <span className="text-xl sm:text-2xl text-thron-gold">F CFA</span>
+              {balance.toLocaleString("fr-FR")} <span className="text-xl sm:text-2xl text-blue-500">F CFA</span>
             </div>
             <p className="text-xs text-blue-200">
               Devise officielle : <strong>Franc CFA (XOF)</strong> • Titulaire : <strong>{ligneeName}</strong>
@@ -304,7 +304,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => setRechargeModalOpen(true)}
-              className="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-thron-gold text-thron-navy font-black text-xs shadow-gold hover:scale-105 transition-all flex items-center gap-2"
+              className="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-[0.97] text-white font-bold text-xs shadow-md shadow-blue-900/30 transition-all flex items-center gap-2"
             >
               <ArrowDownLeft className="w-4 h-4" /> Recharger via Kkiapay
             </button>
@@ -324,7 +324,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
             <span>Grand livre à double entrée (Idempotent)</span>
           </div>
           <div className="flex items-center gap-2">
-            <CreditCard className="w-4 h-4 text-amber-300" />
+            <CreditCard className="w-4 h-4 text-blue-200" />
             <span>Paiements Kkiapay (MTN, Moov, Celtiis)</span>
           </div>
           <div className="flex items-center gap-2">
@@ -340,7 +340,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-thron-border shadow-sm space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
-            <span className="text-[10px] font-bold tracking-widest text-thron-gold uppercase">
+            <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
               Formule de la Lignée • Section 9.1
             </span>
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-thron-navy">
@@ -382,7 +382,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
 
             <div className="flex justify-between items-center text-xs">
               <span className="text-slate-500 font-medium">Grade requis du chef :</span>
-              <span className="font-bold text-amber-700">{activePlan.gradeRequis}</span>
+              <span className="font-bold text-blue-600">{activePlan.gradeRequis}</span>
             </div>
 
             <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
@@ -403,15 +403,15 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
           </div>
 
           {/* OPTION API DE PAIEMENT PRIVÉE (Section 9.2 pour Assiata) */}
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50/50 rounded-2xl p-5 border border-thron-gold/40 space-y-3">
+          <div className="bg-gradient-to-br from-blue-50/60 to-slate-50/50 rounded-2xl p-5 border border-blue-500/25 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4 text-amber-600" />
+                <Lock className="w-4 h-4 text-blue-600" />
                 <h4 className="font-bold text-xs text-thron-navy uppercase tracking-wider">
                   Option API de Paiement Privé
                 </h4>
               </div>
-              <span className="px-2 py-0.5 rounded-full bg-thron-gold/20 text-thron-dark text-[10px] font-bold">
+              <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-thron-dark text-[10px] font-bold">
                 Assiata Uniquement
               </span>
             </div>
@@ -456,14 +456,14 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-thron-border shadow-sm space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-bold tracking-widest text-thron-gold uppercase">
+            <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
               Moteur Financier • Section 9.3
             </span>
             <h3 className="font-serif text-xl font-bold text-thron-navy">
               Moteur des Commissions de 8 %
             </h3>
           </div>
-          <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-black">
+          <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-xs font-black">
             Commission Fixe : 8%
           </span>
         </div>
@@ -480,7 +480,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
               <span className="text-slate-500">Prix de l'article sacré :</span>
               <strong className="text-slate-800">10 000 F CFA</strong>
             </div>
-            <div className="flex justify-between text-amber-700">
+            <div className="flex justify-between text-blue-600">
               <span>Commission plateforme (8%) :</span>
               <strong>- 800 F CFA</strong>
             </div>
@@ -496,7 +496,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
               <span className="text-slate-500">Montant de la cotisation :</span>
               <strong className="text-slate-800">5 000 F CFA</strong>
             </div>
-            <div className="flex justify-between text-amber-700">
+            <div className="flex justify-between text-blue-600">
               <span>Commission plateforme (8%) :</span>
               <strong>- 400 F CFA</strong>
             </div>
@@ -550,7 +550,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
                   <td className="py-3 px-3 text-right font-medium">
                     {tx.montantBrut.toLocaleString("fr-FR")} F
                   </td>
-                  <td className="py-3 px-3 text-right text-amber-700 font-medium">
+                  <td className="py-3 px-3 text-right text-blue-600 font-medium">
                     {tx.commission8pct > 0 ? `-${tx.commission8pct.toLocaleString("fr-FR")} F` : "—"}
                   </td>
                   <td className={`py-3 px-3 text-right font-bold ${tx.montantNet > 0 ? "text-emerald-600" : "text-slate-800"}`}>
@@ -576,10 +576,10 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
       {/* ============================================================== */}
       {rechargeModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-blue-500/25 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <CreditCard className="w-5 h-5 text-thron-gold" />
+                <CreditCard className="w-5 h-5 text-blue-500" />
                 <h4 className="font-serif font-bold text-base text-thron-navy">
                   Recharger mon Portefeuille Kkiapay
                 </h4>
@@ -603,7 +603,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
                   step="500"
                   value={rechargeAmount}
                   onChange={(e) => setRechargeAmount(Number(e.target.value))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-base font-bold text-thron-navy focus:ring-2 focus:ring-thron-gold"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-base font-bold text-thron-navy focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -637,7 +637,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
                   type="tel"
                   value={momoPhone}
                   onChange={(e) => setMomoPhone(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-thron-gold"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -668,7 +668,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
       {/* ============================================================== */}
       {withdrawModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-blue-500/25 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <ArrowUpRight className="w-5 h-5 text-thron-blue" />
@@ -685,7 +685,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
             </div>
 
             <form onSubmit={handleExecuteWithdrawal} className="py-4 space-y-4 text-xs">
-              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-slate-700">
+              <div className="p-3 bg-blue-50/70 rounded-xl border border-blue-200 text-[11px] text-slate-700">
                 Solde actuel : <strong>{balance.toLocaleString("fr-FR")} F CFA</strong> • Minimum de retrait : <strong>2 000 F CFA</strong>.
               </div>
 
@@ -700,7 +700,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
                   step="500"
                   value={withdrawAmount}
                   onChange={(e) => setWithdrawAmount(Number(e.target.value))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-base font-bold text-thron-navy focus:ring-2 focus:ring-thron-gold"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-base font-bold text-thron-navy focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -712,7 +712,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
                   type="tel"
                   value={withdrawPhone}
                   onChange={(e) => setWithdrawPhone(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-thron-gold"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -732,7 +732,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
       {/* ============================================================== */}
       {planChangeModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200 my-8">
+          <div className="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl border border-blue-500/25 animate-in fade-in zoom-in-95 duration-200 my-8">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
               <h4 className="font-serif font-bold text-lg text-thron-navy">
                 Choisir une Formule d'Abonnement pour la Lignée
@@ -751,7 +751,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
                   key={plan.id}
                   className={`p-4 rounded-2xl border-2 flex flex-col justify-between ${
                     activePlanId === plan.id
-                      ? "border-thron-gold bg-amber-50/40 shadow-sm"
+                      ? "border-blue-500/30 bg-blue-50/70/40 shadow-sm"
                       : "border-slate-200 bg-white"
                   }`}
                 >
@@ -770,7 +770,7 @@ export const WalletAndSubscriptions: React.FC<WalletAndSubscriptionsProps> = ({
                     onClick={() => handleSelectPlan(plan)}
                     className={`w-full py-2 rounded-xl text-xs font-bold transition-all ${
                       activePlanId === plan.id
-                        ? "bg-thron-gold text-thron-navy shadow"
+                        ? "bg-blue-600 text-white shadow"
                         : "bg-slate-100 hover:bg-slate-200 text-slate-800"
                     }`}
                   >

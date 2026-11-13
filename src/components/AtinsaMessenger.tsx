@@ -128,7 +128,7 @@ export const AtinsaMessenger: React.FC = () => {
           <div className="flex items-center gap-2">
             <h3 className="font-serif font-bold text-sm">Atinsa (Messagerie)</h3>
           </div>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-thron-gold/20 text-thron-gold font-bold">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-500 font-bold">
             Arbre à palabre
           </span>
         </div>
@@ -140,7 +140,7 @@ export const AtinsaMessenger: React.FC = () => {
             <input
               type="text"
               placeholder="Rechercher une discussion..."
-              className="w-full pl-8 pr-3 py-1.5 bg-slate-100 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-thron-gold"
+              className="w-full pl-8 pr-3 py-1.5 bg-slate-100 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -152,7 +152,7 @@ export const AtinsaMessenger: React.FC = () => {
               key={c.id}
               onClick={() => setActiveConv(c)}
               className={`p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-colors ${
-                activeConv.id === c.id ? "bg-amber-50/70 border-l-4 border-thron-gold" : ""
+                activeConv.id === c.id ? "bg-blue-50/70 border-l-4 border-blue-500/30" : ""
               }`}
             >
               <div className="relative">
@@ -188,7 +188,7 @@ export const AtinsaMessenger: React.FC = () => {
         <div className="p-3 bg-white border-b border-slate-200 flex items-center justify-between shadow-sm">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-thron-gold">
+              <div className="w-10 h-10 rounded-full overflow-hidden border border-blue-500/30">
                 <img src={activeConv.avatar} alt={activeConv.name} className="w-full h-full object-cover" />
               </div>
               {activeConv.isOnline && (
@@ -209,7 +209,7 @@ export const AtinsaMessenger: React.FC = () => {
                 {activeConv.grade && (
                   <>
                     <span className="text-slate-300">•</span>
-                    <span className="text-thron-gold font-semibold">{activeConv.grade}</span>
+                    <span className="text-blue-500 font-semibold">{activeConv.grade}</span>
                   </>
                 )}
               </div>
@@ -284,7 +284,7 @@ export const AtinsaMessenger: React.FC = () => {
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Écrivez votre message..."
-            className="flex-1 px-3 py-2 bg-slate-100 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-thron-gold"
+            className="flex-1 px-3 py-2 bg-slate-100 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <button type="button" className="p-2 text-slate-400 hover:text-slate-600">
             <Mic className="w-4 h-4" />

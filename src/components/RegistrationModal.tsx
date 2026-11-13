@@ -137,7 +137,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-thron-gold/40 p-6 sm:p-8 my-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-blue-500/25 p-6 sm:p-8 my-8 animate-in fade-in zoom-in-95 duration-200">
         {/* BOUTON FERMER */}
         <button
           onClick={() => {
@@ -201,17 +201,17 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               <button
                 type="button"
                 onClick={() => setProfileType("hounvi")}
-                className="p-4 rounded-2xl border-2 border-slate-200 hover:border-thron-gold bg-white hover:bg-amber-50/40 text-left transition-all group flex items-start gap-4 shadow-sm"
+                className="p-4 rounded-2xl border-2 border-slate-200 hover:border-blue-500/30 bg-white hover:bg-blue-50/70/40 text-left transition-all group flex items-start gap-4 shadow-sm"
               >
-                <div className="w-11 h-11 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <div className="w-11 h-11 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                   <HeartHandshake className="w-6 h-6" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-bold text-sm text-thron-navy group-hover:text-amber-800">
+                    <h4 className="font-bold text-sm text-thron-navy group-hover:text-blue-800">
                       S'inscrire en tant que « Hounvi » (Initié / Membre)
                     </h4>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
                       Affiliation
                     </span>
                   </div>
@@ -385,7 +385,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               />
             </div>
 
-            <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-800">
+            <div className="p-3 bg-blue-50/70 rounded-xl border border-blue-200 text-[11px] text-blue-800">
               💡 <strong>Note communautaire :</strong> Un compte Agbilinon vous permet de visiter le site et voir tout ce qui est public. Vous pourrez devenir Hounvi après rattachement à un Hounto.
             </div>
 
@@ -394,7 +394,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-thron-blue to-thron-navy text-white font-bold text-xs shadow hover:shadow-md transition-all flex items-center justify-center gap-2"
             >
               <span>Créer son compte Agbilinon</span>
-              <ArrowRight className="w-4 h-4 text-thron-gold" />
+              <ArrowRight className="w-4 h-4 text-blue-500" />
             </button>
           </form>
         )}
@@ -412,7 +412,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               >
                 <ArrowLeft className="w-3.5 h-3.5" /> Retour
               </button>
-              <span className="text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full">
+              <span className="text-xs font-bold text-blue-800 bg-blue-50/70 px-2.5 py-0.5 rounded-full">
                 Inscription Hounvi / Membre
               </span>
             </div>
@@ -450,7 +450,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                     type="button"
                     onClick={() => setSexe("homme")}
                     className={`py-2 text-xs font-bold rounded-xl border ${
-                      sexe === "homme" ? "border-amber-600 bg-amber-50 text-amber-800" : "border-slate-200"
+                      sexe === "homme" ? "border-blue-600 bg-blue-50/70 text-blue-800" : "border-slate-200"
                     }`}
                   >
                     Homme
@@ -459,7 +459,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                     type="button"
                     onClick={() => setSexe("femme")}
                     className={`py-2 text-xs font-bold rounded-xl border ${
-                      sexe === "femme" ? "border-amber-600 bg-amber-50 text-amber-800" : "border-slate-200"
+                      sexe === "femme" ? "border-blue-600 bg-blue-50/70 text-blue-800" : "border-slate-200"
                     }`}
                   >
                     Femme
@@ -545,7 +545,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                         onClick={() => setAffiliation(aff)}
                         className={`py-2 px-2 text-xs font-bold rounded-xl border text-center transition-all ${
                           affiliation === aff
-                            ? "border-amber-600 bg-amber-50 text-amber-900"
+                            ? "border-blue-600 bg-blue-50/70 text-blue-900"
                             : "border-slate-200 text-slate-600"
                         }`}
                       >
@@ -606,7 +606,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-thron-gold text-thron-navy font-black text-xs shadow hover:opacity-95"
+                    className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-thron-navy font-black text-xs shadow hover:opacity-95"
                   >
                     Envoyer ma demande d'affiliation
                   </button>
@@ -751,7 +751,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               className="w-full py-3 px-4 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs shadow transition-all flex items-center justify-center gap-2"
             >
               <span>Enregistrer et créer la Lignée</span>
-              <Crown className="w-4 h-4 text-amber-300" />
+              <Crown className="w-4 h-4 text-blue-200" />
             </button>
           </form>
         )}
@@ -761,7 +761,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
         {/* ============================================================== */}
         {isCompleted && (
           <div className="text-center py-4 space-y-4 animate-in fade-in zoom-in-95">
-            <div className="w-16 h-16 rounded-full bg-amber-50 border-2 border-thron-gold flex items-center justify-center mx-auto text-amber-700 shadow-sacred">
+            <div className="w-16 h-16 rounded-full bg-blue-50/70 border-2 border-blue-500/30 flex items-center justify-center mx-auto text-blue-600 shadow-sacred">
               <Clock className="w-8 h-8" />
             </div>
 
@@ -776,9 +776,9 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               </p>
             </div>
 
-            <div className="p-3.5 bg-amber-50/70 border border-amber-300 rounded-2xl text-[11px] text-amber-900 text-left space-y-1">
-              <p className="font-bold flex items-center gap-1.5 text-amber-950">
-                <ShieldAlert className="w-4 h-4 text-amber-700" /> Validation par le Maître spirituel :
+            <div className="p-3.5 bg-blue-50/70 border border-blue-300 rounded-2xl text-[11px] text-blue-900 text-left space-y-1">
+              <p className="font-bold flex items-center gap-1.5 text-[#0A1628]">
+                <ShieldAlert className="w-4 h-4 text-blue-600" /> Validation par le Maître spirituel :
               </p>
               <p className="text-slate-600">
                 Conformément aux règles du Thron, vous attendrez la validation qui va venir de votre Maître (celui qui coiffe la tête sous laquelle vous vous trouvez). Dès validation, vous pourrez vous connecter librement.

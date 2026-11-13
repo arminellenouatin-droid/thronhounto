@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 15, 23, 42;
+  --foreground-rgb: 9, 10, 15;
   --background-rgb: 248, 250, 252;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 body {
@@ -12,54 +14,79 @@ body {
   background: rgb(var(--background-rgb));
   -webkit-tap-highlight-color: transparent;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  scroll-behavior: smooth;
 }
 
-/* Animations personnalisées sacrées */
-@keyframes indeterminate {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(200%);
-  }
+/* Micro-feedback tactile universel sur les boutons */
+button, a[role="button"] {
+  user-select: none;
 }
 
-.animate-indeterminate {
-  animation: indeterminate 1.8s infinite ease-in-out;
+.btn-press {
+  transition: transform 160ms var(--ease-out), opacity 160ms ease-out;
+}
+.btn-press:active {
+  transform: scale(0.97);
 }
 
-@keyframes fadeIn {
+/* Glassmorphism de prestige (Bleu / Blanc / Noir) */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.glass-surface-dark {
+  background: rgba(10, 22, 40, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations d'entrée élégantes */
+@keyframes fadeInSlide {
   from {
     opacity: 0;
-    transform: scale(0.96);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInSlide 0.28s var(--ease-out) forwards;
 }
 
-/* Safe area for mobile navigation */
+/* Barres de chargement indéterminées */
+@keyframes indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-indeterminate {
+  animation: indeterminate 1.5s infinite var(--ease-in-out);
+}
+
+/* Safe area pour navigation mobile */
 .safe-area-bottom {
-  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
 }
 
-/* Custom scrollbars */
+/* Scrollbars modernes bleutées */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(241, 245, 249, 0.6);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(10, 37, 88, 0.2);
+  background: rgba(30, 64, 175, 0.25);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(10, 37, 88, 0.4);
+  background: rgba(37, 99, 235, 0.5);
 }

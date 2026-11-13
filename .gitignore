@@ -41,7 +41,8 @@ next-env.d.ts
 *.zip
 *secret*
 *token*
-*API*
+!src/app/api/agora/token/
+*API*.docx
 API neon.docx
 ~$I neon.docx
 *.pem
@@ -57,6 +58,14 @@ DEUXIEME LOTS DE CORRECTIONS/
 # Local agents directory
 .agents/
 
+# Local test scripts
+scripts/
+
 # Real variables and secrets for Vercel
 variablesecurise.md
+
+# Backup directories
+sauvegarde complète*/
+sauvegarde*/
+
 

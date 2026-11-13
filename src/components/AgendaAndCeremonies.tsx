@@ -74,10 +74,10 @@ export const AgendaAndCeremonies: React.FC<{ onJoinLive?: () => void }> = ({
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-4 space-y-6">
       {/* BANNIÈRE AGENDA */}
-      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-thron-gold/40">
+      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-blue-500/25">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="text-[10px] font-bold tracking-widest text-thron-gold uppercase">
+            <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
               Calendrier Cultuel • Section 8.11
             </span>
             <h2 className="font-serif text-xl sm:text-2xl font-bold mt-1">
@@ -89,7 +89,7 @@ export const AgendaAndCeremonies: React.FC<{ onJoinLive?: () => void }> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="px-3 py-1.5 rounded-xl bg-thron-gold/20 text-thron-gold text-xs font-bold border border-thron-gold/30">
+            <span className="px-3 py-1.5 rounded-xl bg-blue-500/20 text-blue-500 text-xs font-bold border border-blue-500/20">
               Année Sacrée 2026
             </span>
           </div>
@@ -108,7 +108,7 @@ export const AgendaAndCeremonies: React.FC<{ onJoinLive?: () => void }> = ({
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                     c.type === "Atinkindoudou"
-                      ? "bg-amber-100 text-amber-900 border border-amber-300"
+                      ? "bg-blue-100 text-blue-900 border border-blue-300"
                       : c.type === "Yesoufifo"
                       ? "bg-purple-100 text-purple-900 border border-purple-300"
                       : "bg-blue-100 text-thron-blue border border-blue-200"
@@ -121,7 +121,7 @@ export const AgendaAndCeremonies: React.FC<{ onJoinLive?: () => void }> = ({
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
+              <div className="flex items-center gap-2 text-xs font-bold text-blue-600 bg-blue-50/70 px-3 py-1 rounded-full">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>{c.date}</span>
               </div>
@@ -142,7 +142,7 @@ export const AgendaAndCeremonies: React.FC<{ onJoinLive?: () => void }> = ({
                 <span>{c.heure}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-amber-600" />
+                <MapPin className="w-4 h-4 text-blue-600" />
                 <span>{c.lieu}</span>
               </div>
             </div>

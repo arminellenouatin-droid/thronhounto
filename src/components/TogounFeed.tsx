@@ -110,7 +110,7 @@ export interface StoryItem {
 
 const COLOR_GRADIENTS = [
   "from-blue-600 via-indigo-700 to-purple-800",
-  "from-amber-500 via-orange-600 to-red-600",
+  "from-[#0A1628] via-[#1E3A8A] to-[#2563EB]",
   "from-emerald-600 to-teal-800",
   "from-[#050F26] via-[#0A2558] to-[#050F26]",
   "from-rose-600 via-pink-600 to-purple-700",
@@ -119,11 +119,11 @@ const COLOR_GRADIENTS = [
 const REACTIONS_MAP: Record<ReactionType, { label: string; emoji: string; color: string }> = {
   like: { label: "J'aime", emoji: "👍", color: "text-blue-600" },
   love: { label: "J'adore", emoji: "❤️", color: "text-rose-600" },
-  solidarity: { label: "Solidaire", emoji: "🤝", color: "text-amber-600" },
-  haha: { label: "Haha", emoji: "😆", color: "text-yellow-500" },
-  wow: { label: "Ouah", emoji: "😮", color: "text-amber-500" },
+  solidarity: { label: "Solidaire", emoji: "🤝", color: "text-blue-700" },
+  haha: { label: "Haha", emoji: "😆", color: "text-blue-500" },
+  wow: { label: "Ouah", emoji: "😮", color: "text-slate-800" },
   sad: { label: "Triste", emoji: "😢", color: "text-blue-400" },
-  angry: { label: "Grrr", emoji: "😡", color: "text-orange-600" },
+  angry: { label: "Grrr", emoji: "😡", color: "text-rose-600" },
 };
 
 interface TogounFeedProps {
@@ -740,7 +740,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
               if (onOpenVideoImmersion) onOpenVideoImmersion();
               else setVideoImmersionOpen(true);
             }}
-            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white text-xs font-black shadow-md flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 animate-pulse"
+            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white text-xs font-black shadow-md flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 animate-pulse"
           >
             <Radio className="w-3.5 h-3.5" />
             <span>Vidéos & Lives</span>
@@ -751,31 +751,31 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
         <div className="grid grid-cols-4 gap-1 p-1 bg-slate-100 rounded-2xl text-xs font-bold text-center">
           <button
             onClick={() => setActiveSubTab("fil")}
-            className={`py-2 rounded-xl transition-all ${
-              activeSubTab === "fil" ? "bg-white text-thron-blue shadow-sm" : "text-slate-500 hover:text-slate-800"
+            className={`py-2 rounded-xl transition-all btn-press ${
+              activeSubTab === "fil" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-800"
             }`}
           >
             Fil d'actualité
           </button>
           <button
             onClick={() => setActiveSubTab("pages")}
-            className={`py-2 rounded-xl transition-all ${
-              activeSubTab === "pages" ? "bg-white text-thron-blue shadow-sm" : "text-slate-500 hover:text-slate-800"
+            className={`py-2 rounded-xl transition-all btn-press ${
+              activeSubTab === "pages" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-800"
             }`}
           >
             Pages Lignées
           </button>
           <button
             onClick={() => setActiveSubTab("groupes")}
-            className={`py-2 rounded-xl transition-all ${
-              activeSubTab === "groupes" ? "bg-white text-thron-blue shadow-sm" : "text-slate-500 hover:text-slate-800"
+            className={`py-2 rounded-xl transition-all btn-press ${
+              activeSubTab === "groupes" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-800"
             }`}
           >
             Groupes
           </button>
           <button
             onClick={() => setActiveSubTab("moderation")}
-            className={`py-2 rounded-xl transition-all ${
+            className={`py-2 rounded-xl transition-all btn-press ${
               activeSubTab === "moderation" ? "bg-white text-rose-600 shadow-sm" : "text-slate-500 hover:text-slate-800"
             }`}
           >
@@ -789,17 +789,17 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
           {/* ==================================================================== */}
           {/* 2. BARRE DES STORIES 24H AVEC CRÉATION PHOTO & VIDÉO OPÉRATIONNELLE  */}
           {/* ==================================================================== */}
-          <div className="bg-white rounded-3xl p-3 border border-thron-border shadow-sm overflow-x-auto">
+          <div className="bg-white rounded-3xl p-3 border border-slate-200 shadow-sm overflow-x-auto">
             <div className="flex items-center gap-3 min-w-max pb-1">
               {/* Bouton Créer une story INTERACTIF */}
               <div
                 onClick={() => setShowCreateStoryModal(true)}
-                className="relative w-20 h-32 rounded-2xl bg-gradient-to-b from-blue-50 to-slate-100 border-2 border-dashed border-thron-blue/40 flex flex-col items-center justify-center p-2 text-center cursor-pointer hover:border-thron-blue hover:bg-blue-100/50 transition-all flex-shrink-0 group shadow-sm active:scale-95"
+                className="relative w-20 h-32 rounded-2xl bg-gradient-to-b from-blue-50 to-slate-100 border-2 border-dashed border-blue-400/50 flex flex-col items-center justify-center p-2 text-center cursor-pointer hover:border-blue-600 hover:bg-blue-100/50 transition-all flex-shrink-0 group shadow-sm active:scale-95 btn-press"
               >
-                <div className="w-8 h-8 rounded-full bg-thron-blue text-white flex items-center justify-center mb-1 shadow group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center mb-1 shadow group-hover:scale-110 transition-transform">
                   <Plus className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-bold text-thron-navy leading-tight">
+                <span className="text-[10px] font-bold text-[#0A1628] leading-tight">
                   Ajouter Story
                 </span>
                 <span className="text-[8px] text-slate-500 font-medium mt-0.5">Photo/Vidéo</span>
@@ -829,7 +829,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                   {/* Avatar de l'auteur */}
                   <div
                     className={`absolute top-2 left-2 w-7 h-7 rounded-full p-0.5 border-2 ${
-                      st.isViewed ? "border-slate-400" : "border-amber-400"
+                      st.isViewed ? "border-slate-400" : "border-blue-500"
                     }`}
                   >
                     <img src={st.authorPhoto} alt="" className="w-full h-full object-cover rounded-full" />
@@ -846,7 +846,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
           {/* ==================================================================== */}
           {/* 3. FORMULAIRE DE PUBLICATION COMPLET (TOUT TYPE : TEXTE, PHOTO, VIDÉO, SON, DOC, SONDAGE) */}
           {/* ==================================================================== */}
-          <div className="bg-white rounded-3xl p-4 border border-thron-border shadow-sm space-y-3">
+          <div className="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
             {/* Header du créateur */}
             <div className="flex items-center gap-3">
               <img
@@ -855,7 +855,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                 className="w-10 h-10 rounded-full object-cover border border-slate-200"
               />
               <div className="flex-1">
-                <span className="font-bold text-xs text-thron-navy block">MONSIA Serge (Togbegan daho)</span>
+                <span className="font-bold text-xs text-[#0A1628] block">MONSIA Serge (Togbegan daho)</span>
                 {/* Sélecteur d'audience */}
                 <div className="flex items-center gap-2 mt-0.5">
                   <select
@@ -873,8 +873,8 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                   <button
                     type="button"
                     onClick={() => setIsSecretPost(!isSecretPost)}
-                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 transition-all cursor-pointer ${
-                      isSecretPost ? "bg-amber-500 text-thron-navy shadow" : "bg-slate-100 text-slate-500"
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 transition-all cursor-pointer btn-press ${
+                      isSecretPost ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
                     <Lock className="w-3 h-3" />
@@ -935,18 +935,18 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
 
               {/* Audio attaché */}
               {attachedAudio && (
-                <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 flex items-center justify-between text-xs">
+                <div className="p-3 bg-blue-50/70 rounded-2xl border border-blue-200 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2 min-w-0">
-                    <Music className="w-5 h-5 text-amber-700 flex-shrink-0" />
+                    <Music className="w-5 h-5 text-blue-600 flex-shrink-0" />
                     <div className="truncate">
-                      <span className="font-bold text-thron-navy block truncate">{attachedAudio.title}</span>
+                      <span className="font-bold text-[#0A1628] block truncate">{attachedAudio.title}</span>
                       <span className="text-[10px] text-slate-500">Fichier audio prêt à la publication</span>
                     </div>
                   </div>
                   <button
                     type="button"
                     onClick={() => setAttachedAudio(null)}
-                    className="p-1 rounded-full text-slate-400 hover:bg-amber-100 cursor-pointer"
+                    className="p-1 rounded-full text-slate-400 hover:bg-blue-100 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -1036,7 +1036,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                       type="button"
                       onClick={() => setSelectedBg(grad)}
                       className={`w-7 h-7 rounded-full bg-gradient-to-br ${grad} border-2 cursor-pointer ${
-                        selectedBg === grad ? "border-amber-400 scale-110" : "border-transparent"
+                        selectedBg === grad ? "border-blue-500 scale-110" : "border-transparent"
                       }`}
                     />
                   ))}
@@ -1078,7 +1078,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                     onClick={() => audioInputRef.current?.click()}
                     className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 flex items-center gap-1 text-[11px] font-bold cursor-pointer transition-colors"
                   >
-                    <Music className="w-4 h-4 text-amber-600" />
+                    <Music className="w-4 h-4 text-blue-600" />
                     <span className="hidden sm:inline">Son</span>
                   </button>
 
@@ -1124,10 +1124,10 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                     !attachedDocument &&
                     !pollQuestion.trim()
                   }
-                  className="py-2 px-5 rounded-xl bg-thron-blue hover:bg-thron-navy text-white font-bold text-xs shadow disabled:opacity-50 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+                  className="py-2.5 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 disabled:opacity-50 transition-all flex items-center gap-1.5 cursor-pointer btn-press"
                 >
                   <span>Publier</span>
-                  <Send className="w-3.5 h-3.5 text-thron-gold" />
+                  <Send className="w-3.5 h-3.5 text-white" />
                 </button>
               </div>
             </form>
@@ -1141,15 +1141,15 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
             <div className="flex gap-1.5 flex-wrap">
               <button
                 onClick={() => setFeedFilter("tout")}
-                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer ${
-                  feedFilter === "tout" ? "bg-thron-navy text-white" : "bg-white text-slate-600 border border-slate-200"
+                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer transition-all btn-press ${
+                  feedFilter === "tout" ? "bg-[#0A1628] text-white shadow-sm" : "bg-white text-slate-600 border border-slate-200"
                 }`}
               >
                 Tout voir
               </button>
               <button
                 onClick={() => setFeedFilter("videos_lives")}
-                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer flex items-center gap-1 transition-all btn-press ${
                   feedFilter === "videos_lives" ? "bg-rose-600 text-white shadow-sm" : "bg-white text-rose-700 border border-rose-200 hover:bg-rose-50"
                 }`}
               >
@@ -1158,16 +1158,16 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
               </button>
               <button
                 onClick={() => setFeedFilter("lignee")}
-                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer ${
-                  feedFilter === "lignee" ? "bg-thron-navy text-white" : "bg-white text-slate-600 border border-slate-200"
+                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer transition-all btn-press ${
+                  feedFilter === "lignee" ? "bg-[#0A1628] text-white shadow-sm" : "bg-white text-slate-600 border border-slate-200"
                 }`}
               >
                 🏛️ Ma Lignée
               </button>
               <button
                 onClick={() => setFeedFilter("booste")}
-                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer ${
-                  feedFilter === "booste" ? "bg-amber-500 text-thron-navy" : "bg-white text-slate-600 border border-slate-200"
+                className={`px-3 py-1 rounded-full font-bold text-[11px] cursor-pointer transition-all btn-press ${
+                  feedFilter === "booste" ? "bg-blue-600 text-white shadow-sm" : "bg-white text-slate-600 border border-slate-200"
                 }`}
               >
                 ⚡ Boostés
@@ -1185,13 +1185,13 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
               return (
                 <div
                   key={post.id}
-                  className="bg-white rounded-3xl p-4 sm:p-5 border border-thron-border shadow-sm space-y-3 transition-shadow hover:shadow-md"
+                  className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-3 transition-shadow hover:shadow-md"
                 >
                   {/* Badge boosté */}
                   {post.isBoosted && (
-                    <div className="flex items-center justify-between pb-2 border-b border-amber-200/50 text-[10px] text-amber-900 font-bold">
+                    <div className="flex items-center justify-between pb-2 border-b border-blue-200 text-[10px] text-blue-900 font-bold">
                       <span className="flex items-center gap-1">
-                        <Flame className="w-3.5 h-3.5 text-amber-600" />
+                        <Flame className="w-3.5 h-3.5 text-blue-600" />
                         PUBLICATION BOOSTÉE (100 F / 1000 PERSONNES)
                       </span>
                       <span className="text-slate-400">Sponsorisé par le Hounto</span>
@@ -1204,11 +1204,11 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                       <img src={post.authorPhoto} alt="" className="w-10 h-10 rounded-full object-cover border border-slate-200" />
                       <div>
                         <div className="flex items-center gap-1.5">
-                          <span className="font-bold text-xs text-thron-navy">{post.authorNom}</span>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                          <span className="font-bold text-xs text-[#0A1628]">{post.authorNom}</span>
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 fill-blue-600" />
                         </div>
                         <div className="flex items-center gap-2 text-[10px] text-slate-500">
-                          <span className="font-semibold text-amber-700">{post.authorGrade}</span>
+                          <span className="font-semibold text-blue-700">{post.authorGrade}</span>
                           <span>•</span>
                           <span>{post.timestamp}</span>
                           <span>•</span>
@@ -1230,8 +1230,8 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
 
                   {/* Avertissement de secret sacré */}
                   {post.isSecret && (
-                    <div className="p-2.5 bg-amber-50 rounded-2xl border border-amber-300 flex items-center gap-2 text-[11px] text-amber-950 font-bold">
-                      <ShieldAlert className="w-4 h-4 text-amber-700 flex-shrink-0" />
+                    <div className="p-2.5 bg-blue-50/70 rounded-2xl border border-blue-200 flex items-center gap-2 text-[11px] text-blue-900 font-bold">
+                      <ShieldAlert className="w-4 h-4 text-blue-600 flex-shrink-0" />
                       <span>Enseignement Secret — Réservé au grade habilité. Partage externe interdit.</span>
                     </div>
                   )}
@@ -1239,7 +1239,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                   {/* Corps de la publication */}
                   {post.bgGradient ? (
                     <div
-                      className={`p-6 sm:p-8 rounded-2xl bg-gradient-to-br ${post.bgGradient} text-white font-serif font-bold text-center text-sm sm:text-base leading-relaxed shadow-inner`}
+                      className={`p-6 sm:p-8 rounded-2xl bg-gradient-to-br ${post.bgGradient} text-white font-bold text-center text-sm sm:text-base leading-relaxed shadow-inner`}
                     >
                       {post.content}
                     </div>
@@ -1280,9 +1280,9 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
 
                   {/* RENDU AUDIO / SON */}
                   {post.audioUrl && (
-                    <div className="p-4 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 rounded-2xl border border-amber-300 space-y-2">
-                      <div className="flex items-center gap-2 text-xs font-bold text-thron-navy">
-                        <Music className="w-4 h-4 text-amber-700" />
+                    <div className="p-4 bg-blue-50/60 rounded-2xl border border-blue-200 space-y-2">
+                      <div className="flex items-center gap-2 text-xs font-bold text-[#0A1628]">
+                        <Music className="w-4 h-4 text-blue-600" />
                         <span>{post.audioTitle || "Enregistrement liturgique sacré"}</span>
                       </div>
                       <audio controls src={post.audioUrl} className="w-full h-10 rounded-xl" />
@@ -1533,13 +1533,13 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
               Chaque lignée ou temple inscrit sur le SaaS possède sa page dédiée. Ses membres sont automatiquement rattachés d'après l'arbre généalogique.
             </p>
 
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50/40 border border-amber-300 space-y-3">
+            <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="font-bold text-sm text-thron-navy">Page Officielle : Lignée Mantinkpon 1</h4>
+                  <h4 className="font-bold text-sm text-[#0A1628]">Page Officielle : Lignée Mantinkpon 1</h4>
                   <p className="text-xs text-slate-500">Coiffée par Togbé Mintoniu bo tozé</p>
                 </div>
-                <span className="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">
+                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">
                   ✓ Membre de branche
                 </span>
               </div>
@@ -1560,10 +1560,10 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
       {/* SOUS-ONGLET 3 : GROUPES COMMUNAUTAIRES */}
       {activeSubTab === "groupes" && (
         <div className="space-y-3">
-          <div className="bg-white rounded-3xl p-5 border border-thron-border shadow-sm space-y-4">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-serif font-bold text-base text-thron-navy">Groupes de Discussion Thron</h3>
-              <button className="px-3 py-1.5 bg-thron-blue text-white rounded-full text-xs font-bold">
+              <h3 className="font-bold text-base text-[#0A1628]">Groupes de Discussion Thron</h3>
+              <button className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-xs font-bold btn-press shadow-sm">
                 + Créer un Groupe
               </button>
             </div>
@@ -1574,10 +1574,10 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
             <div className="space-y-2">
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between">
                 <div>
-                  <h4 className="font-bold text-xs text-thron-navy">Fraternité des Hounvi d'Allada & Calavi</h4>
+                  <h4 className="font-bold text-xs text-[#0A1628]">Fraternité des Hounvi d'Allada & Calavi</h4>
                   <p className="text-[11px] text-slate-500">640 membres • 15 publications/jour</p>
                 </div>
-                <button className="px-3 py-1 bg-thron-navy text-white rounded-xl text-xs font-bold">
+                <button className="px-3 py-1 bg-[#0A1628] hover:bg-blue-900 text-white rounded-xl text-xs font-bold btn-press">
                   Rejoint ✓
                 </button>
               </div>
@@ -1589,10 +1589,10 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
       {/* SOUS-ONGLET 4 : MODÉRATION */}
       {activeSubTab === "moderation" && (
         <div className="space-y-3">
-          <div className="bg-white rounded-3xl p-5 border border-thron-border shadow-sm space-y-4">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-4">
             <div className="flex items-center gap-2 text-rose-700">
               <ShieldAlert className="w-5 h-5" />
-              <h3 className="font-serif font-bold text-base text-thron-navy">File de Modération & Signalements</h3>
+              <h3 className="font-bold text-base text-[#0A1628]">File de Modération & Signalements</h3>
             </div>
             <div className="space-y-2">
               {reportedItems.map((rep) => (
@@ -1616,20 +1616,20 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
       {/* ==================================================================== */}
       {showCreateStoryModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-thron-gold/40 text-slate-800 my-6 animate-in fade-in zoom-in-95">
+          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-blue-500/20 ring-1 ring-black/5 text-slate-800 my-6 animate-in fade-in zoom-in-95">
             <button
               onClick={() => setShowCreateStoryModal(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-800">
-                <Camera className="w-5 h-5 text-amber-700" />
+              <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                <Camera className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-serif text-lg font-bold text-thron-navy">
+                <h3 className="font-bold text-lg text-[#0A1628]">
                   Ajouter une Story Thron (24h)
                 </h3>
                 <p className="text-xs text-slate-500">
@@ -1644,9 +1644,9 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                 <button
                   type="button"
                   onClick={() => setStoryMediaType("image")}
-                  className={`py-2.5 rounded-xl font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  className={`py-2.5 rounded-xl font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer btn-press ${
                     storyMediaType === "image"
-                      ? "bg-thron-navy text-white shadow"
+                      ? "bg-[#0A1628] text-white shadow"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                   }`}
                 >
@@ -1657,9 +1657,9 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                 <button
                   type="button"
                   onClick={() => setStoryMediaType("video")}
-                  className={`py-2.5 rounded-xl font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  className={`py-2.5 rounded-xl font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer btn-press ${
                     storyMediaType === "video"
-                      ? "bg-thron-navy text-white shadow"
+                      ? "bg-[#0A1628] text-white shadow"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                   }`}
                 >
@@ -1690,14 +1690,14 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
               <button
                 type="button"
                 onClick={() => storyFileInputRef.current?.click()}
-                className="w-full py-3 border-2 border-dashed border-slate-300 hover:border-thron-blue rounded-2xl flex items-center justify-center gap-2 text-slate-600 font-bold hover:bg-slate-50 transition-colors cursor-pointer"
+                className="w-full py-3 border-2 border-dashed border-slate-300 hover:border-blue-600 rounded-2xl flex items-center justify-center gap-2 text-slate-600 font-bold hover:bg-slate-50 transition-colors cursor-pointer"
               >
-                <Upload className="w-4 h-4 text-thron-blue" />
+                <Upload className="w-4 h-4 text-blue-600" />
                 <span>Importer {storyMediaType === "video" ? "une vidéo" : "une photo"} depuis l'appareil</span>
               </button>
 
               {/* Prévisualisation du média sélectionné */}
-              <div className="relative w-36 h-48 mx-auto rounded-2xl overflow-hidden border-2 border-thron-gold shadow-md bg-black">
+              <div className="relative w-36 h-48 mx-auto rounded-2xl overflow-hidden border-2 border-blue-500 shadow-md bg-black">
                 {storyMediaType === "video" ? (
                   <video src={storyMediaUrl} autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 ) : (
@@ -1725,7 +1725,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3 bg-gradient-to-r from-amber-500 to-thron-gold text-thron-navy rounded-xl font-bold shadow-md hover:from-amber-600 hover:to-amber-400 transition-all cursor-pointer"
+                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20 transition-all cursor-pointer btn-press"
                 >
                   Publier ma Story (Visible 24h)
                 </button>
@@ -1744,7 +1744,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
             {/* Barre de progression continue */}
             <div className="w-full bg-white/30 h-1.5 rounded-full overflow-hidden">
               <div
-                className="bg-thron-gold h-full transition-all duration-75"
+                className="bg-blue-500 h-full transition-all duration-75"
                 style={{ width: `${storyProgress}%` }}
               />
             </div>
@@ -1755,7 +1755,7 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
                 <img
                   src={activeStoryViewer.authorPhoto}
                   alt=""
-                  className="w-8 h-8 rounded-full border border-amber-400 object-cover"
+                  className="w-8 h-8 rounded-full border border-blue-400 object-cover"
                 />
                 <div>
                   <span className="font-bold text-xs block">{activeStoryViewer.authorNom}</span>

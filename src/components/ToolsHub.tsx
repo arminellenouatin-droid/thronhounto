@@ -67,7 +67,7 @@ export const ToolsHub: React.FC<ToolsHubProps> = ({
       title: "Portefeuille & Abonnements (Lot 2)",
       desc: "Solde FCFA, recharges Kkiapay, grand livre immuable et formules de lignée (Assiata)",
       icon: Wallet,
-      color: "from-amber-600 to-yellow-700",
+      color: "from-blue-600 to-blue-800",
       badge: `${walletBalance.toLocaleString("fr-FR")} F CFA`,
     },
     {
@@ -75,7 +75,7 @@ export const ToolsHub: React.FC<ToolsHubProps> = ({
       title: "Marketplace Spirituelle (Lot 6)",
       desc: "Produits et services sacrés certifiés de la communauté Thron (Vendeurs Hounnon+)",
       icon: ShoppingBag,
-      color: "from-amber-500 to-amber-700",
+      color: "from-[#0A1628] to-blue-900",
       badge: "8% comm.",
     },
     {
@@ -165,10 +165,10 @@ export const ToolsHub: React.FC<ToolsHubProps> = ({
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-4 space-y-6">
       {/* EN-TÊTE DE LA BOÎTE À OUTILS */}
-      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-thron-gold/30">
+      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-blue-500/20">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="text-[10px] font-bold tracking-widest text-thron-gold uppercase">
+            <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
               Boîte à Outils Complète • Section 8.14
             </span>
             <h2 className="font-serif text-xl sm:text-2xl font-bold mt-1">
@@ -182,15 +182,15 @@ export const ToolsHub: React.FC<ToolsHubProps> = ({
           {/* CARTE WALLET RAPIDE */}
           <div
             onClick={() => setActiveToolView("wallet")}
-            className="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-thron-gold/40 flex items-center gap-3 cursor-pointer transition-all"
+            className="bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-blue-500/25 flex items-center gap-3 cursor-pointer transition-all"
             title="Cliquez pour gérer votre Wallet"
           >
-            <div className="w-10 h-10 rounded-full bg-thron-gold text-thron-navy flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
               <Wallet className="w-5 h-5" />
             </div>
             <div>
               <span className="text-[10px] text-blue-200 uppercase tracking-wider block">Solde Wallet</span>
-              <span className="font-serif text-lg font-bold text-amber-200">
+              <span className="font-serif text-lg font-bold text-blue-100">
                 {walletBalance.toLocaleString("fr-FR")} F CFA
               </span>
             </div>
@@ -207,7 +207,7 @@ export const ToolsHub: React.FC<ToolsHubProps> = ({
             <div
               key={t.id}
               onClick={() => setActiveToolView(t.id)}
-              className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm hover:shadow-md hover:border-thron-gold/50 transition-all cursor-pointer flex flex-col justify-between group"
+              className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm hover:shadow-md hover:border-blue-500/30 transition-all cursor-pointer flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">

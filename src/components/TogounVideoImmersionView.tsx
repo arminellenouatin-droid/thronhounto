@@ -276,7 +276,7 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
             <span className="font-bold text-xs pr-1">Fermer / Accueil</span>
           </button>
 
-          <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-thron-gold/20 text-thron-gold border border-thron-gold/40 text-[11px] font-extrabold uppercase tracking-wider backdrop-blur-md">
+          <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-500 border border-blue-500/25 text-[11px] font-extrabold uppercase tracking-wider backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" /> Togoun • Vidéos & Lives
           </span>
         </div>
@@ -298,7 +298,7 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
             className="p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-md transition-all cursor-pointer"
             title={isMuted ? "Activer le son" : "Couper le son"}
           >
-            {isMuted ? <VolumeX className="w-5 h-5 text-amber-300" /> : <Volume2 className="w-5 h-5" />}
+            {isMuted ? <VolumeX className="w-5 h-5 text-blue-200" /> : <Volume2 className="w-5 h-5" />}
           </button>
         </div>
       </div>
@@ -369,7 +369,7 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
                       <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                       LIVE AGORA
                     </span>
-                    <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-200 text-xs font-bold border border-white/20 flex items-center gap-1">
+                    <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-blue-100 text-xs font-bold border border-white/20 flex items-center gap-1">
                       <Eye className="w-3.5 h-3.5" />
                       {item.liveViewers?.toLocaleString()} spectateurs
                     </span>
@@ -390,16 +390,16 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
                     <img
                       src={item.authorPhoto}
                       alt={item.authorNom}
-                      className="w-10 h-10 rounded-full object-cover border-2 border-thron-gold shadow-md"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-blue-500/30 shadow-md"
                     />
                     <div>
                       <div className="flex items-center gap-1.5">
                         <span className="font-serif font-black text-sm text-white drop-shadow">
                           {item.authorNom}
                         </span>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 fill-blue-500" />
                       </div>
-                      <span className="text-[10px] text-amber-300 font-bold block">
+                      <span className="text-[10px] text-blue-200 font-bold block">
                         {item.authorGrade} • {item.lignee}
                       </span>
                     </div>
@@ -410,7 +410,7 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
                   </p>
 
                   {/* BANDEAU MUSIQUE / CHANT SACRÉ */}
-                  <div className="flex items-center gap-2 text-[11px] text-amber-200 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-fit max-w-full">
+                  <div className="flex items-center gap-2 text-[11px] text-blue-100 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-fit max-w-full">
                     <Music className="w-3.5 h-3.5 animate-bounce flex-shrink-0" />
                     <span className="truncate">{item.songName}</span>
                   </div>
@@ -423,7 +423,7 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
                           key={i}
                           className="text-[11px] bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-xl text-slate-100 max-w-full truncate border border-white/10"
                         >
-                          <span className="font-bold text-amber-300 mr-1.5">Fidèle :</span>
+                          <span className="font-bold text-blue-200 mr-1.5">Fidèle :</span>
                           <span>{msg}</span>
                         </div>
                       ))}
@@ -507,7 +507,7 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
         <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/70 backdrop-blur-sm animate-in fade-in">
           <div className="w-full max-w-lg mx-auto bg-slate-900 border-t border-white/20 rounded-t-3xl p-4 sm:p-5 text-white max-h-[70vh] flex flex-col justify-between shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <h4 className="font-serif font-bold text-sm text-thron-gold flex items-center gap-2">
+              <h4 className="font-serif font-bold text-sm text-blue-500 flex items-center gap-2">
                 <MessageCircle className="w-4 h-4" />
                 {activeCommentsItem.isLive ? "Chat en Direct Live Agora" : "Commentaires de la communauté"}
               </h4>
@@ -523,11 +523,11 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
             <div className="flex-1 overflow-y-auto py-3 space-y-2.5 max-h-80 pr-1">
               {(liveChatMessages[activeCommentsItem.id] || []).map((msg, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-xs">
-                  <div className="w-7 h-7 rounded-full bg-thron-gold/20 flex items-center justify-center text-thron-gold font-bold text-[10px] flex-shrink-0">
+                  <div className="w-7 h-7 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 font-bold text-[10px] flex-shrink-0">
                     F
                   </div>
                   <div className="bg-white/10 rounded-2xl p-2.5 flex-1">
-                    <span className="font-bold text-amber-300 block text-[10px]">Fidèle Thron</span>
+                    <span className="font-bold text-blue-200 block text-[10px]">Fidèle Thron</span>
                     <p className="text-slate-100 text-xs mt-0.5">{msg}</p>
                   </div>
                 </div>
@@ -542,11 +542,11 @@ export const TogounVideoImmersionView: React.FC<TogounVideoImmersionViewProps> =
                 onChange={(e) => setCommentText(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleAddComment(activeCommentsItem.id)}
                 placeholder="Écrire un message de paix ou bénédiction..."
-                className="flex-1 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-thron-gold/50"
+                className="flex-1 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               />
               <button
                 onClick={() => handleAddComment(activeCommentsItem.id)}
-                className="p-2.5 bg-thron-gold text-thron-navy rounded-full font-bold hover:bg-amber-400 cursor-pointer shadow"
+                className="p-2.5 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-500 cursor-pointer shadow"
               >
                 <Send className="w-4 h-4" />
               </button>

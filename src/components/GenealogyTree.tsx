@@ -69,15 +69,15 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-4 space-y-6">
       {/* 1. CHAÎNE HIÉRARCHIQUE SACRÉE : COURANT -> LIGNÉE -> TEMPLES */}
-      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-thron-border shadow-sm space-y-3">
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-xs uppercase tracking-widest font-extrabold text-thron-blue">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
+            <span className="text-xs uppercase tracking-widest font-extrabold text-blue-600">
               Hiérarchie Sacrée Thron
             </span>
           </div>
-          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
+          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-900 border border-blue-200">
             Trône & Siège Hérité
           </span>
         </div>
@@ -89,25 +89,25 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
             <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">
               1. Courant Spirituel
             </span>
-            <p className="font-bold text-thron-navy">Thron kpeto deka alafia</p>
+            <p className="font-bold text-[#0A1628]">Thron kpeto deka alafia</p>
             <span className="text-[10px] text-slate-500">Paix, élévation et droiture</span>
           </div>
 
           {/* Niveau 2 : Lignée & Maître */}
-          <div className="p-2.5 rounded-2xl bg-amber-50/70 border border-amber-300">
-            <span className="text-[10px] uppercase font-bold text-amber-700 block mb-0.5">
+          <div className="p-2.5 rounded-2xl bg-blue-50/70 border border-blue-200">
+            <span className="text-[10px] uppercase font-bold text-blue-700 block mb-0.5">
               2. Compte Lignée (Maître)
             </span>
-            <p className="font-bold text-thron-navy">Lignée Mantinkpon ò</p>
-            <span className="text-[10px] text-amber-900 font-medium">Héritier : Togbé Mintoniu bo tozé</span>
+            <p className="font-bold text-[#0A1628]">Lignée Mantinkpon ò</p>
+            <span className="text-[10px] text-blue-900 font-medium">Héritier : Togbé Mintoniu bo tozé</span>
           </div>
 
           {/* Niveau 3 : Temples rattachés */}
-          <div className="p-2.5 rounded-2xl bg-blue-50/70 border border-blue-200">
-            <span className="text-[10px] uppercase font-bold text-thron-blue block mb-0.5">
+          <div className="p-2.5 rounded-2xl bg-slate-50 border border-slate-200">
+            <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">
               3. Temples & Hountos
             </span>
-            <p className="font-bold text-thron-navy">Temple Alafia Calavi</p>
+            <p className="font-bold text-[#0A1628]">Temple Alafia Calavi</p>
             <span className="text-[10px] text-slate-500">Siège principal et temples affiliés</span>
           </div>
         </div>
@@ -119,32 +119,32 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
           </p>
           <button
             onClick={() => setShowAncestorsHierarchy(!showAncestorsHierarchy)}
-            className="text-thron-blue hover:text-thron-navy font-bold underline text-[11px] flex items-center gap-1"
+            className="text-blue-600 hover:text-blue-800 font-bold underline text-[11px] flex items-center gap-1 cursor-pointer"
           >
-            <Crown className="w-3.5 h-3.5 text-thron-gold" />
+            <Crown className="w-3.5 h-3.5 text-blue-600" />
             {showAncestorsHierarchy ? "Masquer l'Ascendance" : "Voir l'Ascendance (Fondateurs)"}
           </button>
         </div>
 
         {/* Volet déroulant Ascendance Spirituelle (L'arbre vers le haut) */}
         {showAncestorsHierarchy && (
-          <div className="mt-3 p-3.5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50/50 border border-amber-200 text-xs space-y-2 animate-in fade-in duration-200">
-            <h5 className="font-bold text-amber-900 flex items-center gap-1.5">
-              <ChevronUp className="w-4 h-4 text-amber-700" />
+          <div className="mt-3 p-3.5 rounded-2xl bg-blue-50/60 border border-blue-200 text-xs space-y-2 animate-in fade-in duration-200">
+            <h5 className="font-bold text-[#0A1628] flex items-center gap-1.5">
+              <ChevronUp className="w-4 h-4 text-blue-600" />
               Ascendance Spirituelle vers le Fondateur du Siège :
             </h5>
-            <div className="space-y-1.5 pl-4 border-l-2 border-thron-gold text-[11px]">
+            <div className="space-y-1.5 pl-4 border-l-2 border-blue-500 text-[11px]">
               <div>
-                <strong className="text-thron-navy">1. Fondateur historique du Trône :</strong>{" "}
+                <strong className="text-[#0A1628]">1. Fondateur historique du Trône :</strong>{" "}
                 <span className="text-slate-700 font-medium">Feu Mantinkpon ò Adjikanmahoutokounon MONSIA (Père spirituel originel)</span>
               </div>
               <div>
-                <strong className="text-thron-navy">2. Grand Maître Spirituel intermédiaire :</strong>{" "}
+                <strong className="text-[#0A1628]">2. Grand Maître Spirituel intermédiaire :</strong>{" "}
                 <span className="text-slate-700 font-medium">Dah MONSIA Gbèdan (Père direct)</span>
               </div>
               <div>
-                <strong className="text-thron-navy">3. Héritier actuel coiffant le siège :</strong>{" "}
-                <span className="text-amber-900 font-bold">Togbé Mintoniu bo tozé (MONSIA Serge), Togbegan daho</span>
+                <strong className="text-[#0A1628]">3. Héritier actuel coiffant le siège :</strong>{" "}
+                <span className="text-blue-900 font-bold">Togbé Mintoniu bo tozé (MONSIA Serge), Togbegan daho</span>
               </div>
             </div>
           </div>
@@ -152,79 +152,79 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
       </div>
 
       {/* 2. ÉCRAN LIGNÉE TACTILE : GRAND-PÈRE GAUCHE, PÈRE DROITE, CENTRE LIGNÉE */}
-      <div className="relative bg-gradient-to-r from-[#050F26] via-[#0A2558] to-[#050F26] text-white rounded-3xl p-4 sm:p-6 shadow-sacred border border-thron-gold/40 overflow-hidden">
-        <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-thron-gold/10 blur-2xl pointer-events-none"></div>
+      <div className="relative bg-[#0A1628] text-white rounded-3xl p-4 sm:p-6 shadow-xl border border-white/10 overflow-hidden">
+        <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-blue-600/15 blur-2xl pointer-events-none"></div>
         <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-blue-500/10 blur-2xl pointer-events-none"></div>
 
         <div className="relative z-10 flex items-center justify-between gap-2 sm:gap-4">
           {/* GAUCHE : GRAND-PÈRE DIRECT / FONDATEUR */}
           <button
             onClick={handleGoToFounder}
-            className="flex flex-col items-center group transition-transform active:scale-95"
+            className="flex flex-col items-center group transition-transform active:scale-95 cursor-pointer btn-press"
             title="Monter vers le fondateur de la lignée"
           >
             <div className="relative">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-thron-gold p-0.5 overflow-hidden shadow-gold group-hover:border-amber-300 transition-colors">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-blue-500 p-0.5 overflow-hidden shadow-md group-hover:border-blue-400 transition-colors">
                 <img
                   src={currentNode.grandPerePhoto || NOEUD_FONDATEUR.photoUrl}
                   alt="Grand-père"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-thron-gold text-thron-navy rounded-full text-[10px] font-bold flex items-center justify-center shadow">
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow">
                 <ChevronUp className="w-3.5 h-3.5" />
               </span>
             </div>
-            <span className="mt-1.5 text-[10px] sm:text-xs font-semibold text-amber-200 group-hover:text-white transition-colors text-center line-clamp-1 max-w-[85px] sm:max-w-[110px]">
+            <span className="mt-1.5 text-[10px] sm:text-xs font-semibold text-blue-200 group-hover:text-white transition-colors text-center line-clamp-1 max-w-[85px] sm:max-w-[110px]">
               {currentNode.grandPereNom || "Grand-Père"}
             </span>
-            <span className="text-[9px] text-blue-200/70">Fondateur</span>
+            <span className="text-[9px] text-slate-400">Fondateur</span>
           </button>
 
           {/* CENTRE : NOM DE LA LIGNÉE ET NOMBRE TOTAL DE FIDÈLES */}
           <div className="flex-1 text-center px-1 sm:px-4">
-            <span className="inline-block px-2.5 py-0.5 rounded-full bg-thron-gold/20 text-thron-gold border border-thron-gold/40 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1">
+            <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-400/30 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1">
               Thron kpeto deka alafia
             </span>
-            <h3 className="font-serif text-base sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-thron-gold">
+            <h3 className="text-base sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-400">
               Lignée Mantinkpon ò
             </h3>
-            <p className="text-xs sm:text-sm text-blue-200 mt-0.5 font-medium">
-              <strong className="text-thron-gold font-bold">1 450</strong> fidèles dans la branche
+            <p className="text-xs sm:text-sm text-slate-300 mt-0.5 font-medium">
+              <strong className="text-blue-400 font-bold">1 450</strong> fidèles dans la branche
             </p>
           </div>
 
           {/* DROITE : LE PÈRE DIRECT */}
           <button
             onClick={handleGoToFather}
-            className="flex flex-col items-center group transition-transform active:scale-95"
+            className="flex flex-col items-center group transition-transform active:scale-95 cursor-pointer btn-press"
             title="Monter vers le père direct"
           >
             <div className="relative">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-thron-gold p-0.5 overflow-hidden shadow-gold group-hover:border-amber-300 transition-colors">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-blue-500 p-0.5 overflow-hidden shadow-md group-hover:border-blue-400 transition-colors">
                 <img
                   src={currentNode.pereDirectPhoto || NOEUD_PERE_DIRECT.photoUrl}
                   alt="Père Direct"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-              <span className="absolute -bottom-1 -left-1 w-5 h-5 bg-thron-gold text-thron-navy rounded-full text-[10px] font-bold flex items-center justify-center shadow">
+              <span className="absolute -bottom-1 -left-1 w-5 h-5 bg-blue-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow">
                 <ChevronUp className="w-3.5 h-3.5" />
               </span>
             </div>
-            <span className="mt-1.5 text-[10px] sm:text-xs font-semibold text-amber-200 group-hover:text-white transition-colors text-center line-clamp-1 max-w-[85px] sm:max-w-[110px]">
+            <span className="mt-1.5 text-[10px] sm:text-xs font-semibold text-blue-200 group-hover:text-white transition-colors text-center line-clamp-1 max-w-[85px] sm:max-w-[110px]">
               {currentNode.pereDirectNom || "Père Direct"}
             </span>
-            <span className="text-[9px] text-blue-200/70">Père Direct</span>
+            <span className="text-[9px] text-slate-400">Père Direct</span>
           </button>
         </div>
       </div>
 
       {/* 3. AU MILIEU : PHOTO DE LA TÊTE CONNECTÉE AVEC NOM, PRÉNOM ET GRADE */}
-      <div className="relative bg-white rounded-3xl p-5 sm:p-8 shadow-sacred border border-thron-border overflow-hidden">
+      <div className="relative bg-white rounded-3xl p-5 sm:p-8 shadow-sm border border-slate-200 overflow-hidden">
         <div className="flex flex-col items-center text-center">
           {/* Cadre de photo tactile */}
-          <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl border-4 border-thron-gold p-1 bg-gradient-to-b from-thron-gold via-thron-navy to-thron-blue">
+          <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl border-2 border-blue-500/40 p-1 bg-[#0A1628]">
             <img
               src={
                 currentNode.id === ARBRE_MANTINKPON.id && currentUserPhoto
@@ -239,13 +239,13 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
 
             {/* TEXTE SUR LA PHOTO : GRADE, NOM, PRÉNOM */}
             <div className="absolute bottom-3 left-3 right-3 text-white text-center">
-              <span className="inline-block px-2.5 py-0.5 mb-1 text-[11px] font-extrabold uppercase tracking-wider rounded-full bg-thron-gold text-thron-navy shadow">
+              <span className="inline-block px-2.5 py-0.5 mb-1 text-[11px] font-extrabold uppercase tracking-wider rounded-full bg-blue-600 text-white shadow-md">
                 {currentNode.grade}
               </span>
-              <h4 className="font-serif font-bold text-base sm:text-lg leading-tight drop-shadow">
+              <h4 className="font-bold text-base sm:text-lg leading-tight drop-shadow">
                 {currentNode.prenom} {currentNode.nom}
               </h4>
-              <p className="text-[10px] sm:text-xs text-amber-200/90 font-medium">
+              <p className="text-[10px] sm:text-xs text-blue-200 font-medium">
                 {currentNode.titreSpirituel || "Tête de Hounto"}
               </p>
             </div>
@@ -264,9 +264,9 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
                   alert("Photo mise à jour et synchronisée avec succès dans l'arbre et le profil !");
                 }
               }}
-              className="mt-3 text-[11px] font-bold text-thron-blue hover:text-thron-navy flex items-center gap-1.5 underline cursor-pointer"
+              className="mt-3 text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1.5 underline cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5 text-thron-gold" />
+              <Sparkles className="w-3.5 h-3.5 text-blue-600" />
               Modifier ma photo (synchronisée Arbre & Profil)
             </button>
           )}
@@ -275,13 +275,13 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-600">
             {currentNode.temple && (
               <span className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full font-medium">
-                <ShieldCheck className="w-3.5 h-3.5 text-thron-blue" />
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
                 {currentNode.temple}
               </span>
             )}
             {currentNode.localisation && (
               <span className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full font-medium">
-                <MapPin className="w-3.5 h-3.5 text-amber-600" />
+                <MapPin className="w-3.5 h-3.5 text-blue-600" />
                 {currentNode.localisation}
               </span>
             )}
@@ -298,42 +298,42 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
 
           <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {/* ASSI (Femmes / Épouses) */}
-            <div className="bg-gradient-to-br from-rose-50 to-pink-50/50 rounded-2xl p-3 sm:p-4 text-center border border-rose-200/70 shadow-sm transition-transform hover:scale-102">
-              <div className="w-8 h-8 mx-auto rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mb-1.5">
+            <div className="bg-slate-50 rounded-2xl p-3 sm:p-4 text-center border border-slate-200 shadow-sm transition-transform hover:scale-102">
+              <div className="w-8 h-8 mx-auto rounded-full bg-slate-200 text-slate-700 flex items-center justify-center mb-1.5">
                 <Heart className="w-4 h-4 fill-current" />
               </div>
-              <span className="block text-2xl sm:text-3xl font-extrabold text-rose-900">
+              <span className="block text-2xl sm:text-3xl font-extrabold text-[#0A1628]">
                 {currentNode.assiCount}
               </span>
-              <span className="block text-xs font-bold text-rose-700 uppercase tracking-wider">
+              <span className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                 Assi
               </span>
               <span className="text-[10px] text-slate-500">Femmes</span>
             </div>
 
             {/* VIDJIDJI (Enfants Biologiques) */}
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50/50 rounded-2xl p-3 sm:p-4 text-center border border-amber-200/70 shadow-sm transition-transform hover:scale-102">
-              <div className="w-8 h-8 mx-auto rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-1.5">
+            <div className="bg-slate-50 rounded-2xl p-3 sm:p-4 text-center border border-slate-200 shadow-sm transition-transform hover:scale-102">
+              <div className="w-8 h-8 mx-auto rounded-full bg-slate-200 text-slate-700 flex items-center justify-center mb-1.5">
                 <Baby className="w-4 h-4" />
               </div>
-              <span className="block text-2xl sm:text-3xl font-extrabold text-amber-900">
+              <span className="block text-2xl sm:text-3xl font-extrabold text-[#0A1628]">
                 {currentNode.vidjidjiCount}
               </span>
-              <span className="block text-xs font-bold text-amber-700 uppercase tracking-wider">
+              <span className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                 Vidjidji
               </span>
               <span className="text-[10px] text-slate-500">Enfants Bio</span>
             </div>
 
             {/* HOUNVI (Enfants Spirituels) */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50/50 rounded-2xl p-3 sm:p-4 text-center border border-blue-200/70 shadow-sm transition-transform hover:scale-102">
-              <div className="w-8 h-8 mx-auto rounded-full bg-blue-100 text-thron-blue flex items-center justify-center mb-1.5">
+            <div className="bg-blue-50/70 rounded-2xl p-3 sm:p-4 text-center border border-blue-200 shadow-sm transition-transform hover:scale-102">
+              <div className="w-8 h-8 mx-auto rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-1.5">
                 <Users className="w-4 h-4" />
               </div>
-              <span className="block text-2xl sm:text-3xl font-extrabold text-thron-blue">
+              <span className="block text-2xl sm:text-3xl font-extrabold text-blue-600">
                 {currentNode.hounviCount}
               </span>
-              <span className="block text-xs font-bold text-thron-blueLight uppercase tracking-wider">
+              <span className="block text-xs font-bold text-blue-700 uppercase tracking-wider">
                 Hounvi
               </span>
               <span className="text-[10px] text-slate-500">Enfants Spirituels</span>
@@ -417,16 +417,16 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
                       setSelectedChildDetail(child);
                     }
                   }}
-                  className={`group relative flex flex-col items-center p-3 rounded-2xl border text-center transition-all cursor-pointer ${
+                  className={`group relative flex flex-col items-center p-3 rounded-2xl border text-center transition-all cursor-pointer btn-press ${
                     isHead
-                      ? "bg-amber-50/50 border-thron-gold/70 hover:bg-amber-50 hover:shadow-md"
+                      ? "bg-blue-50/40 border-blue-400 hover:bg-blue-50/70 hover:shadow-md"
                       : "bg-slate-50 border-slate-200 hover:bg-white hover:shadow-sm"
                   }`}
                 >
                   <div className="relative mb-2">
                     <div
                       className={`w-14 h-14 rounded-full overflow-hidden border-2 ${
-                        isHead ? "border-thron-gold shadow-sm ring-2 ring-amber-300/40" : "border-slate-300"
+                        isHead ? "border-blue-600 shadow-sm ring-2 ring-blue-400/30" : "border-slate-300"
                       }`}
                     >
                       <img
@@ -437,7 +437,7 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
                     </div>
                     {isHead && (
                       <span
-                        className="absolute -bottom-1 -right-1 w-5 h-5 bg-thron-blue text-thron-gold rounded-full text-[10px] font-bold flex items-center justify-center shadow"
+                        className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow"
                         title="Tête de hounto — touchez pour descendre"
                       >
                         <ChevronDown className="w-3.5 h-3.5" />
@@ -445,13 +445,13 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
                     )}
                   </div>
 
-                  <span className="font-bold text-xs text-thron-navy line-clamp-1">
+                  <span className="font-bold text-xs text-[#0A1628] line-clamp-1">
                     {child.prenom} {child.nom}
                   </span>
                   <span
                     className={`mt-0.5 text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                       isHead
-                        ? "bg-thron-gold/30 text-thron-dark font-extrabold"
+                        ? "bg-blue-50 text-blue-800 font-extrabold border border-blue-200"
                         : "bg-slate-200 text-slate-700"
                     }`}
                   >
@@ -459,10 +459,10 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
                   </span>
 
                   {isHead && (
-                    <div className="mt-2 text-[10px] text-amber-900 font-bold flex items-center gap-1">
+                    <div className="mt-2 text-[10px] text-slate-700 font-bold flex items-center gap-1">
                       <span>{child.hounviCount} Hounvi</span>
                       <span>•</span>
-                      <span className="text-thron-blue flex items-center underline">
+                      <span className="text-blue-600 flex items-center underline">
                         Descendre <ChevronDown className="w-3 h-3 ml-0.5" />
                       </span>
                     </div>
@@ -481,22 +481,22 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
       {/* MODALE DÉTAIL DU MEMBRE */}
       {selectedChildDetail && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200">
-            <div className="w-20 h-20 rounded-full mx-auto overflow-hidden border-2 border-thron-gold mb-3 shadow">
+          <div className="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl border border-blue-500/20 ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-200">
+            <div className="w-20 h-20 rounded-full mx-auto overflow-hidden border-2 border-blue-500 mb-3 shadow">
               <img
                 src={selectedChildDetail.photoUrl}
                 alt={selectedChildDetail.nomComplet}
                 className="w-full h-full object-cover"
               />
             </div>
-            <h5 className="font-serif font-bold text-lg text-thron-navy">
+            <h5 className="font-bold text-lg text-[#0A1628]">
               {selectedChildDetail.nomComplet}
             </h5>
-            <span className="inline-block mt-1 px-3 py-1 bg-thron-blue text-thron-gold rounded-full text-xs font-bold uppercase">
+            <span className="inline-block mt-1 px-3 py-1 bg-[#0A1628] text-white rounded-full text-xs font-bold uppercase">
               {selectedChildDetail.grade}
             </span>
             <p className="mt-3 text-xs text-slate-600">
-              Affiliation spirituelle : <strong className="text-thron-navy">Hounvi</strong> (enfant spirituel)
+              Affiliation spirituelle : <strong className="text-[#0A1628]">Hounvi</strong> (enfant spirituel)
             </p>
             {selectedChildDetail.temple && (
               <p className="text-xs text-slate-500 mt-1">
@@ -506,7 +506,7 @@ export const GenealogyTree: React.FC<GenealogyTreeProps> = ({
 
             <button
               onClick={() => setSelectedChildDetail(null)}
-              className="mt-6 w-full py-2.5 bg-thron-navy text-white rounded-xl text-xs font-bold hover:bg-thron-blue transition-colors"
+              className="mt-6 w-full py-2.5 bg-[#0A1628] hover:bg-blue-900 text-white rounded-xl text-xs font-bold transition-colors btn-press cursor-pointer"
             >
               Fermer la fiche
             </button>

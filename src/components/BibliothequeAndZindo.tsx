@@ -398,17 +398,17 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
   return (
     <div className="w-full max-w-4xl mx-auto px-2 sm:px-4 py-3 space-y-4 font-sans">
       {/* 1. EN-TÊTE NOUYIN & BASCULE MP3 ↔ VIDÉO */}
-      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-thron-gold/40 space-y-4">
+      <div className="bg-[#0A1628] rounded-3xl p-5 sm:p-6 text-white shadow-xl border border-white/10 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-thron-gold/20 border border-thron-gold/40 text-thron-gold flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-blue-600/20 border border-blue-400/30 text-blue-400 flex items-center justify-center">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] font-bold tracking-widest text-thron-gold uppercase block">
+              <span className="text-[10px] font-bold tracking-widest text-blue-400 uppercase block">
                 Banque Sacrée de Médias
               </span>
-              <h2 className="font-serif text-xl sm:text-2xl font-black">
+              <h2 className="font-bold text-xl sm:text-2xl">
                 Nouyin (Bibliothèque Audio & Vidéo)
               </h2>
             </div>
@@ -418,24 +418,24 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
           <div className="flex items-center gap-1.5 bg-white/10 p-1 rounded-2xl text-xs">
             <button
               onClick={() => setActiveTab("mediatheque")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
-                activeTab === "mediatheque" ? "bg-thron-gold text-thron-navy shadow" : "text-white/80 hover:text-white"
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all btn-press ${
+                activeTab === "mediatheque" ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "text-white/80 hover:text-white"
               }`}
             >
               Médiathèque
             </button>
             <button
               onClick={() => setActiveTab("editeur")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
-                activeTab === "editeur" ? "bg-thron-gold text-thron-navy shadow" : "text-white/80 hover:text-white"
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all btn-press ${
+                activeTab === "editeur" ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "text-white/80 hover:text-white"
               }`}
             >
               Espace Éditeur (Lignée)
             </button>
             <button
               onClick={() => setActiveTab("admin")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
-                activeTab === "admin" ? "bg-thron-gold text-thron-navy shadow" : "text-white/80 hover:text-white"
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all btn-press ${
+                activeTab === "admin" ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "text-white/80 hover:text-white"
               }`}
             >
               Tarifs & Quotas
@@ -452,9 +452,9 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
               <button
                 type="button"
                 onClick={() => setMediaType("audio")}
-                className={`py-2 px-5 rounded-xl text-xs font-black flex items-center gap-2 transition-all ${
+                className={`py-2 px-5 rounded-xl text-xs font-black flex items-center gap-2 transition-all btn-press ${
                   mediaType === "audio"
-                    ? "bg-gradient-to-r from-amber-400 to-thron-gold text-thron-navy shadow-lg scale-102"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-102"
                     : "text-white/70 hover:text-white"
                 }`}
               >
@@ -464,9 +464,9 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
               <button
                 type="button"
                 onClick={() => setMediaType("video")}
-                className={`py-2 px-5 rounded-xl text-xs font-black flex items-center gap-2 transition-all ${
+                className={`py-2 px-5 rounded-xl text-xs font-black flex items-center gap-2 transition-all btn-press ${
                   mediaType === "video"
-                    ? "bg-gradient-to-r from-amber-400 to-thron-gold text-thron-navy shadow-lg scale-102"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-102"
                     : "text-white/70 hover:text-white"
                 }`}
               >
@@ -476,8 +476,8 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
             </div>
 
             {/* Suivi des quotas gratuits */}
-            <div className="bg-white/10 px-3.5 py-1.5 rounded-xl text-[11px] text-amber-200 flex items-center gap-2 border border-white/10">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <div className="bg-white/10 px-3.5 py-1.5 rounded-xl text-[11px] text-blue-200 flex items-center gap-2 border border-white/10">
+              <Sparkles className="w-3.5 h-3.5 text-blue-300" />
               <span>
                 Quotas gratuits : <strong>{5 - freeAudiosUsed} audios</strong> / <strong>{2 - freeVideosUsed} vidéos</strong> restants
               </span>
@@ -525,7 +525,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                   {/* Bouton Play central */}
                   <button
                     onClick={() => handlePlayMedia(item)}
-                    className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-thron-gold/90 text-thron-navy flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
+                    className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform btn-press cursor-pointer"
                     title="Écouter / Visionner"
                   >
                     <Play className="w-5 h-5 fill-current ml-0.5" />
@@ -534,10 +534,10 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                   {/* Badge Durée et Type */}
                   <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
                     <span className="px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-bold flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-amber-300" /> {item.dureeMinutes} min
+                      <Clock className="w-3 h-3 text-slate-300" /> {item.dureeMinutes} min
                     </span>
                     <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase ${
-                      item.type === "video" ? "bg-purple-600 text-white" : "bg-amber-500 text-slate-900"
+                      item.type === "video" ? "bg-blue-600 text-white" : "bg-slate-800 text-white"
                     }`}>
                       {item.type === "video" ? "Vidéo HD" : "Audio MP3"}
                     </span>
@@ -545,7 +545,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
 
                   {/* Badges Temps cumulé et Vues/Écoutes */}
                   <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[10px] text-white font-bold">
-                    <span className="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm flex items-center gap-1 text-amber-300">
+                    <span className="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm flex items-center gap-1 text-blue-300">
                       {item.type === "video" ? (
                         <>🎬 {item.tempsVisionnageHeures || 0}h visionnées</>
                       ) : (
@@ -561,10 +561,10 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                 {/* Contenu */}
                 <div className="p-3.5 space-y-2.5 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider block">
                       {item.categorie}
                     </span>
-                    <h4 className="font-serif font-bold text-sm text-thron-navy line-clamp-2 mt-0.5">
+                    <h4 className="font-bold text-sm text-[#0A1628] line-clamp-2 mt-0.5">
                       {item.titre}
                     </h4>
                     <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
@@ -573,7 +573,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                   </div>
 
                   <div className="p-2 bg-slate-50 rounded-xl border border-slate-200 text-[11px] flex items-center justify-between text-slate-600">
-                    <span className="font-bold text-thron-navy line-clamp-1">{item.intervenant}</span>
+                    <span className="font-bold text-[#0A1628] line-clamp-1">{item.intervenant}</span>
                     <span className="text-[10px] text-slate-400">{item.editeurLignee}</span>
                   </div>
 
@@ -581,20 +581,20 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                   <div className="grid grid-cols-3 gap-1 py-1.5 px-2 bg-slate-50 rounded-xl border border-slate-100 text-[10px] text-slate-600 text-center font-medium">
                     <div className="flex flex-col items-center">
                       <span className="text-slate-400 text-[9px]">Téléchargés</span>
-                      <strong className="text-thron-navy font-bold flex items-center gap-0.5">
+                      <strong className="text-[#0A1628] font-bold flex items-center gap-0.5">
                         <Download className="w-2.5 h-2.5 text-blue-600" /> {item.nbTelechargements}
                       </strong>
                     </div>
                     <div className="flex flex-col items-center border-x border-slate-200">
                       <span className="text-slate-400 text-[9px]">Vues / Écoutes</span>
-                      <strong className="text-thron-navy font-bold flex items-center gap-0.5">
+                      <strong className="text-[#0A1628] font-bold flex items-center gap-0.5">
                         <Eye className="w-2.5 h-2.5 text-emerald-600" /> {item.nbEcoutesVues}
                       </strong>
                     </div>
                     <div className="flex flex-col items-center">
                       <span className="text-slate-400 text-[9px]">{item.type === "video" ? "Visionnage" : "Écoute"}</span>
-                      <strong className="text-thron-navy font-bold flex items-center gap-0.5">
-                        <Clock className="w-2.5 h-2.5 text-amber-600" /> {item.type === "video" ? `${item.tempsVisionnageHeures || 0}h` : `${item.tempsEcouteHeures || 0}h`}
+                      <strong className="text-[#0A1628] font-bold flex items-center gap-0.5">
+                        <Clock className="w-2.5 h-2.5 text-blue-600" /> {item.type === "video" ? `${item.tempsVisionnageHeures || 0}h` : `${item.tempsEcouteHeures || 0}h`}
                       </strong>
                     </div>
                   </div>
@@ -688,26 +688,26 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
 
             {/* Tableau de bord financier de l'éditeur (75% / 25%) */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200">
-                <span className="text-[10px] font-bold text-amber-800 uppercase block">Total Écoutes & Vues</span>
-                <span className="text-xl font-black text-amber-950 mt-1 block">11 260</span>
+              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+                <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Écoutes & Vues</span>
+                <span className="text-xl font-black text-[#0A1628] mt-1 block">11 260</span>
                 <span className="text-[10px] text-slate-500">Minutes consommées : 84 500 min</span>
               </div>
-              <div className="p-3.5 bg-blue-50 rounded-2xl border border-blue-200">
-                <span className="text-[10px] font-bold text-thron-blue uppercase block">Téléchargements Réalisés</span>
-                <span className="text-xl font-black text-thron-navy mt-1 block">1 695</span>
+              <div className="p-3.5 bg-blue-50/70 rounded-2xl border border-blue-200">
+                <span className="text-[10px] font-bold text-blue-700 uppercase block">Téléchargements Réalisés</span>
+                <span className="text-xl font-black text-[#0A1628] mt-1 block">1 695</span>
                 <span className="text-[10px] text-slate-500">Audios MP3 & Vidéos HD</span>
               </div>
-              <div className="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-200">
-                <span className="text-[10px] font-bold text-emerald-800 uppercase block">Gains Nets Éditeur (75%)</span>
-                <span className="text-xl font-black text-emerald-950 mt-1 block">945 000 FCFA</span>
-                <span className="text-[10px] text-emerald-700 font-medium">Reversés sur votre Wallet</span>
+              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+                <span className="text-[10px] font-bold text-slate-700 uppercase block">Gains Nets Éditeur (75%)</span>
+                <span className="text-xl font-black text-[#0A1628] mt-1 block">945 000 FCFA</span>
+                <span className="text-[10px] text-blue-600 font-medium">Reversés sur votre Wallet</span>
               </div>
             </div>
 
             {/* Déclaration de droits */}
             <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600 space-y-1">
-              <p className="font-bold text-thron-navy">Partage des revenus garanti par contrat numérique :</p>
+              <p className="font-bold text-[#0A1628]">Partage des revenus garanti par contrat numérique :</p>
               <p className="text-[11px] leading-relaxed">
                 Avant tout versement, la plateforme prélève 25% de commission technique et d'infrastructure. Les 75% restants sont crédités instantanément dans votre portefeuille FCFA avec possibilité de retrait Mobile Money.
               </p>
@@ -719,10 +719,10 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       {/* 4. ONGLET RÉGLAGES TARIFS & QUOTAS (SUPER-ADMINISTRATEUR) */}
       {activeTab === "admin" && (
         <div className="space-y-4">
-          <div className="bg-white rounded-3xl p-5 border border-thron-border shadow-sm space-y-4">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <Sliders className="w-5 h-5 text-thron-navy" />
-              <h3 className="font-serif font-bold text-base text-thron-navy">
+              <Sliders className="w-5 h-5 text-[#0A1628]" />
+              <h3 className="font-bold text-base text-[#0A1628]">
                 Configuration des Prix & Catégories (Super-Admin)
               </h3>
             </div>
@@ -732,35 +732,35 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 className="font-bold text-thron-navy flex items-center gap-1.5">
-                  <Headphones className="w-4 h-4 text-thron-blue" /> Tarification Audio MP3
+                <h4 className="font-bold text-[#0A1628] flex items-center gap-1.5">
+                  <Headphones className="w-4 h-4 text-blue-600" /> Tarification Audio MP3
                 </h4>
                 <div className="flex justify-between items-center pt-1 border-t border-slate-200">
                   <span className="text-slate-600">Écoute par minute :</span>
-                  <strong className="text-thron-navy">15 FCFA / min</strong>
+                  <strong className="text-[#0A1628]">15 FCFA / min</strong>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-600">Téléchargement par audio :</span>
-                  <strong className="text-thron-navy">1 000 FCFA</strong>
+                  <strong className="text-[#0A1628]">1 000 FCFA</strong>
                 </div>
               </div>
 
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 className="font-bold text-thron-navy flex items-center gap-1.5">
-                  <Video className="w-4 h-4 text-purple-600" /> Tarification Vidéo
+                <h4 className="font-bold text-[#0A1628] flex items-center gap-1.5">
+                  <Video className="w-4 h-4 text-blue-600" /> Tarification Vidéo
                 </h4>
                 <div className="flex justify-between items-center pt-1 border-t border-slate-200">
                   <span className="text-slate-600">Visionnage par minute :</span>
-                  <strong className="text-thron-navy">35 FCFA / min</strong>
+                  <strong className="text-[#0A1628]">35 FCFA / min</strong>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-600">Téléchargement par vidéo :</span>
-                  <strong className="text-thron-navy">2 000 FCFA</strong>
+                  <strong className="text-[#0A1628]">2 000 FCFA</strong>
                 </div>
               </div>
             </div>
 
-            <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-[11px] text-amber-900">
+            <div className="p-3 bg-blue-50/70 rounded-2xl border border-blue-200 text-[11px] text-blue-900">
               ⚡ <strong>Quotas gratuits actuels :</strong> 5 audios et 2 vidéos par visiteur / adepte. Modifiables à tout moment pour les futures sessions.
             </div>
           </div>
@@ -769,13 +769,13 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
 
       {/* LECTEUR ACTIF EN BAS SI UN MÉDIA EST EN COURS */}
       {activeItem && (
-        <div className="fixed bottom-16 md:bottom-4 left-2 right-2 md:left-1/2 md:-translate-x-1/2 md:max-w-xl z-50 bg-[#050F26] text-white p-3 rounded-2xl shadow-2xl border border-thron-gold/60 flex items-center justify-between animate-in slide-in-from-bottom duration-300">
+        <div className="fixed bottom-16 md:bottom-4 left-2 right-2 md:left-1/2 md:-translate-x-1/2 md:max-w-xl z-50 bg-[#0A1628] text-white p-3 rounded-2xl shadow-2xl border border-white/20 ring-1 ring-black/5 flex items-center justify-between animate-in slide-in-from-bottom duration-300">
           <div className="flex items-center gap-2.5 overflow-hidden">
             <img src={activeItem.imageUrl} alt="" className="w-10 h-10 rounded-xl object-cover" />
             <div className="overflow-hidden">
               <span className="font-bold text-xs line-clamp-1">{activeItem.titre}</span>
               <div className="flex items-center gap-2 text-[10px]">
-                <span className="text-amber-300 truncate">{activeItem.intervenant}</span>
+                <span className="text-blue-300 truncate">{activeItem.intervenant}</span>
                 <span className="text-slate-400">•</span>
                 <span className="text-emerald-400 flex items-center gap-0.5">
                   <Eye className="w-2.5 h-2.5" /> {activeItem.nbEcoutesVues}
@@ -807,7 +807,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
             </button>
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-8 h-8 rounded-full bg-thron-gold text-thron-navy flex items-center justify-center shadow cursor-pointer"
+              className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md cursor-pointer btn-press"
             >
               {isPlaying ? <Volume2 className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
             </button>
@@ -824,7 +824,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
           <div className="bg-white rounded-3xl p-5 max-w-md w-full shadow-2xl border border-slate-200 space-y-4 max-h-[85vh] flex flex-col">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="overflow-hidden pr-2">
-                <span className="text-[10px] font-bold text-amber-700 uppercase block">Commentaires</span>
+                <span className="text-[10px] font-bold text-blue-600 uppercase block">Commentaires</span>
                 <h4 className="font-serif font-bold text-sm text-thron-navy truncate">
                   {commentsModalItem.titre}
                 </h4>
@@ -870,12 +870,12 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                 value={commentInput}
                 onChange={(e) => setCommentInput(e.target.value)}
                 placeholder="Écrire une parole de bénédiction..."
-                className="flex-1 px-3 py-2 bg-slate-100 rounded-xl text-xs border border-transparent focus:border-thron-gold focus:bg-white focus:outline-none"
+                className="flex-1 px-3 py-2 bg-slate-100 rounded-xl text-xs border border-transparent focus:border-blue-500 focus:bg-white focus:outline-none"
               />
               <button
                 type="submit"
                 disabled={!commentInput.trim()}
-                className="p-2 rounded-xl bg-thron-blue text-white disabled:opacity-40 hover:bg-thron-navy transition-colors cursor-pointer"
+                className="p-2 rounded-xl bg-blue-600 text-white disabled:opacity-40 hover:bg-blue-700 active:scale-[0.97] transition-all cursor-pointer"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -904,18 +904,18 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       {/* MODALE DE PAIEMENT WALLET / CONSOMMATION */}
       {showPayModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-thron-gold/40 space-y-4 animate-in fade-in zoom-in-95">
+          <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-blue-500/20 ring-1 ring-black/5 space-y-4 animate-in fade-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h4 className="font-serif font-bold text-sm text-thron-navy">
+              <h4 className="font-serif font-bold text-sm text-[#0A1628]">
                 {showPayModal.action === "telechargement" ? "Téléchargement Nouyin" : "Fin du quota gratuit"}
               </h4>
-              <button onClick={() => setShowPayModal(null)} className="p-1 text-slate-400">
+              <button onClick={() => setShowPayModal(null)} className="p-1 text-slate-400 hover:text-slate-600">
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="text-xs space-y-2">
-              <p className="font-bold text-thron-navy">{showPayModal.item.titre}</p>
+              <p className="font-bold text-[#0A1628]">{showPayModal.item.titre}</p>
               <p className="text-slate-600 text-[11px]">
                 {showPayModal.action === "telechargement"
                   ? "Le fichier haute définition sera téléchargeable avec lien signé personnel."
@@ -924,14 +924,14 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
 
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between font-bold">
                 <span>Montant à débiter :</span>
-                <span className="text-thron-navy">
+                <span className="text-blue-600 font-mono">
                   {showPayModal.action === "telechargement"
                     ? `${showPayModal.item.prixTelechargementFCFA} FCFA`
                     : `${showPayModal.item.prixMinuteFCFA * showPayModal.item.dureeMinutes} FCFA (${showPayModal.item.dureeMinutes} min)`}
                 </span>
               </div>
 
-              <div className="p-2.5 bg-blue-50 text-thron-blue rounded-xl text-[10px] space-y-0.5">
+              <div className="p-2.5 bg-blue-50/70 border border-blue-100 text-blue-900 rounded-xl text-[10px] space-y-0.5">
                 <p>• 75% reversés à l'éditeur ({showPayModal.item.editeurLignee})</p>
                 <p>• 25% commission d'infrastructure plateforme</p>
               </div>
@@ -939,7 +939,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
 
             <button
               onClick={handleConfirmPayment}
-              className="w-full py-2.5 bg-thron-navy hover:bg-thron-blue text-white rounded-xl text-xs font-bold shadow transition-colors"
+              className="w-full py-2.5 bg-[#0A1628] hover:bg-blue-600 text-white rounded-xl text-xs font-bold shadow transition-colors active:scale-[0.97]"
             >
               Payer avec mon Wallet ({walletBalance.toLocaleString("fr-FR")} F dispo)
             </button>
@@ -950,10 +950,10 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
       {/* MODALE DÉPÔT DE MÉDIA (ESPACE ÉDITEUR) */}
       {showUploadModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 my-8 space-y-4">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-blue-500/20 ring-1 ring-black/5 my-8 space-y-4 animate-in fade-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h4 className="font-serif font-bold text-base text-thron-navy">Déposer un Média dans Nouyin</h4>
-              <button onClick={() => setShowUploadModal(false)} className="p-1 text-slate-400">
+              <h4 className="font-serif font-bold text-base text-[#0A1628]">Déposer un Média dans Nouyin</h4>
+              <button onClick={() => setShowUploadModal(false)} className="p-1 text-slate-400 hover:text-slate-600">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -963,14 +963,14 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                 <button
                   type="button"
                   onClick={() => setNewType("audio")}
-                  className={`py-2 text-xs font-bold rounded-xl border ${newType === "audio" ? "bg-amber-50 border-amber-600 text-amber-900" : "border-slate-200"}`}
+                  className={`py-2 text-xs font-bold rounded-xl border transition-all ${newType === "audio" ? "bg-blue-50 border-blue-600 text-blue-900 shadow-sm" : "border-slate-200 text-slate-600"}`}
                 >
                   Audio MP3
                 </button>
                 <button
                   type="button"
                   onClick={() => setNewType("video")}
-                  className={`py-2 text-xs font-bold rounded-xl border ${newType === "video" ? "bg-purple-50 border-purple-600 text-purple-900" : "border-slate-200"}`}
+                  className={`py-2 text-xs font-bold rounded-xl border transition-all ${newType === "video" ? "bg-[#0A1628] border-[#0A1628] text-white shadow-sm" : "border-slate-200 text-slate-600"}`}
                 >
                   Vidéo HD
                 </button>
@@ -983,7 +983,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                   value={newTitre}
                   onChange={(e) => setNewTitre(e.target.value)}
                   placeholder="Ex: Paroles de sagesse d'Atinkindoudou"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-blue-500 outline-none"
                   required
                 />
               </div>
@@ -995,7 +995,7 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                     type="text"
                     value={newIntervenant}
                     onChange={(e) => setNewIntervenant(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-blue-500 outline-none"
                     required
                   />
                 </div>
@@ -1005,19 +1005,19 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
                     type="number"
                     value={newDuree}
                     onChange={(e) => setNewDuree(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-blue-500 outline-none"
                     required
                   />
                 </div>
               </div>
 
-              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-900">
+              <div className="p-3 bg-blue-50/70 rounded-xl border border-blue-200 text-[11px] text-blue-900">
                 Déclaration obligatoire : Je certifie détenir les droits spirituels et coutumiers sur ce fichier pour le compte de la Lignée.
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-thron-navy text-white rounded-xl font-bold text-xs shadow hover:bg-thron-blue"
+                className="w-full py-2.5 bg-[#0A1628] hover:bg-blue-600 text-white rounded-xl font-bold text-xs shadow transition-all active:scale-[0.97]"
               >
                 Mettre en ligne dans Nouyin
               </button>

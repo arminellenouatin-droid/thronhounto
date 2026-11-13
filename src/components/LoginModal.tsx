@@ -163,7 +163,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-thron-gold/40 p-6 sm:p-8 my-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-blue-500/25 p-6 sm:p-8 my-8 animate-in fade-in zoom-in-95 duration-200">
         {/* BOUTON FERMER */}
         <button
           onClick={onClose}
@@ -313,7 +313,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               ) : (
                 <>
                   <span>Se connecter</span>
-                  <ArrowRight className="w-4 h-4 text-thron-gold" />
+                  <ArrowRight className="w-4 h-4 text-blue-500" />
                 </>
               )}
             </button>

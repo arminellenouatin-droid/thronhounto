@@ -96,7 +96,7 @@ export const SocialShareModal: React.FC<SocialShareModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-thron-gold/40 text-slate-800 my-6">
+      <div className="relative w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-blue-500/25 text-slate-800 my-6">
         <button
           onClick={onClose}
           className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer transition-colors"
@@ -105,8 +105,8 @@ export const SocialShareModal: React.FC<SocialShareModalProps> = ({
         </button>
 
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-2xl bg-thron-gold/20 flex items-center justify-center text-thron-navy">
-            <Share2 className="w-5 h-5 text-amber-700" />
+          <div className="w-10 h-10 rounded-2xl bg-blue-500/20 flex items-center justify-center text-thron-navy">
+            <Share2 className="w-5 h-5 text-blue-600" />
           </div>
           <div>
             <h3 className="font-serif text-lg font-bold text-thron-navy">
@@ -132,7 +132,7 @@ export const SocialShareModal: React.FC<SocialShareModalProps> = ({
             />
           </div>
           <div className="flex-1 min-w-0">
-            <span className="text-[10px] font-bold uppercase text-amber-700 tracking-wider flex items-center gap-1">
+            <span className="text-[10px] font-bold uppercase text-blue-600 tracking-wider flex items-center gap-1">
               <Sparkles className="w-3 h-3" /> Métadonnées OpenGraph configurées
             </span>
             <p className="text-xs font-bold text-thron-navy truncate mt-0.5">

@@ -55,31 +55,31 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy text-white shadow-sacred border-b border-thron-gold/30">
-      {/* LIGNE PRINCIPALE DE L'EN-TÊTE CONFORME AU CAHIER DES CHARGES */}
+    <header className="sticky top-0 z-40 w-full bg-[#0A1628]/95 backdrop-blur-xl text-white shadow-card border-b border-slate-800/80">
+      {/* LIGNE PRINCIPALE DE L'EN-TÊTE SOUVERAINE BLEU / BLANC / NOIR */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5">
         <div className="flex items-center justify-between gap-3">
-          {/* GAUCHE : LOGO ET LIGNES DE TITRE OFFICIELLES */}
+          {/* GAUCHE : LOGO 3D ET LIGNES DE TITRE OFFICIELLES */}
           <div className="flex items-center gap-3 min-w-0">
-            <ThreeColasLogo size={42} />
+            <ThreeColasLogo size={40} textColor="text-white" />
             <div className="flex flex-col min-w-0">
               {/* Ligne 1 : Le nom de la lignée */}
               <div className="flex items-center gap-2">
                 <span className="font-serif font-bold text-sm sm:text-base md:text-lg text-white truncate tracking-wide">
                   {currentLigneeName}
                 </span>
-                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] bg-thron-gold/20 text-thron-gold font-medium rounded-full border border-thron-gold/40">
+                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] bg-blue-500/20 text-blue-300 font-semibold rounded-full border border-blue-400/30">
                   Courant Alafia
                 </span>
               </div>
 
               {/* Ligne 2 : Titre SaaS + Communauté mondiale */}
-              <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-blue-200">
-                <span className="font-bold tracking-wider text-thron-gold uppercase">
+              <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-slate-300">
+                <span className="font-extrabold tracking-wider text-blue-400 uppercase">
                   THRON HOUNTO
                 </span>
-                <span className="text-blue-300/60">•</span>
-                <span className="truncate text-blue-200/90 font-light">
+                <span className="text-slate-500">•</span>
+                <span className="truncate text-slate-300/90 font-light">
                   communauté mondiale de thron
                 </span>
               </div>
@@ -89,23 +89,23 @@ export const Header: React.FC<HeaderProps> = ({
           {/* CENTRE (DESKTOP) : RECHERCHE GLOBALE */}
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-4">
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-300" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Rechercher personnes, temples, lignées, cérémonies..."
-                className="w-full bg-white/10 text-white placeholder-blue-300/60 pl-9 pr-4 py-1.5 rounded-full text-xs border border-white/15 focus:outline-none focus:border-thron-gold transition-colors"
+                className="w-full bg-white/10 text-white placeholder-slate-400 pl-9 pr-4 py-1.5 rounded-full text-xs border border-white/15 focus:outline-none focus:border-blue-500 focus:bg-white/15 transition-all"
               />
             </div>
           </div>
 
           {/* DROITE : DRAPEAU & LANGUE + WALLET (DESKTOP) */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Solde Wallet rapide visible sur toutes les pages avec bouton œil pour masquer/afficher */}
-            <div className="flex items-center gap-1 bg-gradient-to-r from-amber-500/20 to-thron-gold/20 border border-thron-gold/40 rounded-full px-2.5 py-1 text-xs font-medium text-thron-gold">
+            {/* Solde Wallet rapide épuré (Bleu Nuit / Blanc / Gris) */}
+            <div className="flex items-center gap-1.5 bg-white/10 hover:bg-white/15 border border-white/20 rounded-full px-3 py-1 text-xs font-medium text-white transition-all shadow-sm">
               <button
                 type="button"
                 onClick={() => setHideBalance(!hideBalance)}
-                className="p-0.5 text-amber-200 hover:text-white transition-colors"
+                className="p-0.5 text-blue-300 hover:text-white transition-colors btn-press"
                 title={hideBalance ? "Afficher le solde" : "Masquer le solde"}
                 aria-label={hideBalance ? "Afficher le solde" : "Masquer le solde"}
               >
@@ -114,11 +114,11 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={onOpenWallet}
-                className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 text-white hover:text-blue-300 transition-colors cursor-pointer btn-press"
                 title="Accéder à mon compte Wallet"
               >
-                <Wallet className="w-3.5 h-3.5" />
-                <span className="font-bold tracking-tight text-[11px] sm:text-xs">
+                <Wallet className="w-3.5 h-3.5 text-blue-400" />
+                <span className="font-mono font-bold tracking-tight text-[11px] sm:text-xs">
                   {hideBalance ? "•••••• F" : `${walletBalance.toLocaleString("fr-FR")} F CFA`}
                 </span>
               </button>
@@ -128,16 +128,16 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="relative">
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/10 hover:bg-white/20 text-xs border border-white/20 transition-colors"
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-xs border border-white/20 transition-all btn-press"
                 aria-label="Changer de langue"
               >
                 <span className="text-sm">🇧🇯</span>
-                <span className="font-semibold text-[11px] text-amber-200">{activeLanguage}</span>
+                <span className="font-semibold text-[11px] text-blue-200">{activeLanguage}</span>
               </button>
 
               {langMenuOpen && (
-                <div className="absolute right-0 mt-2 w-36 bg-thron-navy border border-thron-gold/40 rounded-lg shadow-xl py-1 z-50 text-xs animate-in fade-in duration-200">
-                  <div className="px-3 py-1 text-[10px] text-thron-muted border-b border-white/10 font-medium uppercase">
+                <div className="absolute right-0 mt-2 w-40 bg-[#090A0F] border border-slate-700 rounded-xl shadow-2xl py-1 z-50 text-xs animate-fade-in">
+                  <div className="px-3 py-1.5 text-[10px] text-slate-400 border-b border-slate-800 font-semibold uppercase tracking-wider">
                     Langues officielles
                   </div>
                   {languages.map((l) => (
@@ -147,8 +147,8 @@ export const Header: React.FC<HeaderProps> = ({
                         if (onLanguageChange) onLanguageChange(l.code);
                         setLangMenuOpen(false);
                       }}
-                      className={`w-full flex items-center gap-2 px-3 py-1.5 text-left hover:bg-thron-blue/60 transition-colors ${
-                        activeLanguage === l.code ? "text-thron-gold font-bold bg-white/5" : "text-white"
+                      className={`w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-blue-600/20 transition-colors ${
+                        activeLanguage === l.code ? "text-blue-400 font-bold bg-blue-600/10" : "text-slate-200"
                       }`}
                     >
                       <span>{l.flag}</span>
@@ -161,18 +161,17 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* LIGNE DES 6 ICÔNES OBLIGATOIRES SELON LE CAHIER DES CHARGES */}
-        {/* Ligne d'icônes : Message, Favoris, Notification, Panier, Analytics, Profil */}
-        <div className="mt-2 pt-2 border-t border-white/10 flex items-center justify-around sm:justify-end sm:gap-5">
-          {/* 1. Message */}
+        {/* LIGNE DES 6 ICÔNES OFFICIELLES (DESIGN HARMONISÉ SANS OR) */}
+        <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-around sm:justify-end sm:gap-5">
+          {/* 1. Message Atinsa */}
           <button
             onClick={onOpenMessenger}
-            className="relative p-2 rounded-full hover:bg-white/10 text-blue-200 hover:text-white transition-colors"
+            className="relative p-2 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors btn-press"
             title="Messages Atinsa"
           >
             <MessageSquare className="w-5 h-5" />
             {unreadCount > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-emerald-500 text-white rounded-full text-[10px] font-bold flex items-center justify-center">
+              <span className="absolute top-1 right-1 w-4 h-4 bg-blue-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center ring-2 ring-[#0A1628]">
                 {unreadCount}
               </span>
             )}
@@ -181,7 +180,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* 2. Favoris */}
           <button
-            className="p-2 rounded-full hover:bg-white/10 text-blue-200 hover:text-white transition-colors"
+            className="p-2 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors btn-press"
             title="Favoris sacrés"
           >
             <Bookmark className="w-5 h-5" />
@@ -191,18 +190,18 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 3. Notification */}
           <button
             onClick={onOpenNotifications}
-            className="relative p-2 rounded-full hover:bg-white/10 text-blue-200 hover:text-white transition-colors"
+            className="relative p-2 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors btn-press"
             title="Notifications du temple"
           >
             <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-amber-400 rounded-full animate-ping"></span>
-            <span className="absolute top-1 right-1 w-2 h-2 bg-amber-500 rounded-full"></span>
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full animate-ping"></span>
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full"></span>
             <span className="sr-only">Notifications</span>
           </button>
 
           {/* 4. Panier */}
           <button
-            className="relative p-2 rounded-full hover:bg-white/10 text-blue-200 hover:text-white transition-colors"
+            className="relative p-2 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors btn-press"
             title="Panier Marketplace spirituelle"
           >
             <ShoppingCart className="w-5 h-5" />
@@ -211,7 +210,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* 5. Analytics */}
           <button
-            className="p-2 rounded-full hover:bg-white/10 text-blue-200 hover:text-white transition-colors"
+            className="p-2 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors btn-press"
             title="Statistiques & Audience de la lignée"
           >
             <BarChart3 className="w-5 h-5" />
@@ -221,10 +220,10 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 6. Profil */}
           <button
             onClick={onOpenProfile}
-            className="p-0.5 rounded-full border-2 border-thron-gold/60 hover:border-thron-gold transition-all shadow cursor-pointer group active:scale-95"
+            className="p-0.5 rounded-full border-2 border-blue-500/80 hover:border-blue-400 transition-all shadow-md cursor-pointer group btn-press ring-2 ring-blue-500/20"
             title="Mon Profil & Espace de Gestion"
           >
-            <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-tr from-thron-blue to-amber-600 flex items-center justify-center text-white text-xs font-bold ring-1 ring-white/20">
+            <div className="w-8 h-8 rounded-full overflow-hidden bg-blue-700 flex items-center justify-center text-white text-xs font-bold">
               {userPhoto ? (
                 <img
                   src={userPhoto}

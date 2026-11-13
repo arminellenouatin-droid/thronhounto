@@ -452,19 +452,19 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
       {/* ==================================================================== */}
       {/* EN-TÊTE SUPRÊME : CONSOLE DU MAÎTRE DE LIGNÉE                        */}
       {/* ==================================================================== */}
-      <div className="bg-gradient-to-r from-amber-900 via-thron-navy to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-sacred border border-thron-gold/50 relative overflow-hidden">
-        <div className="absolute -right-8 -bottom-8 w-48 h-48 rounded-full bg-thron-gold/15 blur-3xl pointer-events-none" />
+      <div className="bg-gradient-to-r from-[#0A1628] via-[#0F224A] to-[#0A1628] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-blue-500/20 relative overflow-hidden">
+        <div className="absolute -right-8 -bottom-8 w-48 h-48 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-thron-gold/20 text-thron-gold border border-thron-gold/40 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-500 border border-blue-500/25 text-xs font-bold uppercase tracking-wider">
               <Crown className="w-3.5 h-3.5" />
               Console Officielle du Responsable de Lignée
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-black text-amber-100">
+            <h2 className="font-serif text-2xl sm:text-3xl font-black text-white">
               Togbé Mintoniu bo tozé • Lignée Mantinkpon ò
             </h2>
-            <p className="text-xs text-amber-200/80 max-w-2xl leading-relaxed">
+            <p className="text-xs text-blue-100/80 max-w-2xl leading-relaxed">
               Outils d'administration et de gouvernance intégrale : Bibliothèque de lignée, Tontines & cotisations, Directs Agora, Statistiques d'audience, Boost Togoun, Boutique & Affiliation 25%, Arbre généalogique et Attribution des droits.
             </p>
           </div>
@@ -472,7 +472,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <div className="flex flex-wrap items-center gap-2 self-start lg:self-auto">
             <button
               onClick={onNavigateToTree}
-              className="px-4 py-2.5 rounded-2xl bg-thron-gold text-thron-navy font-bold text-xs hover:bg-amber-300 transition-all shadow flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2.5 rounded-2xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-300 transition-all shadow flex items-center gap-1.5 cursor-pointer"
             >
               <Users className="w-4 h-4" /> Arbre Tactile
             </button>
@@ -493,7 +493,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <button
             onClick={() => setActiveTab("overview")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "overview" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "overview" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
@@ -503,7 +503,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <button
             onClick={() => setActiveTab("bibliotheque")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "bibliotheque" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "bibliotheque" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
@@ -513,7 +513,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <button
             onClick={() => setActiveTab("tontines")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "tontines" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "tontines" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             <Coins className="w-3.5 h-3.5" />
@@ -523,7 +523,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <button
             onClick={() => setActiveTab("lives")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "lives" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "lives" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             <Radio className="w-3.5 h-3.5 text-rose-300" />
@@ -533,17 +533,17 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <button
             onClick={() => setActiveTab("boost_annonces")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "boost_annonces" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "boost_annonces" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
-            <Flame className="w-3.5 h-3.5 text-amber-300" />
+            <Flame className="w-3.5 h-3.5 text-blue-200" />
             <span>Booster & Cérémonies</span>
           </button>
 
           <button
             onClick={() => setActiveTab("boutique")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "boutique" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "boutique" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             <Store className="w-3.5 h-3.5" />
@@ -553,7 +553,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <button
             onClick={() => setActiveTab("arbre")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "arbre" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "arbre" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -563,7 +563,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <button
             onClick={() => setActiveTab("droits")}
             className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "droits" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeTab === "droits" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             <ShieldCheck className="w-3.5 h-3.5" />
@@ -589,7 +589,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
 
             <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
               <span className="text-xs text-slate-500 font-semibold block">Fidèles dans l'Arbre</span>
-              <span className="text-2xl font-black text-amber-800 block mt-1">1 450</span>
+              <span className="text-2xl font-black text-blue-800 block mt-1">1 450</span>
               <span className="text-[10px] text-slate-500">Répartis sur 3 branches</span>
             </div>
 
@@ -619,7 +619,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
               </div>
               <button
                 onClick={() => setActiveTab("boost_annonces")}
-                className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-thron-navy font-bold text-xs flex items-center gap-1 shadow-sm cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-blue-50/700 hover:bg-blue-600 text-thron-navy font-bold text-xs flex items-center gap-1 shadow-sm cursor-pointer"
               >
                 <Flame className="w-3.5 h-3.5" /> Booster ma page
               </button>
@@ -652,11 +652,11 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
               </div>
 
               <div className="space-y-1">
-                <div className="h-24 bg-amber-100 rounded-xl relative flex items-end justify-center p-2">
-                  <div className="w-full bg-amber-500 rounded-lg" style={{ height: "95%" }}></div>
+                <div className="h-24 bg-blue-100 rounded-xl relative flex items-end justify-center p-2">
+                  <div className="w-full bg-blue-50/700 rounded-lg" style={{ height: "95%" }}></div>
                 </div>
-                <span className="text-[11px] font-bold text-amber-900">Semaine 4 (Live)</span>
-                <span className="text-[10px] text-amber-700 block">21 200 vues</span>
+                <span className="text-[11px] font-bold text-blue-900">Semaine 4 (Live)</span>
+                <span className="text-[10px] text-blue-600 block">21 200 vues</span>
               </div>
             </div>
           </div>
@@ -671,7 +671,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           {/* Formulaire de publication sur Nouyin */}
           <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-thron-gold" />
+              <BookOpen className="w-5 h-5 text-blue-500" />
               <div>
                 <h3 className="font-serif font-bold text-base text-thron-navy">
                   Publier un Contenu dans la Bibliothèque de Lignée (Nouyin)
@@ -768,14 +768,14 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
               {mediaList.map((m) => (
                 <div key={m.id} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50/70 text-blue-600 border border-blue-200 flex items-center justify-center flex-shrink-0">
                       {m.type === "audio" ? <Music className="w-5 h-5" /> : m.type === "video" ? <Video className="w-5 h-5" /> : <FileText className="w-5 h-5" />}
                     </div>
                     <div>
                       <strong className="text-thron-navy text-sm block">{m.title}</strong>
                       <span className="text-slate-500 text-[11px]">
                         {m.category} • {m.duration} • Publié le {m.date} •{" "}
-                        <span className="font-semibold text-amber-700">
+                        <span className="font-semibold text-blue-600">
                           {m.access === "public" ? "Accès Libre" : m.access === "lignee" ? "Lignée Seule" : "Hounnon Secret"}
                         </span>
                       </span>
@@ -811,7 +811,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           {/* Lancer une nouvelle tontine ou cotisation */}
           <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <Coins className="w-5 h-5 text-thron-gold" />
+              <Coins className="w-5 h-5 text-blue-500" />
               <div>
                 <h3 className="font-serif font-bold text-base text-thron-navy">
                   Lancer une Tontine Rotative ou une Cotisation de Lignée
@@ -929,7 +929,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
                     </div>
                     <div>
                       <span className="text-slate-500 block">Prochaine échéance :</span>
-                      <strong className="text-amber-800">{t.dateProchaine}</strong>
+                      <strong className="text-blue-800">{t.dateProchaine}</strong>
                     </div>
                   </div>
 
@@ -1072,7 +1072,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           {/* Simulateur de Boost de Publication Togoun */}
           <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-amber-600" />
+              <Flame className="w-5 h-5 text-blue-600" />
               <div>
                 <h3 className="font-serif font-bold text-base text-thron-navy">
                   Booster une Publication de Lignée sur Togoun (100 F / 1 000 Personnes)
@@ -1083,7 +1083,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-4 text-xs">
+            <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">Sélectionner la publication à booster</label>
@@ -1116,7 +1116,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-slate-700">Budget alloué :</span>
-                  <span className="text-base font-black text-amber-900">{boostBudget.toLocaleString()} F CFA</span>
+                  <span className="text-base font-black text-blue-900">{boostBudget.toLocaleString()} F CFA</span>
                 </div>
                 <input
                   type="range"
@@ -1125,7 +1125,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
                   step="500"
                   value={boostBudget}
                   onChange={(e) => setBoostBudget(Number(e.target.value))}
-                  className="w-full accent-amber-600"
+                  className="w-full accent-blue-600"
                 />
                 <div className="flex justify-between text-[11px] text-slate-500 font-semibold">
                   <span>Portée estimée : <strong className="text-emerald-700">{(boostBudget * 10).toLocaleString()} personnes</strong></span>
@@ -1140,7 +1140,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
                     setBoostActivated(true);
                     setTimeout(() => setBoostActivated(false), 4000);
                   }}
-                  className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white rounded-xl font-bold shadow cursor-pointer flex items-center gap-2"
+                  className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-bold shadow cursor-pointer flex items-center gap-2"
                 >
                   <Flame className="w-4 h-4" /> Lancer la Campagne de Boost
                 </button>
@@ -1158,7 +1158,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           {/* Programmer une Cérémonie Sacrée */}
           <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-thron-gold" />
+              <Calendar className="w-5 h-5 text-blue-500" />
               <div>
                 <h3 className="font-serif font-bold text-base text-thron-navy">
                   Programmer une Cérémonie Sacrée Officielle
@@ -1244,7 +1244,7 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
           <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <BadgePercent className="w-5 h-5 text-amber-600" />
+                <BadgePercent className="w-5 h-5 text-blue-600" />
                 <div>
                   <h3 className="font-serif font-bold text-base text-thron-navy">
                     Produits Certifiés en Affiliation (Commission de 25% pour la Lignée)
@@ -1258,13 +1258,13 @@ export const LineageManagerConsole: React.FC<LineageManagerConsoleProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               {affiliateProducts.map((p) => (
-                <div key={p.id} className="p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 space-y-3">
+                <div key={p.id} className="p-4 rounded-2xl bg-gradient-to-br from-blue-50/60 to-slate-50 border border-blue-200 space-y-3">
                   <div className="flex justify-between items-start">
                     <div>
                       <h4 className="font-serif font-bold text-sm text-thron-navy">{p.nom}</h4>
                       <span className="text-[11px] text-slate-500">Vendeur agréé : {p.vendeur}</span>
                     </div>
-                    <span className="px-2.5 py-1 bg-amber-500 text-thron-navy rounded-full font-black text-[10px]">
+                    <span className="px-2.5 py-1 bg-blue-600 text-white rounded-full font-black text-[10px]">
                       +25% Commission
                     </span>
                   </div>
@@ -1284,7 +1284,7 @@ Partagez-le sur WhatsApp ou Togoun pour toucher 25% sur chaque commande.`);
                     }}
                     className="w-full py-2 bg-thron-navy hover:bg-thron-blue text-white rounded-xl font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-colors"
                   >
-                    <Share2 className="w-3.5 h-3.5 text-thron-gold" /> Copier mon Lien d'Affiliation
+                    <Share2 className="w-3.5 h-3.5 text-blue-500" /> Copier mon Lien d'Affiliation
                   </button>
                 </div>
               ))}
@@ -1378,7 +1378,7 @@ Partagez-le sur WhatsApp ou Togoun pour toucher 25% sur chaque commande.`);
           {/* Créer une nouvelle branche dans l'arbre */}
           <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <Layers className="w-5 h-5 text-thron-gold" />
+              <Layers className="w-5 h-5 text-blue-500" />
               <div>
                 <h3 className="font-serif font-bold text-base text-thron-navy">
                   Créer et Rapprocher une Nouvelle Branche dans l'Arbre Spirituel
@@ -1465,7 +1465,7 @@ Partagez-le sur WhatsApp ou Togoun pour toucher 25% sur chaque commande.`);
                   <div>
                     <div className="flex items-center gap-2">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${
-                        br.statut === "racine_principale" ? "bg-amber-100 text-amber-900 border border-amber-300" : "bg-blue-100 text-blue-800"
+                        br.statut === "racine_principale" ? "bg-blue-100 text-blue-900 border border-blue-300" : "bg-blue-100 text-blue-800"
                       }`}>
                         {br.statut === "racine_principale" ? "Trône Mère" : "Branche Rattachée"}
                       </span>
@@ -1496,7 +1496,7 @@ Partagez-le sur WhatsApp ou Togoun pour toucher 25% sur chaque commande.`);
           {/* Attribution de Droits et Rôles Spécifiques */}
           <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-thron-gold" />
+              <ShieldCheck className="w-5 h-5 text-blue-500" />
               <div>
                 <h3 className="font-serif font-bold text-base text-thron-navy">
                   Déléguer des Responsabilités & Attribuer des Droits aux Membres
@@ -1513,7 +1513,7 @@ Partagez-le sur WhatsApp ou Togoun pour toucher 25% sur chaque commande.`);
                   <div>
                     <div className="flex items-center gap-2">
                       <strong className="text-thron-navy text-sm">{m.nom}</strong>
-                      <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 text-[10px] font-bold">
                         {m.grade}
                       </span>
                     </div>

@@ -33,16 +33,16 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* En-tête Super-Admin */}
-      <div className="bg-gradient-to-r from-slate-900 via-thron-navy to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-sacred border border-thron-gold/40 relative overflow-hidden">
-        <div className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-thron-gold/10 blur-2xl pointer-events-none" />
+      <div className="bg-gradient-to-r from-slate-900 via-thron-navy to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-sacred border border-blue-500/25 relative overflow-hidden">
+        <div className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-blue-500/10 blur-2xl pointer-events-none" />
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
-              <Crown className="w-3.5 h-3.5 text-thron-gold" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-bold">
+              <Crown className="w-3.5 h-3.5 text-blue-500" />
               SUPER-ADMINISTRATEUR MASTER DU SAAS
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-thron-gold">
+            <h2 className="font-serif text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300">
               Console Suprême • Quentin DAVAKAN
             </h2>
             <p className="text-xs text-slate-300 max-w-xl">
@@ -51,11 +51,11 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
           </div>
 
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-right min-w-[200px]">
-            <span className="text-[10px] text-amber-200 uppercase tracking-widest font-bold block">
+            <span className="text-[10px] text-blue-100 uppercase tracking-widest font-bold block">
               Revenus Commissions SaaS
             </span>
             <span className="text-2xl font-black text-white block mt-0.5">
-              3 020 000 <span className="text-xs text-thron-gold font-normal">F CFA</span>
+              3 020 000 <span className="text-xs text-blue-500 font-normal">F CFA</span>
             </span>
             <span className="text-[10px] text-emerald-400 font-semibold flex items-center justify-end gap-1 mt-1">
               <TrendingUp className="w-3 h-3" /> +18.4% ce mois
@@ -68,7 +68,7 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
           <button
             onClick={() => setActiveSubTab("overview")}
             className={`px-4 py-2 rounded-xl transition-all ${
-              activeSubTab === "overview" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeSubTab === "overview" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             Vue d'Ensemble
@@ -76,7 +76,7 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
           <button
             onClick={() => setActiveSubTab("commissions")}
             className={`px-4 py-2 rounded-xl transition-all ${
-              activeSubTab === "commissions" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeSubTab === "commissions" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             Commissions & Finances (8% & 25%)
@@ -84,7 +84,7 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
           <button
             onClick={() => setActiveSubTab("lineages")}
             className={`px-4 py-2 rounded-xl transition-all ${
-              activeSubTab === "lineages" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeSubTab === "lineages" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             Lignées & Temples (42)
@@ -92,7 +92,7 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
           <button
             onClick={() => setActiveSubTab("moderation")}
             className={`px-4 py-2 rounded-xl transition-all ${
-              activeSubTab === "moderation" ? "bg-thron-gold text-thron-navy shadow" : "bg-white/10 hover:bg-white/20 text-white"
+              activeSubTab === "moderation" ? "bg-blue-600 text-white shadow" : "bg-white/10 hover:bg-white/20 text-white"
             }`}
           >
             Sécurité & Gouvernance
@@ -113,7 +113,7 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
 
             <div className="bg-white rounded-2xl p-4 sm:p-5 border border-thron-border shadow-sm">
               <span className="text-xs text-slate-500 font-medium block">Hounnons & Hounnongan</span>
-              <span className="text-2xl sm:text-3xl font-black text-amber-700 block mt-1">2 152</span>
+              <span className="text-2xl sm:text-3xl font-black text-blue-600 block mt-1">2 152</span>
               <span className="text-[11px] text-slate-500 mt-1 inline-block">1 840 Hounnons • 312 Chefs</span>
             </div>
 
@@ -137,17 +137,17 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
                 <h3 className="font-serif font-bold text-lg text-thron-navy">Les 3 Courants Sacrés Thron</h3>
                 <p className="text-xs text-slate-500">Architecture théologique officielle de la plateforme</p>
               </div>
-              <span className="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">
+              <span className="text-xs font-bold text-blue-800 bg-blue-100 px-3 py-1 rounded-full">
                 Trônes Authentifiés
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-2">
-                <span className="text-[10px] font-bold uppercase text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full">Courant 1</span>
+              <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-2">
+                <span className="text-[10px] font-bold uppercase text-blue-800 bg-blue-200/80 px-2 py-0.5 rounded-full">Courant 1</span>
                 <h4 className="font-serif font-bold text-base text-thron-navy">Thron kpeto deka alafia</h4>
                 <p className="text-slate-600">Courant originel de paix, tolérance et justice spirituelle. Siège principal : Lignée Mantinkpon ò.</p>
-                <div className="pt-2 border-t border-amber-200/60 flex justify-between text-slate-500 font-medium">
+                <div className="pt-2 border-t border-blue-200/60 flex justify-between text-slate-500 font-medium">
                   <span>26 Lignées</span>
                   <strong className="text-thron-navy">98 400 Fidèles</strong>
                 </div>
@@ -195,7 +195,7 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
 
             <div className="bg-white rounded-2xl p-5 border border-thron-border shadow-sm space-y-2">
               <span className="text-xs text-slate-500 font-semibold">Commissions d'Affiliation (25%)</span>
-              <span className="text-2xl font-black text-amber-700 block">640 000 F CFA</span>
+              <span className="text-2xl font-black text-blue-600 block">640 000 F CFA</span>
               <p className="text-[11px] text-slate-500">Distribuées aux parrains et dignitaires recruteurs d'abonnements.</p>
             </div>
           </div>
@@ -255,9 +255,9 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
           </div>
 
           <div className="space-y-3 text-xs">
-            <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span className="px-2.5 py-0.5 bg-amber-200 text-amber-900 rounded-full text-[10px] font-extrabold uppercase">Siège Actif #01</span>
+                <span className="px-2.5 py-0.5 bg-blue-200 text-blue-900 rounded-full text-[10px] font-extrabold uppercase">Siège Actif #01</span>
                 <h5 className="font-serif font-bold text-base text-thron-navy mt-1">Lignée Mantinkpon ò</h5>
                 <p className="text-slate-600 text-[11px]">Héritier : Togbé Mintoniu bo tozé (MONSIA Serge) • Courant : Thron kpeto deka alafia</p>
                 <span className="text-[10px] text-slate-400 mt-0.5 block">1 450 fidèles • 12 temples affiliés</span>
@@ -288,9 +288,9 @@ export const MasterAdminDashboard: React.FC<MasterAdminDashboardProps> = () => {
       {activeSubTab === "moderation" && (
         <div className="bg-white rounded-3xl p-6 border border-thron-border shadow-sm space-y-4">
           <h4 className="font-serif font-bold text-base text-thron-navy">Politique de Modération & Tontines Bloquées</h4>
-          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
-            <div className="text-xs text-amber-900 space-y-1">
+          <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-300 flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div className="text-xs text-blue-900 space-y-1">
               <strong>Règle Inviolable (Consigne Document NOUVELLS CORRECTIONS) :</strong>
               <p>
                 « Une lignée ou un temple qui lance une tontine qui finit avec des plaintes des participants de ladite tontine se voit bloquée et ne pourra plus lancer de tontine sur l'application. »
@@ -348,14 +348,14 @@ export const SellerDashboard: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* En-tête Vendeur */}
-      <div className="bg-gradient-to-r from-amber-800 via-thron-navy to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-sacred border border-thron-gold/40 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#0A1628] via-[#0D1E3A] to-[#0A1628] text-white rounded-3xl p-6 sm:p-8 shadow-sacred border border-blue-500/25 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
               <ShoppingBag className="w-3.5 h-3.5 text-emerald-400" />
               COMPTOIR VENDEUR VÉRIFIÉ (GRADE HOUNNON+)
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-black text-amber-100">
+            <h2 className="font-serif text-2xl sm:text-3xl font-black text-white">
               Comptoir Sacré Alafia • Hounnon Mahugnon DOSSOU
             </h2>
             <p className="text-xs text-slate-300 max-w-xl">
@@ -364,13 +364,13 @@ export const SellerDashboard: React.FC = () => {
           </div>
 
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-right min-w-[200px]">
-            <span className="text-[10px] text-amber-200 uppercase tracking-widest font-bold block">
+            <span className="text-[10px] text-blue-100 uppercase tracking-widest font-bold block">
               Revenus Débloqués
             </span>
             <span className="text-2xl font-black text-white block mt-0.5">
-              680 000 <span className="text-xs text-thron-gold font-normal">F CFA</span>
+              680 000 <span className="text-xs text-blue-500 font-normal">F CFA</span>
             </span>
-            <span className="text-[10px] text-amber-300 font-semibold flex items-center justify-end gap-1 mt-1">
+            <span className="text-[10px] text-blue-200 font-semibold flex items-center justify-end gap-1 mt-1">
               <Lock className="w-3 h-3" /> 85 000 F en séquestre
             </span>
           </div>
@@ -393,8 +393,8 @@ export const SellerDashboard: React.FC = () => {
 
         <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
           <span className="text-xs text-slate-500 font-semibold block">En cours de livraison</span>
-          <span className="text-2xl font-black text-amber-700 block mt-1">4</span>
-          <span className="text-[10px] text-amber-600 font-bold">Sous séquestre (Escrow)</span>
+          <span className="text-2xl font-black text-blue-600 block mt-1">4</span>
+          <span className="text-[10px] text-blue-600 font-bold">Sous séquestre (Escrow)</span>
         </div>
 
         <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm">
@@ -433,7 +433,7 @@ export const SellerDashboard: React.FC = () => {
 
               <div className="flex items-center gap-3">
                 {cmd.escrow ? (
-                  <span className="px-2.5 py-1 bg-amber-100 text-amber-900 rounded-lg font-bold text-[10px] flex items-center gap-1">
+                  <span className="px-2.5 py-1 bg-blue-100 text-blue-900 rounded-lg font-bold text-[10px] flex items-center gap-1">
                     <Lock className="w-3 h-3" /> Séquestre : {cmd.statut}
                   </span>
                 ) : (
@@ -475,16 +475,16 @@ export const VisitorCommunityView: React.FC<VisitorCommunityViewProps> = ({
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-6 space-y-6 animate-in fade-in duration-300">
       {/* 1. HERO OFFICIEL OBLIGATOIRE SELON LES CONSIGNES DU DOCUMENT */}
-      <div className="relative bg-gradient-to-br from-thron-navy via-thron-blue to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-sacred border border-thron-gold/40 overflow-hidden text-center">
-        <div className="absolute -top-20 -left-20 w-56 h-56 rounded-full bg-thron-gold/15 blur-3xl pointer-events-none" />
+      <div className="relative bg-gradient-to-br from-thron-navy via-thron-blue to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-sacred border border-blue-500/25 overflow-hidden text-center">
+        <div className="absolute -top-20 -left-20 w-56 h-56 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -right-20 w-56 h-56 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-          <span className="inline-block px-3 py-1 rounded-full bg-thron-gold/20 text-thron-gold border border-thron-gold/40 text-[11px] font-black uppercase tracking-wider">
+          <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-500 border border-blue-500/25 text-[11px] font-black uppercase tracking-wider">
             Plateforme Officielle SaaS de la Communauté Thron
           </span>
 
-          <h2 className="font-serif text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-thron-gold leading-tight">
+          <h2 className="font-serif text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300 leading-tight">
             L'Alliance Sacrée des Courants, Lignées & Temples
           </h2>
 
@@ -496,9 +496,9 @@ export const VisitorCommunityView: React.FC<VisitorCommunityViewProps> = ({
           <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={onJoinCommunity}
-              className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-amber-500 to-thron-gold hover:from-amber-600 hover:to-amber-400 text-thron-navy font-black text-xs sm:text-sm rounded-2xl shadow-gold transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r bg-blue-600 hover:bg-blue-700 active:scale-[0.97] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-lg shadow-blue-900/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-thron-navy" />
+              <Sparkles className="w-4 h-4 text-white" />
               Rejoindre une communauté
             </button>
 
@@ -506,7 +506,7 @@ export const VisitorCommunityView: React.FC<VisitorCommunityViewProps> = ({
               onClick={onExplorePublicTree}
               className="w-full sm:w-auto px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-xs sm:text-sm rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Users className="w-4 h-4 text-thron-gold" />
+              <Users className="w-4 h-4 text-blue-500" />
               Voir la généalogie de Thron
             </button>
           </div>
@@ -534,7 +534,7 @@ export const VisitorCommunityView: React.FC<VisitorCommunityViewProps> = ({
 
           {/* Stat 2 : Nombres de Hounnons */}
           <div className="bg-white rounded-2xl p-4 border border-thron-border shadow-sm text-center">
-            <span className="text-2xl sm:text-3xl font-black text-amber-700 block">1 840</span>
+            <span className="text-2xl sm:text-3xl font-black text-blue-600 block">1 840</span>
             <span className="text-[11px] font-bold text-slate-600 block mt-1">Hounnons</span>
             <span className="text-[9px] text-slate-400">Têtes de Hounto</span>
           </div>

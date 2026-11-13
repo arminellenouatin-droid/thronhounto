@@ -254,7 +254,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-100 flex flex-col relative selection:bg-thron-gold/30">
+    <main className="min-h-screen bg-[#F8FAFC] flex flex-col relative selection:bg-blue-600/20 selection:text-blue-900">
       {/* 1. ÉCRAN DE PRÉCHARGEMENT BLEU CONFORME À LA SECTION 10.1 */}
       <Preloader minDurationMs={1000} />
 
@@ -311,19 +311,19 @@ export default function Home() {
             {activeTab === "thronhi" && (
               <div className="space-y-4">
                 {currentUser.role === "seller" && (
-                  <div className="max-w-4xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white rounded-2xl p-3 border border-amber-300 shadow-sm">
+                  <div className="max-w-4xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white/95 backdrop-blur-sm rounded-2xl p-3 border border-blue-200 shadow-sm">
                     <div className="flex items-center gap-2">
-                      <Store className="w-5 h-5 text-amber-700" />
-                      <span className="text-xs font-bold text-thron-navy">
+                      <Store className="w-5 h-5 text-blue-600" />
+                      <span className="text-xs font-bold text-[#0A1628]">
                         Espace Vendeur Certifié : Comptoir Sacré Alafia
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setSellerViewMode("catalog")}
-                        className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer btn-press ${
                           sellerViewMode === "catalog"
-                            ? "bg-thron-navy text-white"
+                            ? "bg-[#0A1628] text-white shadow"
                             : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                         }`}
                       >
@@ -331,9 +331,9 @@ export default function Home() {
                       </button>
                       <button
                         onClick={() => setSellerViewMode("dashboard")}
-                        className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer btn-press ${
                           sellerViewMode === "dashboard"
-                            ? "bg-thron-gold text-thron-navy shadow"
+                            ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
                             : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                         }`}
                       >
@@ -364,10 +364,10 @@ export default function Home() {
               <div className="space-y-4">
                 {/* Barre de navigation interne pour les fidèles et dignitaires de la lignée */}
                 {currentUser.isMemberOfLignee && (
-                  <div className="max-w-5xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white rounded-2xl p-2.5 border border-thron-border shadow-sm">
+                  <div className="max-w-5xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white/95 backdrop-blur-sm rounded-2xl p-2.5 border border-slate-200 shadow-sm">
                     <div className="flex items-center gap-2">
-                      <Crown className="w-5 h-5 text-thron-gold" />
-                      <span className="text-xs font-bold text-thron-navy">
+                      <Crown className="w-5 h-5 text-blue-600" />
+                      <span className="text-xs font-bold text-[#0A1628]">
                         {currentUser.role === "lineage_admin"
                           ? `Espace Maître de Lignée • ${currentUser.lignee}`
                           : `Lignée Sacrée • ${currentUser.lignee}`}
@@ -377,9 +377,9 @@ export default function Home() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setLineageViewMode("landing")}
-                        className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer btn-press ${
                           lineageViewMode === "landing"
-                            ? "bg-thron-navy text-white shadow"
+                            ? "bg-[#0A1628] text-white shadow"
                             : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                         }`}
                       >
@@ -388,9 +388,9 @@ export default function Home() {
 
                       <button
                         onClick={() => setLineageViewMode("tree")}
-                        className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer btn-press ${
                           lineageViewMode === "tree"
-                            ? "bg-thron-navy text-white shadow"
+                            ? "bg-[#0A1628] text-white shadow"
                             : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                         }`}
                       >
@@ -400,9 +400,9 @@ export default function Home() {
                       {currentUser.role === "lineage_admin" && (
                         <button
                           onClick={() => setLineageViewMode("dashboard")}
-                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer btn-press ${
                             lineageViewMode === "dashboard"
-                              ? "bg-thron-gold text-thron-navy shadow"
+                              ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
                               : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                           }`}
                         >
@@ -508,15 +508,17 @@ export default function Home() {
       {/* 5. MODALE DE MESSAGERIE SACRÉE ATINSA */}
       {atinsaMessengerOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-4">
-          <div className="relative w-full max-w-3xl h-[85vh] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col border border-thron-gold/40">
-            <div className="bg-thron-navy text-white px-4 py-2.5 flex items-center justify-between border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-thron-gold" />
-                <h4 className="font-serif font-bold text-sm">Messagerie Sacrée Atinsa</h4>
+          <div className="relative w-full max-w-3xl h-[85vh] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col border border-blue-500/30 ring-1 ring-black/5">
+            <div className="bg-[#0A1628] text-white px-4 py-3 flex items-center justify-between border-b border-white/10">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-blue-600/30 flex items-center justify-center">
+                  <MessageSquare className="w-4 h-4 text-blue-400" />
+                </div>
+                <h4 className="font-sans font-bold text-sm tracking-wide">Messagerie Sacrée Atinsa</h4>
               </div>
               <button
                 onClick={() => setAtinsaMessengerOpen(false)}
-                className="p-1 rounded-full text-white/80 hover:bg-white/20 cursor-pointer"
+                className="p-1.5 rounded-full text-white/80 hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -537,40 +539,42 @@ export default function Home() {
 
       {/* 7. MODALE DE NOTIFICATIONS DU TEMPLE & LIGNÉE */}
       {notificationsOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-thron-gold/40 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-blue-500/20 ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <Bell className="w-5 h-5 text-thron-gold" />
-                <h4 className="font-serif font-bold text-base text-thron-navy">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <Bell className="w-4 h-4 text-blue-600" />
+                </div>
+                <h4 className="font-bold text-base text-[#0A1628]">
                   Notifications du Hounto
                 </h4>
               </div>
               <button
                 onClick={() => setNotificationsOpen(false)}
-                className="p-1 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer"
+                className="p-1.5 rounded-full text-slate-400 hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="py-4 space-y-3 text-xs">
-              <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-3">
-                <Sparkles className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div className="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 flex items-start gap-3">
+                <Sparkles className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h5 className="font-bold text-thron-navy">Cérémonie d'Atinkindoudou</h5>
-                  <p className="text-slate-600 text-[11px] mt-0.5">
+                  <h5 className="font-bold text-[#0A1628]">Cérémonie d'Atinkindoudou</h5>
+                  <p className="text-slate-600 text-[11px] mt-0.5 leading-relaxed">
                     Rassemblement prévu ce dimanche 10h au temple principal Mantinkpon ò.
                   </p>
-                  <span className="text-[10px] text-slate-400 mt-1 block">Il y a 1 heure</span>
+                  <span className="text-[10px] text-blue-600/70 font-semibold mt-1 block">Il y a 1 heure</span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-blue-50 border border-blue-200 flex items-start gap-3">
-                <Wallet className="w-4 h-4 text-thron-blue flex-shrink-0 mt-0.5" />
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <Wallet className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h5 className="font-bold text-thron-navy">Échéance de Cotisation</h5>
-                  <p className="text-slate-600 text-[11px] mt-0.5">
+                  <h5 className="font-bold text-[#0A1628]">Échéance de Cotisation</h5>
+                  <p className="text-slate-600 text-[11px] mt-0.5 leading-relaxed">
                     Prélèvement automatique de la cotisation mensuelle exécuté avec succès (5 000 F CFA).
                   </p>
                   <span className="text-[10px] text-slate-400 mt-1 block">Hier</span>
@@ -580,7 +584,7 @@ export default function Home() {
 
             <button
               onClick={() => setNotificationsOpen(false)}
-              className="w-full py-2.5 bg-thron-navy text-white rounded-xl text-xs font-bold hover:bg-thron-blue transition-colors cursor-pointer"
+              className="w-full py-3 bg-[#0A1628] hover:bg-blue-900 text-white rounded-xl text-xs font-bold transition-all cursor-pointer btn-press"
             >
               Fermer
             </button>
@@ -611,20 +615,20 @@ export default function Home() {
       {/* 9. MODALE DE CONSULTATION SPIRITUELLE */}
       {consultationModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-thron-gold/50 animate-in fade-in zoom-in-95 duration-200">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-blue-500/20 ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-200">
             <button
               onClick={() => setConsultationModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-2xl bg-thron-gold/20 flex items-center justify-center text-thron-dark">
-                <MessageSquare className="w-5 h-5 text-amber-700" />
+            <div className="flex items-center gap-3.5 mb-5">
+              <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                <MessageSquare className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-serif text-lg font-bold text-thron-navy">
+                <h3 className="font-bold text-lg text-[#0A1628]">
                   Consultation Oraculaire Thron
                 </h3>
                 <p className="text-xs text-slate-500">
@@ -642,10 +646,10 @@ export default function Home() {
               className="space-y-4 text-xs"
             >
               <div>
-                <label className="block font-bold text-slate-700 mb-1">
+                <label className="block font-bold text-slate-700 mb-1.5">
                   Sélectionner le Dignitaire Référent
                 </label>
-                <select className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800">
+                <select className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
                   <option>Togbé Mintoniu bo tozé (Togbegan daho - Siège Central)</option>
                   <option>Dah MONSIA Gbédan (Patriarche - Ouidah)</option>
                   <option>Hounnon Mahugnon DOSSOU (Grand Prêtre - Calavi)</option>
@@ -654,10 +658,10 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">
+                <label className="block font-bold text-slate-700 mb-1.5">
                   Motif spirituel de la consultation
                 </label>
-                <select className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800">
+                <select className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
                   <option>Guidance d'orientation & Bénédiction de vie</option>
                   <option>Protection spirituelle familiale (Alafia)</option>
                   <option>Préparation aux rites d'Atinkindoudou</option>
@@ -666,37 +670,37 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">
+                <label className="block font-bold text-slate-700 mb-1.5">
                   Mode de consultation souhaité
                 </label>
-                <div className="grid grid-cols-2 gap-2">
-                  <label className="p-3 rounded-xl border border-amber-300 bg-amber-50/50 flex items-center gap-2 cursor-pointer font-bold text-slate-700">
-                    <input type="radio" name="consult_type" defaultChecked className="accent-amber-600" />
+                <div className="grid grid-cols-2 gap-2.5">
+                  <label className="p-3 rounded-xl border border-blue-500 bg-blue-50/70 flex items-center gap-2 cursor-pointer font-bold text-blue-900 transition-all">
+                    <input type="radio" name="consult_type" defaultChecked className="accent-blue-600" />
                     <span>Présentiel au Temple</span>
                   </label>
-                  <label className="p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-2 cursor-pointer font-bold text-slate-700">
-                    <input type="radio" name="consult_type" className="accent-amber-600" />
+                  <label className="p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-2 cursor-pointer font-bold text-slate-700 hover:border-slate-300 transition-all">
+                    <input type="radio" name="consult_type" className="accent-blue-600" />
                     <span>Visiophonie Atinsa</span>
                   </label>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase block">
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
                     Offrande rituelle de consultation
                   </span>
-                  <span className="font-bold text-sm text-thron-navy">10 000 FCFA</span>
+                  <span className="font-bold text-base text-[#0A1628]">10 000 FCFA</span>
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                  Débit Portefeuille ou Mobile Money
+                <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-[10px] font-bold">
+                  Portefeuille ou Mobile Money
                 </span>
               </div>
 
-              <div className="pt-2 flex items-center gap-2">
+              <div className="pt-2">
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-gradient-to-r from-amber-500 to-thron-gold text-thron-navy rounded-xl font-bold shadow-md hover:from-amber-600 hover:to-amber-400 transition-all cursor-pointer"
+                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/25 transition-all cursor-pointer btn-press"
                 >
                   Confirmer et Réserver ma Consultation
                 </button>

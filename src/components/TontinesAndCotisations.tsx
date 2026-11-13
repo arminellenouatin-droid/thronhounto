@@ -332,10 +332,10 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
   return (
     <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-4 space-y-6">
       {/* BANNIÈRE ET ONGLETS */}
-      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-thron-gold/40">
+      <div className="bg-gradient-to-r from-thron-navy via-thron-blue to-thron-navy rounded-3xl p-5 sm:p-6 text-white shadow-sacred border border-blue-500/25">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <span className="text-[10px] font-bold tracking-widest text-thron-gold uppercase">
+            <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
               Solidarité, Épargne & Offrandes Sacrées
             </span>
             <h2 className="font-serif text-xl sm:text-2xl font-bold mt-1">
@@ -349,7 +349,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
           {isGradeEligibleToCreate && (
             <button
               onClick={() => setCreateTontineOpen(true)}
-              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-thron-gold hover:from-amber-600 hover:to-amber-400 text-thron-navy font-bold text-xs shadow-gold transition-all flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.97] text-white font-bold text-xs shadow-md shadow-blue-900/30 transition-all flex items-center gap-2 self-start sm:self-auto cursor-pointer"
             >
               <Plus className="w-4 h-4" /> Lancer une Tontine
             </button>
@@ -362,7 +362,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
             onClick={() => setActiveTab("tontines")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "tontines"
-                ? "bg-thron-gold text-thron-navy shadow"
+                ? "bg-blue-600 text-white shadow"
                 : "bg-white/10 text-white hover:bg-white/20"
             }`}
           >
@@ -372,7 +372,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
             onClick={() => setActiveTab("cotisations")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "cotisations"
-                ? "bg-thron-gold text-thron-navy shadow"
+                ? "bg-blue-600 text-white shadow"
                 : "bg-white/10 text-white hover:bg-white/20"
             }`}
           >
@@ -382,7 +382,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
             onClick={() => setActiveTab("dons")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "dons"
-                ? "bg-thron-gold text-thron-navy shadow"
+                ? "bg-blue-600 text-white shadow"
                 : "bg-white/10 text-white hover:bg-white/20"
             }`}
           >
@@ -397,13 +397,13 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
       {activeTab === "tontines" && (
         <div className="space-y-4">
           {/* Règles strictes rappelées */}
-          <div className="p-4 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-slate-700 space-y-1.5">
+          <div className="p-4 bg-blue-50/70 rounded-2xl border border-blue-200 text-xs text-slate-700 space-y-1.5">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-amber-900 flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-amber-700" />
+              <span className="font-bold text-blue-900 flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-blue-600" />
                 Règles Statutaires Obligatoires (NOUVELLS CORRECTIONS) :
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold text-[10px]">
+              <span className="px-2.5 py-0.5 rounded-full bg-blue-200 text-blue-900 font-extrabold text-[10px]">
                 Commission SaaS 8%
               </span>
             </div>
@@ -467,7 +467,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Membres inscrits :</span>
-                      <strong className="text-amber-700">
+                      <strong className="text-blue-600">
                         {t.nbParticipantsInscrits} / {t.nbParticipantsAttendus} participants
                       </strong>
                     </div>
@@ -492,7 +492,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
                         </span>
                         <button
                           onClick={() => alert(`Téléchargement des statuts et règlement intérieur de la tontine : ${t.reglementDocumentNom}`)}
-                          className="text-[10px] font-bold text-amber-700 hover:underline flex items-center gap-0.5 cursor-pointer"
+                          className="text-[10px] font-bold text-blue-600 hover:underline flex items-center gap-0.5 cursor-pointer"
                         >
                           <Download className="w-3 h-3" /> Lire le règlement
                         </button>
@@ -556,7 +556,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
                         Réglé
                       </span>
                     ) : (
-                      <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] font-bold">
                         À régler
                       </span>
                     )}
@@ -714,13 +714,13 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
 
           {/* Reçu et remerciement modal/card */}
           {selectedReceipt && (
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50/60 rounded-3xl p-6 border-2 border-thron-gold shadow-md text-xs space-y-4 animate-in fade-in">
-              <div className="flex items-center justify-between pb-3 border-b border-amber-200">
+            <div className="bg-gradient-to-br from-blue-50/60 to-slate-50/60 rounded-3xl p-6 border-2 border-blue-500/30 shadow-md text-xs space-y-4 animate-in fade-in">
+              <div className="flex items-center justify-between pb-3 border-b border-blue-200">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                   <span className="font-serif font-bold text-base text-thron-navy">Reçu Officiel d'Offrande Spirituelle</span>
                 </div>
-                <span className="font-mono text-[11px] font-bold text-amber-900 bg-amber-200 px-2.5 py-0.5 rounded-full">
+                <span className="font-mono text-[11px] font-bold text-blue-900 bg-blue-200 px-2.5 py-0.5 rounded-full">
                   {selectedReceipt.referenceRecu}
                 </span>
               </div>
@@ -744,8 +744,8 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 bg-white/80 rounded-2xl border border-amber-200 text-slate-700">
-                <strong className="text-amber-900 block mb-1">Message de Bénédiction du Trône :</strong>
+              <div className="p-3 bg-white/80 rounded-2xl border border-blue-200 text-slate-700">
+                <strong className="text-blue-900 block mb-1">Message de Bénédiction du Trône :</strong>
                 <p className="italic text-[11px]">
                   « Que les mânes de nos ancêtres et la bienveillance de Thron kpeto deka alafia accordent paix, santé et prospérité à votre foyer. Vos intentions sont sanctifiées. »
                 </p>
@@ -775,10 +775,10 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
       {/* ============================================================== */}
       {createTontineOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3 overflow-y-auto">
-          <div className="relative w-full max-w-xl bg-white rounded-3xl p-6 shadow-2xl border border-thron-gold/50 my-6 max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-xl bg-white rounded-3xl p-6 shadow-2xl border border-blue-500/30 my-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <Coins className="w-5 h-5 text-thron-gold" />
+                <Coins className="w-5 h-5 text-blue-500" />
                 <h3 className="font-serif font-bold text-base text-thron-navy">
                   Lancer une Tontine Sacrée
                 </h3>
@@ -824,7 +824,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
                   </button>
                 </div>
                 {newTontineEntityType === "temple" && (
-                  <p className="mt-1 text-[11px] text-amber-700 font-semibold">
+                  <p className="mt-1 text-[11px] text-blue-600 font-semibold">
                     * Règle sacrée : Le leader de la Lignée qui coiffe ce temple recevra automatiquement une notification officielle de lancement.
                   </p>
                 )}
@@ -839,7 +839,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
                   placeholder="Ex : Épargne Fraternelle du Temple Alafia"
                   value={newTontineName}
                   onChange={(e) => setNewTontineName(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-thron-gold"
+                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -978,7 +978,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
                 </label>
                 <div className="p-3 border-2 border-dashed border-slate-300 rounded-2xl flex items-center justify-between bg-slate-50/50">
                   <div className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-thron-gold" />
+                    <FileText className="w-5 h-5 text-blue-500" />
                     <div>
                       <span className="text-[11px] font-bold text-slate-700 block">
                         {newTontineRulesFileName}
@@ -997,7 +997,7 @@ export const TontinesAndCotisations: React.FC<TontinesAndCotisationsProps> = ({
               </div>
 
               {/* Récapitulatif paiement ouverture */}
-              <div className="p-3 bg-amber-50 rounded-2xl border border-amber-300 text-[11px] text-amber-900 space-y-1">
+              <div className="p-3 bg-blue-50/70 rounded-2xl border border-blue-300 text-[11px] text-blue-900 space-y-1">
                 <div className="flex justify-between font-bold">
                   <span>Paiement de la 1ère part obligatoire pour ouvrir le compte :</span>
                   <span>{newTontinePart.toLocaleString("fr-FR")} F CFA</span>
