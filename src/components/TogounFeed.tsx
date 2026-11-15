@@ -42,6 +42,8 @@ import {
   Camera,
   Upload,
   Loader2,
+  User,
+  LogIn,
 } from "lucide-react";
 import { SocialShareModal } from "./SocialShareModal";
 import { TogounVideoImmersionView } from "./TogounVideoImmersionView";
@@ -128,9 +130,21 @@ const REACTIONS_MAP: Record<ReactionType, { label: string; emoji: string; color:
 
 interface TogounFeedProps {
   onOpenVideoImmersion?: () => void;
+  currentUser?: {
+    nom: string;
+    prenom: string;
+    grade: string;
+    lignee: string;
+    photoUrl?: string;
+  } | null;
+  onOpenLogin?: () => void;
 }
 
-export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) => {
+export const TogounFeed: React.FC<TogounFeedProps> = ({
+  onOpenVideoImmersion,
+  currentUser,
+  onOpenLogin,
+}) => {
   // Navigation interne Togoun : Fil, Pages de lignée, Groupes, Modération
   const [activeSubTab, setActiveSubTab] = useState<"fil" | "pages" | "groupes" | "moderation">("fil");
   const [feedFilter, setFeedFilter] = useState<"tout" | "videos_lives" | "lignee" | "booste">("tout");
@@ -580,10 +594,15 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
     e.preventDefault();
     if (!storyMediaUrl) return;
 
+    if (!currentUser) {
+      if (onOpenLogin) onOpenLogin();
+      return;
+    }
+
     const newStory: StoryItem = {
       id: `st-${Date.now()}`,
-      authorNom: "MONSIA Serge",
-      authorPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+      authorNom: `${currentUser.prenom} ${currentUser.nom}`.trim() || "Fidèle Initié",
+      authorPhoto: currentUser.photoUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=80",
       mediaUrl: storyMediaUrl,
       mediaType: storyMediaType,
       caption: storyCaption || undefined,
@@ -603,12 +622,17 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
     const hasPoll = showPollCreator && pollQuestion.trim();
     if (!newPostText.trim() && !hasMedia && !hasPoll) return;
 
+    if (!currentUser) {
+      if (onOpenLogin) onOpenLogin();
+      return;
+    }
+
     const newPost: TogounPost = {
       id: `post-${Date.now()}`,
-      authorNom: "MONSIA Serge",
-      authorGrade: "Togbegan daho",
-      authorPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
-      lignee: "Lignée Mantinkpon 1",
+      authorNom: `${currentUser.prenom} ${currentUser.nom}`.trim() || "Fidèle Initié",
+      authorGrade: currentUser.grade || "Initié",
+      authorPhoto: currentUser.photoUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=80",
+      lignee: currentUser.lignee || "Communauté Thron",
       timestamp: "À l'instant",
       audience: selectedAudience,
       isSecret: isSecretPost,
@@ -793,7 +817,13 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
             <div className="flex items-center gap-3 min-w-max pb-1">
               {/* Bouton Créer une story INTERACTIF */}
               <div
-                onClick={() => setShowCreateStoryModal(true)}
+                onClick={() => {
+                  if (!currentUser) {
+                    if (onOpenLogin) onOpenLogin();
+                  } else {
+                    setShowCreateStoryModal(true);
+                  }
+                }}
                 className="relative w-20 h-32 rounded-2xl bg-gradient-to-b from-blue-50 to-slate-100 border-2 border-dashed border-blue-400/50 flex flex-col items-center justify-center p-2 text-center cursor-pointer hover:border-blue-600 hover:bg-blue-100/50 transition-all flex-shrink-0 group shadow-sm active:scale-95 btn-press"
               >
                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center mb-1 shadow group-hover:scale-110 transition-transform">
@@ -847,42 +877,67 @@ export const TogounFeed: React.FC<TogounFeedProps> = ({ onOpenVideoImmersion }) 
           {/* 3. FORMULAIRE DE PUBLICATION COMPLET (TOUT TYPE : TEXTE, PHOTO, VIDÉO, SON, DOC, SONDAGE) */}
           {/* ==================================================================== */}
           <div className="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
-            {/* Header du créateur */}
-            <div className="flex items-center gap-3">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80"
-                alt="Moi"
-                className="w-10 h-10 rounded-full object-cover border border-slate-200"
-              />
-              <div className="flex-1">
-                <span className="font-bold text-xs text-[#0A1628] block">MONSIA Serge (Togbegan daho)</span>
-                {/* Sélecteur d'audience */}
-                <div className="flex items-center gap-2 mt-0.5">
-                  <select
-                    value={selectedAudience}
-                    onChange={(e) => setSelectedAudience(e.target.value as TogounAudience)}
-                    className="text-[11px] font-bold bg-slate-100 border-none rounded-full px-2.5 py-0.5 text-slate-700 cursor-pointer"
-                  >
-                    <option value="public">🌍 Public (Tous)</option>
-                    <option value="abonnes">👥 Abonnés & Fidèles</option>
-                    <option value="lignee">🏛️ Ma Lignée uniquement</option>
-                    <option value="grade_hounnon">👑 Hounnon & Dignitaires</option>
-                    <option value="moi">🔒 Moi uniquement</option>
-                  </select>
+            {/* Header du créateur ou invitation visiteur */}
+            {currentUser ? (
+              <div className="flex items-center gap-3">
+                <img
+                  src={currentUser.photoUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=80"}
+                  alt={currentUser.prenom}
+                  className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                />
+                <div className="flex-1">
+                  <span className="font-bold text-xs text-[#0A1628] block">
+                    {currentUser.prenom} {currentUser.nom} ({currentUser.grade})
+                  </span>
+                  {/* Sélecteur d'audience */}
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <select
+                      value={selectedAudience}
+                      onChange={(e) => setSelectedAudience(e.target.value as TogounAudience)}
+                      className="text-[11px] font-bold bg-slate-100 border-none rounded-full px-2.5 py-0.5 text-slate-700 cursor-pointer"
+                    >
+                      <option value="public">🌍 Public (Tous)</option>
+                      <option value="abonnes">👥 Abonnés & Fidèles</option>
+                      <option value="lignee">🏛️ Ma Lignée uniquement</option>
+                      <option value="grade_hounnon">👑 Hounnon & Dignitaires</option>
+                      <option value="moi">🔒 Moi uniquement</option>
+                    </select>
 
+                    <button
+                      type="button"
+                      onClick={() => setIsSecretPost(!isSecretPost)}
+                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 transition-all cursor-pointer btn-press ${
+                        isSecretPost ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      <Lock className="w-3 h-3" />
+                      <span>Contenu Secret</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-blue-50/70 rounded-2xl border border-blue-200/60">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm flex-shrink-0">
+                    <User className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-[#0A1628]">Espace Communautaire Thron</h4>
+                    <p className="text-[11px] text-slate-600">Connectez-vous pour publier des messages, bénédictions et rituels</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 self-start sm:self-auto flex-shrink-0">
                   <button
                     type="button"
-                    onClick={() => setIsSecretPost(!isSecretPost)}
-                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 transition-all cursor-pointer btn-press ${
-                      isSecretPost ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
+                    onClick={onOpenLogin}
+                    className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-900/20 btn-press cursor-pointer flex items-center gap-1.5"
                   >
-                    <Lock className="w-3 h-3" />
-                    <span>Contenu Secret</span>
+                    <LogIn className="w-3.5 h-3.5" /> Se connecter
                   </button>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Zone de saisie avec support des fonds colorés */}
             <form onSubmit={handleCreatePost} className="space-y-3">

@@ -172,8 +172,8 @@ export default function Home() {
   const [consultationModalOpen, setConsultationModalOpen] = useState(false);
   const [donationModalOpen, setDonationModalOpen] = useState(false);
 
-  // État utilisateur connecté (par défaut : Maître de Lignée ou paramétrable via la barre de rôles)
-  const [currentUser, setCurrentUser] = useState<UserProfile>(TEST_PROFILES.lineage_admin);
+  // État utilisateur connecté : null au chargement (mode visiteur par défaut sans utilisateur pré-connecté)
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
 
   // Vue sous-espace selon le rôle (ex: Boutique vendeur vs Marketplace générale, Dashboard Lignée vs Arbre)
   const [sellerViewMode, setSellerViewMode] = useState<"catalog" | "dashboard">("catalog");
@@ -193,30 +193,27 @@ export default function Home() {
 
   // Synchronisation Photo Profil <-> Arbre Généalogique (Consigne stricte du document)
   const handlePhotoUpdate = (newPhotoUrl: string) => {
-    setCurrentUser((prev) => ({
-      ...prev,
-      photoUrl: newPhotoUrl,
-    }));
+    setCurrentUser((prev) => (prev ? { ...prev, photoUrl: newPhotoUrl } : null));
   };
 
   const handleLoginSuccess = (data: any) => {
-    setCurrentUser((prev) => ({
-      ...prev,
-      ...data,
-      id: data.id || prev.id,
-      role: data.role || prev.role,
-      nom: data.nom || prev.nom,
-      prenom: data.prenom || prev.prenom,
-      titreSpirituel: data.titreSpirituel || prev.titreSpirituel,
-      grade: data.grade || prev.grade,
-      affiliation: data.affiliation || prev.affiliation,
-      lignee: data.lignee || prev.lignee,
-      courant: data.courant || prev.courant,
-      temple: data.temple || prev.temple,
-      walletBalance: data.walletBalance !== undefined ? data.walletBalance : prev.walletBalance,
-      isMemberOfLignee: data.isMemberOfLignee !== undefined ? data.isMemberOfLignee : prev.isMemberOfLignee,
-      photoUrl: data.photoUrl || prev.photoUrl,
-    }));
+    setCurrentUser({
+      id: data.id || "usr-" + Date.now(),
+      role: data.role || "visitor",
+      nom: data.nom || "Utilisateur",
+      prenom: data.prenom || "",
+      titreSpirituel: data.titreSpirituel || (data.role === "visitor" ? "Visiteur / Curieux" : "Fidèle Initié"),
+      grade: data.grade || (data.role === "visitor" ? "Agbilinon" : "Hounvi"),
+      affiliation: data.affiliation || (data.role === "visitor" ? "Non-affilié" : "Fidèle Initié"),
+      lignee: data.lignee || (data.role === "visitor" ? "Aucune" : "Mantinkpon ò"),
+      courant: data.courant || "Thron kpeto deka alafia",
+      temple: data.temple || "",
+      walletBalance: data.walletBalance !== undefined ? data.walletBalance : 0,
+      isMemberOfLignee: data.isMemberOfLignee !== undefined ? data.isMemberOfLignee : data.role !== "visitor",
+      photoUrl: data.photoUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+      email: data.email || "",
+      telephone: data.telephone || "",
+    });
     setViewMode("app");
     // Redirection directe vers le tableau de bord ou vue selon le rôle
     if (data.role === "master_admin") {
@@ -227,6 +224,8 @@ export default function Home() {
     } else if (data.role === "lineage_admin") {
       setActiveTab("lignee");
       setLineageViewMode("dashboard");
+    } else if (data.role === "visitor") {
+      setActiveTab("togoun");
     } else {
       setActiveTab("lignee");
       setLineageViewMode("landing");
@@ -235,22 +234,29 @@ export default function Home() {
 
   const handleRegistrationSuccess = (data: any) => {
     const isVisiteur = data.accountType === "visiteur";
-    setCurrentUser((prev) => ({
-      ...prev,
-      nom: data.nom || prev.nom,
-      prenom: data.prenom || prev.prenom,
+    setCurrentUser({
+      id: "usr-" + Date.now(),
+      nom: data.nom || "Initié",
+      prenom: data.prenom || "",
+      titreSpirituel: isVisiteur ? "Visiteur / Curieux" : "Fidèle Initié",
       grade: data.grade || (isVisiteur ? "Agbilinon" : "Hounvi"),
-      affiliation: data.affiliation || prev.affiliation,
-      lignee: data.lignee || "Mantinkpon ò",
+      affiliation: data.affiliation || (isVisiteur ? "Visiteur Non-affilié" : "Communauté"),
+      lignee: data.lignee || (isVisiteur ? "Aucune" : "Mantinkpon ò"),
+      courant: data.courant || "Thron kpeto deka alafia",
+      temple: data.temple || "Temple Alafia",
+      walletBalance: 0,
       isMemberOfLignee: !isVisiteur,
       role: isVisiteur ? "visitor" : "member",
-    }));
+      photoUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=80",
+      email: data.email || "",
+      telephone: data.phone || "",
+    });
     setViewMode("app");
     setActiveTab(isVisiteur ? "togoun" : "lignee");
   };
 
   const handleBalanceUpdate = (newBal: number) => {
-    setCurrentUser((prev) => ({ ...prev, walletBalance: newBal }));
+    setCurrentUser((prev) => (prev ? { ...prev, walletBalance: newBal } : null));
   };
 
   return (
@@ -270,25 +276,44 @@ export default function Home() {
           {/* EN-TÊTE OFFICIEL DE L'APPLICATION (Masqué en mode plein écran Vidéo / Tognon) */}
           {activeTab !== "tognon" && (
             <Header
+              isLoggedIn={currentUser !== null}
               currentLigneeName={
-                currentUser.role === "master_admin"
+                !currentUser
+                  ? undefined
+                  : currentUser.role === "master_admin"
                   ? "SaaS Suprême Thron"
                   : currentUser.isMemberOfLignee
                   ? `Lignée ${currentUser.lignee}`
                   : "Communauté Thron"
               }
-              onOpenMessenger={() => setAtinsaMessengerOpen(true)}
-              onOpenNotifications={() => setNotificationsOpen(true)}
-              onOpenProfile={() => setProfileOpen(true)}
+              courantName={currentUser?.courant}
+              onOpenLogin={() => setLoginOpen(true)}
+              onOpenRegister={() => setRegisterOpen(true)}
+              onOpenMessenger={() => {
+                if (!currentUser) setLoginOpen(true);
+                else setAtinsaMessengerOpen(true);
+              }}
+              onOpenNotifications={() => {
+                if (!currentUser) setLoginOpen(true);
+                else setNotificationsOpen(true);
+              }}
+              onOpenProfile={() => {
+                if (!currentUser) setLoginOpen(true);
+                else setProfileOpen(true);
+              }}
               onOpenWallet={() => {
-                setActiveTab("outils");
-                setWalletViewOpen(true);
+                if (!currentUser) {
+                  setLoginOpen(true);
+                } else {
+                  setActiveTab("outils");
+                  setWalletViewOpen(true);
+                }
               }}
               activeLanguage={activeLang}
               onLanguageChange={(l) => setActiveLang(l)}
-              walletBalance={currentUser.walletBalance}
-              userPhoto={currentUser.photoUrl}
-              userName={`${currentUser.prenom} ${currentUser.nom}`}
+              walletBalance={currentUser?.walletBalance ?? 0}
+              userPhoto={currentUser?.photoUrl}
+              userName={currentUser ? `${currentUser.prenom} ${currentUser.nom}` : undefined}
             />
           )}
 
@@ -296,7 +321,11 @@ export default function Home() {
           <div className="flex-1 w-full max-w-7xl mx-auto py-2">
             {/* 1. TOGOUN (RÉSEAU SOCIAL) */}
             {activeTab === "togoun" && (
-              <TogounFeed onOpenVideoImmersion={() => setActiveTab("tognon")} />
+              <TogounFeed
+                onOpenVideoImmersion={() => setActiveTab("tognon")}
+                currentUser={currentUser}
+                onOpenLogin={() => setLoginOpen(true)}
+              />
             )}
 
             {/* 2. TOGNON (FIL VIDÉO SACRÉ & LIVES PLEIN ÉCRAN DÉDIÉ AVEC DÉFILEMENT INFINI ET AUTOPLAY) */}
@@ -310,7 +339,7 @@ export default function Home() {
             {/* 3. THRONHI (MARKETPLACE SPIRITUELLE) */}
             {activeTab === "thronhi" && (
               <div className="space-y-4">
-                {currentUser.role === "seller" && (
+                {currentUser?.role === "seller" && (
                   <div className="max-w-4xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white/95 backdrop-blur-sm rounded-2xl p-3 border border-blue-200 shadow-sm">
                     <div className="flex items-center gap-2">
                       <Store className="w-5 h-5 text-blue-600" />
@@ -343,7 +372,7 @@ export default function Home() {
                   </div>
                 )}
 
-                {currentUser.role === "seller" && sellerViewMode === "dashboard" ? (
+                {currentUser?.role === "seller" && sellerViewMode === "dashboard" ? (
                   <SellerDashboard />
                 ) : (
                   <Marketplace />
@@ -355,7 +384,7 @@ export default function Home() {
             {activeTab === "nouyin" && (
               <BibliothequeAndZindo
                 userPlan="Assiata"
-                walletBalance={currentUser.walletBalance}
+                walletBalance={currentUser?.walletBalance ?? 0}
               />
             )}
 
@@ -363,12 +392,12 @@ export default function Home() {
             {activeTab === "lignee" && (
               <div className="space-y-4">
                 {/* Barre de navigation interne pour les fidèles et dignitaires de la lignée */}
-                {currentUser.isMemberOfLignee && (
+                {currentUser?.isMemberOfLignee && (
                   <div className="max-w-5xl mx-auto px-3 sm:px-6 flex items-center justify-between bg-white/95 backdrop-blur-sm rounded-2xl p-2.5 border border-slate-200 shadow-sm">
                     <div className="flex items-center gap-2">
                       <Crown className="w-5 h-5 text-blue-600" />
                       <span className="text-xs font-bold text-[#0A1628]">
-                        {currentUser.role === "lineage_admin"
+                        {currentUser?.role === "lineage_admin"
                           ? `Espace Maître de Lignée • ${currentUser.lignee}`
                           : `Lignée Sacrée • ${currentUser.lignee}`}
                       </span>
@@ -397,7 +426,7 @@ export default function Home() {
                         Arbre Tactile
                       </button>
 
-                      {currentUser.role === "lineage_admin" && (
+                      {currentUser?.role === "lineage_admin" && (
                         <button
                           onClick={() => setLineageViewMode("dashboard")}
                           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer btn-press ${
@@ -414,22 +443,28 @@ export default function Home() {
                 )}
 
                 {/* Affichage du mode sélectionné */}
-                {currentUser.isMemberOfLignee && lineageViewMode === "tree" ? (
+                {currentUser?.isMemberOfLignee && lineageViewMode === "tree" ? (
                   <GenealogyTree
-                    currentUserPhoto={currentUser.photoUrl}
+                    currentUserPhoto={currentUser?.photoUrl}
                     onUpdatePhoto={handlePhotoUpdate}
                   />
-                ) : currentUser.isMemberOfLignee && lineageViewMode === "dashboard" && currentUser.role === "lineage_admin" ? (
+                ) : currentUser?.isMemberOfLignee && lineageViewMode === "dashboard" && currentUser?.role === "lineage_admin" ? (
                   <LineageAdminDashboard
                     onNavigateToTree={() => setLineageViewMode("tree")}
                     onNavigateToTogoun={() => setActiveTab("togoun")}
                   />
                 ) : (
                   <LigneeLandingView
-                    isMember={currentUser.isMemberOfLignee}
-                    currentUser={currentUser}
-                    onOpenConsultationModal={() => setConsultationModalOpen(true)}
-                    onOpenDonationModal={() => setDonationModalOpen(true)}
+                    isMember={Boolean(currentUser?.isMemberOfLignee)}
+                    currentUser={currentUser || undefined}
+                    onOpenConsultationModal={() => {
+                      if (!currentUser) setLoginOpen(true);
+                      else setConsultationModalOpen(true);
+                    }}
+                    onOpenDonationModal={() => {
+                      if (!currentUser) setLoginOpen(true);
+                      else setDonationModalOpen(true);
+                    }}
                     onOpenMemberRegistration={() => setRegisterOpen(true)}
                     onNavigateToCotisations={() => {
                       setActiveTab("outils");
@@ -447,7 +482,7 @@ export default function Home() {
             {/* 6. OUTILS (BOÎTE À OUTILS COMPLÈTE & CONSOLE MASTER ADMIN) */}
             {activeTab === "outils" && (
               <div className="space-y-4">
-                {currentUser.role === "master_admin" && (
+                {currentUser?.role === "master_admin" && (
                   <div className="max-w-4xl mx-auto px-3 sm:px-6">
                     <MasterAdminDashboard onNavigateToTab={(t) => setActiveTab(t as NavTab)} />
                   </div>
@@ -455,11 +490,11 @@ export default function Home() {
 
                 <ToolsHub
                   initialToolView={walletViewOpen ? "wallet" : null}
-                  currentUserRole={currentUser.role}
-                  currentUserGrade={currentUser.grade}
-                  currentUserLignee={currentUser.lignee}
-                  currentUserTemple={currentUser.temple}
-                  walletBalance={currentUser.walletBalance}
+                  currentUserRole={currentUser?.role}
+                  currentUserGrade={currentUser?.grade}
+                  currentUserLignee={currentUser?.lignee}
+                  currentUserTemple={currentUser?.temple}
+                  walletBalance={currentUser?.walletBalance ?? 0}
                   onBalanceUpdate={handleBalanceUpdate}
                   onNavigateToTree={() => setActiveTab("lignee")}
                   onNavigateToTogoun={() => setActiveTab("togoun")}
@@ -477,7 +512,7 @@ export default function Home() {
                 setActiveTab(tab);
                 if (tab !== "outils") setWalletViewOpen(false);
               }}
-              isMemberOfLignee={currentUser.isMemberOfLignee}
+              isMemberOfLignee={Boolean(currentUser?.isMemberOfLignee)}
             />
           )}
         </div>
@@ -593,21 +628,20 @@ export default function Home() {
       )}
 
       {/* 8. MODALE PROFIL & ESPACE WORKSPACE DASHBOARD TIDEWELL COMPLET */}
-      {profileOpen && (
+      {profileOpen && currentUser && (
         <UserProfileDashboard
           isOpen={profileOpen}
           onClose={() => setProfileOpen(false)}
           currentUser={currentUser}
           onUpdateProfile={(updated) => {
-            setCurrentUser((prev) => ({ ...prev, ...updated }));
+            setCurrentUser((prev) => (prev ? { ...prev, ...updated } : null));
           }}
           onSwitchRole={(newRole) => {
             handleSwitchRole(newRole);
           }}
           onLogout={() => {
             setProfileOpen(false);
-            setViewMode("landing");
-            setLoginOpen(true);
+            setCurrentUser(null);
           }}
         />
       )}
