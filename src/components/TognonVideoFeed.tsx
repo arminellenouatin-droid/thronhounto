@@ -26,6 +26,8 @@ import {
   Flame,
   Bookmark,
   Share,
+  Link2,
+  Copy,
 } from "lucide-react";
 import { LivesAgora } from "./LivesAgora";
 
@@ -610,6 +612,27 @@ export const TognonVideoFeed: React.FC<TognonVideoFeedProps> = ({
           <span className="hidden md:inline-block text-[10px] text-slate-400 font-mono px-1.5 py-0.5 bg-white/10 rounded">
             Échap
           </span>
+        </button>
+      </div>
+
+      {/* LIEN VISIBLE DE LA PAGE TOGNON */}
+      <div className="absolute top-3 left-48 sm:top-5 sm:left-52 z-40 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-xl border border-white/15 text-xs text-blue-200 shadow-2xl transition-all">
+        <Link2 className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
+        <span className="font-mono text-[11px] text-blue-200 truncate max-w-[220px]">
+          {typeof window !== "undefined" ? `${window.location.origin}/?tab=tognon` : "thronhounto.bj/?tab=tognon"}
+        </span>
+        <button
+          type="button"
+          onClick={() => {
+            const url = typeof window !== "undefined" ? `${window.location.origin}/?tab=tognon` : "https://thronhounto.bj/?tab=tognon";
+            navigator.clipboard.writeText(url);
+            setCopyToast("Lien de la page Tognon copié !");
+            setTimeout(() => setCopyToast(null), 2500);
+          }}
+          className="p-1 hover:text-white transition-colors cursor-pointer text-slate-300 hover:text-white"
+          title="Copier le lien direct de cette page"
+        >
+          <Copy className="w-3 h-3" />
         </button>
       </div>
 

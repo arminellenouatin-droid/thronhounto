@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Preloader } from "@/components/Preloader";
 import { Header } from "@/components/Header";
 import { BottomNav, NavTab } from "@/components/BottomNav";
@@ -43,6 +43,8 @@ import {
   ArrowLeft,
   Camera,
   Heart,
+  Link2,
+  Copy,
 } from "lucide-react";
 
 // DÉFINITION DES 5 PROFILS DE TEST (CONFORME AU CAHIER DES CHARGES)
@@ -180,6 +182,60 @@ export default function Home() {
     title: "",
     url: "",
   });
+
+  // État de l'URL visible et synchronisée de la page
+  const [currentPageUrl, setCurrentPageUrl] = useState<string>("");
+  const [urlCopied, setUrlCopied] = useState<boolean>(false);
+
+  // Synchronisation avec l'URL du navigateur au montage et gestion des liens directs (?tab=...)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab") as NavTab;
+      const validTabs: NavTab[] = ["togoun", "tognon", "thronhi", "nouyin", "lignee", "outils"];
+      const targetTab = tabParam && validTabs.includes(tabParam) ? tabParam : "togoun";
+      if (targetTab !== "togoun") {
+        setActiveTab(targetTab);
+      }
+      const initialUrl = `${window.location.origin}/?tab=${targetTab}`;
+      setCurrentPageUrl(initialUrl);
+      window.history.replaceState({ tab: targetTab }, "", `/?tab=${targetTab}`);
+
+      const handlePopState = (e: PopStateEvent) => {
+        const p = new URLSearchParams(window.location.search);
+        const t = (p.get("tab") as NavTab) || e.state?.tab;
+        if (t && validTabs.includes(t)) {
+          setActiveTab(t);
+          setCurrentPageUrl(`${window.location.origin}/?tab=${t}`);
+        }
+      };
+
+      window.addEventListener("popstate", handlePopState);
+      return () => window.removeEventListener("popstate", handlePopState);
+    }
+  }, []);
+
+  const handleTabChange = (tab: NavTab) => {
+    if (tab === "tognon") {
+      setTognonInitialVideoId(null);
+    }
+    setActiveTab(tab);
+    if (tab !== "outils") setWalletViewOpen(false);
+
+    if (typeof window !== "undefined") {
+      const newUrl = `${window.location.origin}/?tab=${tab}`;
+      window.history.pushState({ tab }, "", `/?tab=${tab}`);
+      setCurrentPageUrl(newUrl);
+    }
+  };
+
+  const handleCopyPageUrl = () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(currentPageUrl || (typeof window !== "undefined" ? `${window.location.origin}/?tab=${activeTab}` : "https://thronhounto.bj"));
+      setUrlCopied(true);
+      setTimeout(() => setUrlCopied(false), 2000);
+    }
+  };
 
   // État utilisateur connecté : null au chargement (mode visiteur par défaut sans utilisateur pré-connecté)
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -326,6 +382,43 @@ export default function Home() {
             />
           )}
 
+          {/* BANDEAU DU LIEN OFFICIEL DE LA PAGE ACTUELLE (PERMALIEN VISIBLE & COPIE) */}
+          {activeTab !== "tognon" && (
+            <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 pt-2 pb-1 font-sans">
+              <div className="flex items-center justify-between gap-2 px-3.5 py-2 rounded-2xl bg-white border border-slate-200 shadow-sm text-xs">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                    <Link2 className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden sm:inline flex-shrink-0">
+                    Lien de la page :
+                  </span>
+                  <span className="font-mono text-[11px] sm:text-xs text-blue-700 font-semibold truncate select-all bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100">
+                    {currentPageUrl || (typeof window !== "undefined" ? `${window.location.origin}/?tab=${activeTab}` : `https://thronhounto.bj/?tab=${activeTab}`)}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCopyPageUrl}
+                  className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 flex-shrink-0 shadow-sm"
+                  title="Copier le lien direct de cette page"
+                >
+                  {urlCopied ? (
+                    <>
+                      <CheckCircle2 className="w-3 h-3 text-white" />
+                      <span>Copié !</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3 text-white" />
+                      <span>Copier le lien</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* CONTENU PRINCIPAL DE L'ONGLET SÉLECTIONNÉ */}
           <div className="flex-1 w-full max-w-7xl mx-auto py-2">
             {/* 1. TOGOUN (RÉSEAU SOCIAL) */}
@@ -333,7 +426,7 @@ export default function Home() {
               <TogounFeed
                 onOpenVideoImmersion={(videoId) => {
                   setTognonInitialVideoId(videoId || null);
-                  setActiveTab("tognon");
+                  handleTabChange("tognon");
                 }}
                 currentUser={currentUser}
                 onOpenLogin={() => setLoginOpen(true)}
@@ -346,7 +439,7 @@ export default function Home() {
                 initialVideoId={tognonInitialVideoId}
                 onClose={() => {
                   setTognonInitialVideoId(null);
-                  setActiveTab("togoun");
+                  handleTabChange("togoun");
                 }}
                 currentUser={currentUser}
                 onOpenLogin={() => setLoginOpen(true)}
@@ -528,13 +621,7 @@ export default function Home() {
           {activeTab !== "tognon" && (
             <BottomNav
               activeTab={activeTab}
-              onChangeTab={(tab) => {
-                if (tab === "tognon") {
-                  setTognonInitialVideoId(null);
-                }
-                setActiveTab(tab);
-                if (tab !== "outils") setWalletViewOpen(false);
-              }}
+              onChangeTab={handleTabChange}
               isMemberOfLignee={Boolean(currentUser?.isMemberOfLignee)}
             />
           )}

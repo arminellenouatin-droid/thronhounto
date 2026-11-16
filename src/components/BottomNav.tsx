@@ -38,7 +38,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
     {
       id: "nouyin" as NavTab,
       label: "Nouyin",
-      subtitle: "Médias",
+      subtitle: "thronton",
       icon: BookOpen,
     },
     {

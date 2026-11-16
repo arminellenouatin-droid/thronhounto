@@ -310,10 +310,9 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
     setCommentInput("");
   };
 
-  // Filtrer par type (audio ou vidéo) puis par catégorie
+  // Filtrer par catégorie
   // Les contenus en haut sont les plus téléchargés, les plus écoutés, les plus vus (Règle §3)
   const filteredMedias = medias
-    .filter(m => m.type === mediaType)
     .filter(m => selectedCategory === "Tous" || m.categorie === selectedCategory)
     .sort((a, b) => (b.nbEcoutesVues + b.nbTelechargements * 2) - (a.nbEcoutesVues + a.nbTelechargements * 2));
 
@@ -405,11 +404,8 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] font-bold tracking-widest text-blue-400 uppercase block">
-                Banque Sacrée de Médias
-              </span>
-              <h2 className="font-bold text-xl sm:text-2xl">
-                Nouyin (Bibliothèque Audio & Vidéo)
+              <h2 className="font-serif font-black text-xl sm:text-2xl text-white">
+                Nouyin thronton
               </h2>
             </div>
           </div>
@@ -442,48 +438,6 @@ export const BibliothequeAndZindo: React.FC<{ userPlan?: string; walletBalance?:
             </button>
           </div>
         </div>
-
-        {/* ============================================================== */}
-        {/* BOUTON DE BASCULE OFFICIEL TACTILE : MP3 ↔ VIDÉO               */}
-        {/* ============================================================== */}
-        {activeTab === "mediatheque" && (
-          <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-white/15">
-            <div className="flex items-center p-1 bg-black/40 rounded-2xl border border-white/20">
-              <button
-                type="button"
-                onClick={() => setMediaType("audio")}
-                className={`py-2 px-5 rounded-xl text-xs font-black flex items-center gap-2 transition-all btn-press ${
-                  mediaType === "audio"
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-102"
-                    : "text-white/70 hover:text-white"
-                }`}
-              >
-                <Headphones className="w-4 h-4" />
-                <span>Audios MP3 (15 F / min)</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setMediaType("video")}
-                className={`py-2 px-5 rounded-xl text-xs font-black flex items-center gap-2 transition-all btn-press ${
-                  mediaType === "video"
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-102"
-                    : "text-white/70 hover:text-white"
-                }`}
-              >
-                <Video className="w-4 h-4" />
-                <span>Vidéos Sacrées (35 F / min)</span>
-              </button>
-            </div>
-
-            {/* Suivi des quotas gratuits */}
-            <div className="bg-white/10 px-3.5 py-1.5 rounded-xl text-[11px] text-blue-200 flex items-center gap-2 border border-white/10">
-              <Sparkles className="w-3.5 h-3.5 text-blue-300" />
-              <span>
-                Quotas gratuits : <strong>{5 - freeAudiosUsed} audios</strong> / <strong>{2 - freeVideosUsed} vidéos</strong> restants
-              </span>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* 2. ONGLET MÉDIATHÈQUE PUBLIQUE : CARROUSEL INFINI CLASSÉ */}
