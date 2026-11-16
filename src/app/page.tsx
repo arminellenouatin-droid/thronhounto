@@ -23,6 +23,7 @@ import {
   VisitorCommunityView,
 } from "@/components/RoleDashboards";
 import { LigneeLandingView } from "@/components/LigneeLandingView";
+import { SocialShareModal } from "@/components/SocialShareModal";
 import { UserProfileDashboard } from "@/components/UserProfileDashboard";
 import {
   Bell,
@@ -171,6 +172,14 @@ export default function Home() {
   const [atinsaMessengerOpen, setAtinsaMessengerOpen] = useState(false);
   const [consultationModalOpen, setConsultationModalOpen] = useState(false);
   const [donationModalOpen, setDonationModalOpen] = useState(false);
+
+  // Vidéo initiale pour Tognon (deep-linking depuis Togoun)
+  const [tognonInitialVideoId, setTognonInitialVideoId] = useState<string | null>(null);
+  const [shareModalData, setShareModalData] = useState<{ isOpen: boolean; title: string; url: string }>({
+    isOpen: false,
+    title: "",
+    url: "",
+  });
 
   // État utilisateur connecté : null au chargement (mode visiteur par défaut sans utilisateur pré-connecté)
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -322,17 +331,28 @@ export default function Home() {
             {/* 1. TOGOUN (RÉSEAU SOCIAL) */}
             {activeTab === "togoun" && (
               <TogounFeed
-                onOpenVideoImmersion={() => setActiveTab("tognon")}
+                onOpenVideoImmersion={(videoId) => {
+                  setTognonInitialVideoId(videoId || null);
+                  setActiveTab("tognon");
+                }}
                 currentUser={currentUser}
                 onOpenLogin={() => setLoginOpen(true)}
               />
             )}
 
-            {/* 2. TOGNON (FIL VIDÉO SACRÉ & LIVES PLEIN ÉCRAN DÉDIÉ AVEC DÉFILEMENT INFINI ET AUTOPLAY) */}
+            {/* 2. TOGNON (FIL VIDÉO SACRÉ & LIVES PLEIN ÉCRAN DÉDIÉ AVEC DÉFILEMENT INFINI ET AUTOPLAY STYLE TIKTOK) */}
             {activeTab === "tognon" && (
-              <TogounVideoImmersionView
-                isOpen={true}
-                onClose={() => setActiveTab("togoun")}
+              <TognonVideoFeed
+                initialVideoId={tognonInitialVideoId}
+                onClose={() => {
+                  setTognonInitialVideoId(null);
+                  setActiveTab("togoun");
+                }}
+                currentUser={currentUser}
+                onOpenLogin={() => setLoginOpen(true)}
+                onOpenShareModal={(title, url) => {
+                  setShareModalData({ isOpen: true, title, url });
+                }}
               />
             )}
 
@@ -509,6 +529,9 @@ export default function Home() {
             <BottomNav
               activeTab={activeTab}
               onChangeTab={(tab) => {
+                if (tab === "tognon") {
+                  setTognonInitialVideoId(null);
+                }
                 setActiveTab(tab);
                 if (tab !== "outils") setWalletViewOpen(false);
               }}
@@ -838,6 +861,15 @@ export default function Home() {
             </form>
           </div>
         </div>
+      )}
+      {/* 9. MODALE DE PARTAGE RÉSEAUX SOCIAUX */}
+      {shareModalData.isOpen && (
+        <SocialShareModal
+          isOpen={shareModalData.isOpen}
+          onClose={() => setShareModalData({ isOpen: false, title: "", url: "" })}
+          title={shareModalData.title}
+          url={shareModalData.url}
+        />
       )}
     </main>
   );
